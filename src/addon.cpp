@@ -312,7 +312,7 @@ NAN_MODULE_INIT(initAddon)
 	Nan::SetMethod(target, "drawImage",  Addon::drawImage);
 	Nan::SetMethod(target, "drawPixel",  Addon::drawPixel);
 	Nan::SetMethod(target, "update",     Addon::update);
-	Nan::SetMethod(target, "draw",       Addon::draw);
+	Nan::SetMethod(target, "render",     Addon::render);
 }
 
 
