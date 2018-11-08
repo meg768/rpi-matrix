@@ -8,10 +8,10 @@ var Matrix = module.exports = function(config) {
     this.width  = matrix.width;
     this.height = matrix.height;
 
-    this.render = function() {
+    this.renderx = function() {
         return matrix.render.apply(this, arguments);
     }
-    
+
     this.update = function() {
         return matrix.update.apply(this, arguments);
     }
