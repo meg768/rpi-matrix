@@ -15,4 +15,10 @@ for (var x = 0; x < 32; x++) {
     }
 }
 
-matrix.runText('Testing text');
+
+matrix.draw(buffer);
+matrix.update();
+
+setTimeout(1000, function(){
+    
+});
