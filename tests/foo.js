@@ -2,20 +2,20 @@
 var Matrix = require('../index.js');
 
 
-class Canvas {
-    constructor() {
-        this.matrix = new Matrix({width:32, height:32});
-        this.width = 32;
-        this.height = 32;
-        this.pixels = new Uint32Array(this.width * this.height);
-    }
+function Canvas() {
 
-    static RGB(red, green, blue) {
+
+    this.matrix = new Matrix({width:32, height:32});
+    this.width = 32;
+    this.height = 32;
+    this.pixels = new Uint32Array(this.width * this.height);
+
+    function RGB(red, green, blue) {
         return (red << 16) | (green << 8) | blue;;
     }
 
-    fillRGB(r, g, b) {
-        var color = Canvas.RGB(r, g, b);
+    this.fillRGB = function(r, g, b) {
+        var color = RGB(r, g, b);
 
         for (var x = 0; x < this.width; x++) {
             for (var y = 0; y < this.height; y++) {
@@ -24,7 +24,7 @@ class Canvas {
         }
     }
 
-    render() {
+    this.render = function() {
         this.matrix.draw(this.pixels);
         this.matrix.update();
     }
