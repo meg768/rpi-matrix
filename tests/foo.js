@@ -39,7 +39,7 @@ function main() {
         canvas.render();
     
     }
-    for (var red = 255; red >= 0; red++) {
+    for (var red = 255; red >= 0; red--) {
         canvas.fillRGB(red, 0, 0);
         canvas.render();
     
