@@ -2,12 +2,12 @@
 var Matrix = require('../index.js');
 
 
-function Canvas() {
+function Canvas(options) {
 
 
-    this.matrix = new Matrix({width:32, height:32});
-    this.width = 32;
-    this.height = 32;
+    this.width  = options.width;
+    this.height = options.height;
+    this.matrix = new Matrix({width:options.width, height:options.height});
     this.pixels = new Uint32Array(this.width * this.height);
 
     function RGB(red, green, blue) {
@@ -38,9 +38,9 @@ function Canvas() {
 
 function main() {
 
-    var canvas = new Canvas();
+    var canvas = new Canvas({width:32, height:32});
     for (var red = 0; red <= 255; red++) {
-        canvas.fillRGB(red, red, 0);
+        canvas.fillRGB(red, 0, 0);
         canvas.render();
     
     }
