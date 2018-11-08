@@ -238,10 +238,11 @@ NAN_METHOD(Addon::draw)
             return Nan::ThrowError("draw requires at least one argument.");
         }
 
+/*
         if (!node::Buffer::HasInstance(info[0])) {
             return Nan::ThrowTypeError("render(): expected argument to be a Buffer.");
         }
-
+*/
         v8::Local<v8::Object> buffer = info[0]->ToObject();
 
         int numBytes = (int)node::Buffer::Length(buffer);
