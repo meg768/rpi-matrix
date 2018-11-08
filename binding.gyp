@@ -6,13 +6,7 @@
             "target_name": "rpi-matrix",
 
             "sources": [
-            	"src/addon.cpp",
-            	"src/run-image.cpp",
-            	"src/run-rain.cpp",
-            	"src/run-text.cpp",
-            	"src/run-gif.cpp",
-            	"src/run-perlin.cpp",
-            	"src/run-clock.cpp"
+            	"src/addon.cpp"
             ],
 
             "include_dirs": [
