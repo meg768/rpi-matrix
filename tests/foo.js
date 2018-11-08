@@ -16,12 +16,13 @@ for (var x = 0; x < 32; x++) {
     }
 }
 */
+var offset = 0;
 for (var x = 0; x < 32; x++) {
     for (var y = 0; y < 32; y++) {
-        pixels[y * 32 + x + 0] = 0;
-        pixels[y * 32 + x + 1] = 128;
-        pixels[y * 32 + x + 2] = 0;
-        pixels[y * 32 + x + 3] = 0;
+        pixels[offset++] = 0;
+        pixels[offset++] = 128;
+        pixels[offset++] = 0;
+        pixels[offset++] = 0;
     }
 }
 
