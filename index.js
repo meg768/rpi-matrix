@@ -5,8 +5,8 @@ var Matrix = module.exports = function(config) {
 
     matrix.configure(config);
 
-    this.width  = matrix.width;
-    this.height = matrix.height;
+    this.width  = config.width;
+    this.height = config.height;
     this.pixels = new Uint32Array(this.width * this.height);
     console.log(this);
 
