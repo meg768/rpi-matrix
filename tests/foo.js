@@ -19,9 +19,15 @@ function Canvas() {
 
         for (var x = 0; x < this.width; x++) {
             for (var y = 0; y < this.height; y++) {
-                this.pixels[y * 32 + x] = color;
+                //this.pixels[y * 32 + x] = color;
+                this.setPixel(x, y, color);
             }
         }
+    }
+
+    this.setPixel = function(x, y, color) {
+        this.pixels[y * this.height + x] = color;
+
     }
 
     this.render = function() {
