@@ -34,8 +34,11 @@ function Canvas() {
 function main() {
 
     var canvas = new Canvas();
-    canvas.fillRGB(128, 0, 0);
-    canvas.render();
+    for (var red = 0; red <= 255; red++) {
+        canvas.fillRGB(red, 0, 0);
+        canvas.render();
+    
+    }
 
     setTimeout(function(){ console.log("Hello"); }, 3000);
 
