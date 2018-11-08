@@ -1,13 +1,13 @@
 
 var Matrix = require('../index.js');
 
-/*
+
 function Canvas(options) {
 
 
-    this.width  = options.width;
-    this.height = options.height;
-    this.matrix = new Matrix({width:options.width, height:options.height});
+    this.matrix = new Matrix({width:32, height:32});
+    this.width = 32;
+    this.height = 32;
     this.pixels = new Uint32Array(this.width * this.height);
 
     function RGB(red, green, blue) {
@@ -27,18 +27,18 @@ function Canvas(options) {
 
     this.setPixel = function(x, y, color) {
         this.pixels[y * this.height + x] = color;
+
     }
 
     this.render = function() {
         this.matrix.render(this.pixels);
     }
 }
-*/
+
 
 function main() {
 
-    var canvas = new Matrix({width:32, height:32});
-
+    var canvas = new Canvas({width:32, height:32});
     for (var red = 0; red <= 255; red++) {
         canvas.fillRGB(red, 0, 0);
         canvas.render();
@@ -50,7 +50,7 @@ function main() {
     
     }
 
-    setTimeout(function(){ console.log("Finished."); }, 3000);
+    setTimeout(function(){ console.log("Hello"); }, 3000);
 
 }
 
