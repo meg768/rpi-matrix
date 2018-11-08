@@ -37,7 +37,7 @@ function Canvas(options) {
 
 function main() {
 
-    var canvas = new Canvas({width:32, height:32});
+    var canvas = new Matrix({width:32, height:32});
 
     for (var red = 0; red <= 255; red++) {
         canvas.fillRGB(red, 0, 0);
