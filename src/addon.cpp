@@ -245,14 +245,14 @@ NAN_METHOD(Addon::draw)
         v8::Local<v8::Object> buffer = info[0]->ToObject();
 
         int numBytes = (int)node::Buffer::Length(buffer);
-        uint32_t* data = (uint32_t*) node::Buffer::Data(buffer);
+        RGBA *data = (RGBA *)node::Buffer::Data(buffer);
 
         int width = _matrix->width();
         int height = _matrix->height();
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++, data++) {
-                _matrix->setPixel(x, y, 0, 0, 0);
+                _matrix->setPixel(x, y, data->red, data->green, data->blue);
             }
         }
 
