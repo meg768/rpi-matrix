@@ -1,5 +1,4 @@
-hzeller/lib/*.o
-hzeller/lib/*.a
+.vscode
 
 
 # Logs
