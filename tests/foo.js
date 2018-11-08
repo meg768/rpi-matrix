@@ -25,8 +25,7 @@ function Canvas() {
     }
 
     this.render = function() {
-        this.matrix.draw(this.pixels);
-        this.matrix.update();
+        this.matrix.render(this.pixels);
     }
 }
 

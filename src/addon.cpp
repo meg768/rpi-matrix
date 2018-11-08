@@ -215,7 +215,7 @@ NAN_METHOD(Addon::drawImage)
 
 
 
-NAN_METHOD(Addon::draw)
+NAN_METHOD(Addon::render)
 {
 	Nan::HandleScope();
 
@@ -252,35 +252,7 @@ NAN_METHOD(Addon::draw)
             }
         }
 
-/*
-        v8::Local<v8::Uint32Array> array = v8::Local<v8::Uint32Array>::Cast(info[0]);
-        RGBA *data = (RGBA *)(uint8_t *)node::Buffer::Data(array);
-
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++, data++) {
-                _matrix->setPixel(x, y, data->red, data->green, data->blue);
-            }
-        }
-*/
-
-/*
-        if (!node::Buffer::HasInstance(info[0])) {
-            return Nan::ThrowTypeError("render(): expected argument to be a Buffer.");
-        }
-
-        v8::Local<v8::Object> buffer = info[0]->ToObject();
-        int numBytes = (int)node::Buffer::Length(buffer);
-        RGBA *data = (RGBA *)node::Buffer::Data(buffer);
-
-
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++, data++) {
-                _matrix->setPixel(x, y, data->red, data->green, data->blue);
-            }
-        }
-*/
-
-
+    _matrix->refresh();
 
     }
     catch (exception &error) {
