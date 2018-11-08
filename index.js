@@ -8,6 +8,7 @@ var Matrix = module.exports = function(config) {
     this.width  = matrix.width;
     this.height = matrix.height;
     this.pixels = new Uint32Array(this.width * this.height);
+    console.log(this);
 
     function RGB(red, green, blue) {
         return (red << 16) | (green << 8) | blue;;
