@@ -14,16 +14,19 @@ class Canvas {
         return (red << 16) | (green << 8) | blue;;
     }
 
-    fill(color) {
+    fillRGB(r, g, b) {
+        var color = Canvas.RGB(r, g, b);
+
         for (var x = 0; x < this.width; x++) {
             for (var y = 0; y < this.height; y++) {
-                this.pixels[y * 32 + x] = this.RGB(0, 0, 128);
+                this.pixels[y * 32 + x] = color;
             }
         }
     }
 
     render() {
-
+        this.matrix.draw(this.pixels);
+        this.matrix.update();
     }
 }
 
@@ -31,7 +34,7 @@ class Canvas {
 function main() {
 
     var canvas = new Canvas();
-    canvas.fill(canvas.RGB(128, 0, 0));
+    canvas.fillRGB(128, 0, 0);
 
     setTimeout(function(){ console.log("Hello"); }, 3000);
 
