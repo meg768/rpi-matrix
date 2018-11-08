@@ -1,10 +1,12 @@
 
-all: ./hzeller/lib/librgbmatrix.a ./build/Release/rpi-matrix.node 
+all: ./build/Release/rpi-matrix.node 
 
-./build/Release/rpi-matrix.node: ./src/*.cpp ./src/*.h
-	node-gyp rebuild
 
 ./hzeller/lib/librgbmatrix.a: ./hzeller/lib/*.cc ./hzeller/lib/*.h
-	make -C hzeller/lib
+	make -C ./hzeller/lib
+
+./build/Release/rpi-matrix.node: ./hzeller/lib/librgbmatrix.a ./src/*.cpp ./src/*.h
+	node-gyp rebuild
+
 
 
