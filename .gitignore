@@ -1,3 +1,7 @@
+hzeller/lib/*.o
+hzeller/lib/*.a
+
+
 # Logs
 logs
 *.log
