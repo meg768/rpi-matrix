@@ -27,7 +27,6 @@ function Canvas(options) {
 
     this.setPixel = function(x, y, color) {
         this.pixels[y * this.height + x] = color;
-
     }
 
     this.render = function() {
@@ -39,6 +38,7 @@ function Canvas(options) {
 function main() {
 
     var canvas = new Canvas({width:32, height:32});
+
     for (var red = 0; red <= 255; red++) {
         canvas.fillRGB(red, 0, 0);
         canvas.render();
@@ -50,7 +50,7 @@ function main() {
     
     }
 
-    setTimeout(function(){ console.log("Hello"); }, 3000);
+    setTimeout(function(){ console.log("Finished."); }, 3000);
 
 }
 
