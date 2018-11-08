@@ -17,7 +17,7 @@ for (var x = 0; x < 32; x++) {
 
 console.log(typeof pixels);
 console.log(typeof pixels.buffer);
-matrix.draw(pixels);
+matrix.draw(pixels.buffer);
 matrix.update();
 
 
