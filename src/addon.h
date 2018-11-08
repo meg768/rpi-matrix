@@ -11,28 +11,10 @@ public:
 	Addon();
 
 	static NAN_METHOD(configure);
-	static NAN_METHOD(isRunning);
-	static NAN_METHOD(runText);
-	static NAN_METHOD(runGif);
-	static NAN_METHOD(runPerlin);
-	static NAN_METHOD(runRain);
-	static NAN_METHOD(runImage);
-	static NAN_METHOD(runClock);
-	static NAN_METHOD(stop);
-
-	static NAN_METHOD(drawImage);
-	static NAN_METHOD(drawPixel);
-	static NAN_METHOD(update);
 	static NAN_METHOD(render);
 
-	static void runAnimation(Animation *animation, v8::Local<v8::Value> callback);
-
 private:
-	static void startAnimation(uv_work_t *request);
-	static void animationCompleted(uv_work_t *request, int status);
-
 	static Matrix *_matrix;
-	static Animation *_currentAnimation;
 
 };
 

@@ -199,30 +199,6 @@ class Matrix {
 		blue  = (uint8_t)(b * 255.0);
 	}
 
-	void drawImage(Magick::Image &image, int x, int y, int offsetX, int offsetY) {
-		
-		int screenWidth  = width();
-		int screenHeight = height();
-		
-		int width        = screenWidth - x;
-		int height       = screenHeight - y;
-		
-		const Magick::PixelPacket *pixels = image.getConstPixels(offsetX, offsetY, width, height);
-		
-		for (int row = y; row < height; row++) {
-			for (int col = x; col < width; col++) {
-				uint8_t red   = pixels->red;
-				uint8_t green = pixels->green;
-				uint8_t blue  = pixels->blue;
-				setPixel(col, row, red, green, blue);
-				pixels++;
-			}
-		}
-	}
-	
-	void drawImage(Magick::Image &image) {
-		drawImage(image, 0, 0, 0, 0);
-	}
 	
 	void refresh() {
 		_canvas = _matrix->SwapOnVSync(_canvas);
