@@ -4,8 +4,12 @@ var Matrix = require('../index.js');
 var matrix = new Matrix({width:32, height:32});
 var size = 32 * 32;
 
-function RGB(red, green, blue) {
+function BGR(red, green, blue) {
     return (red << 16) | (green << 8) | blue;;
+}
+
+function RGB(red, green, blue) {
+    return (blue << 16) | (green << 8) | red;
 }
 
 var pixels  = new Uint32Array(size);
