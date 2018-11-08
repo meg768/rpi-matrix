@@ -243,7 +243,8 @@ NAN_METHOD(Addon::draw)
 
 
     	v8::Local<v8::Uint32Array> array = v8::Local<v8::Uint32Array>::Cast(info[0]);
-        RGBA *data = (RGBA *)node::Uint32Array::Data(array);
+        //RGBA *data = (RGBA *())v8::Uint32Array::Data(array);
+        RGBA *data = (RGBA *)(uint_32_t *)array.Buffer();
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++, data++) {
