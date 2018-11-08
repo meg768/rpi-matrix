@@ -32,6 +32,7 @@ function main() {
         for (var x = 0; x < width; x++) {
             matrix.fillRGB(128, 0, 0);
             matrix.setPixelRGB(x, y, 255, 255, 255);
+            matrix.render();
 
         }
     }
