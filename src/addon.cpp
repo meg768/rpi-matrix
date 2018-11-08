@@ -241,9 +241,19 @@ NAN_METHOD(Addon::draw)
         int width = _matrix->width();
         int height = _matrix->height();
 
+        v8::Local<v8::Uint32Array> view = info[0].As<v8::Uint32Array>();
+        void *data = view->Buffer()->GetContents().Data();
+        int32_t *contents = static_cast<int32_t*>(data);        
+    	RGBA *pixels = (RGBA *pixels)content;
 
-    	v8::Local<v8::Uint32Array> array = v8::Local<v8::Uint32Array>::Cast(info[0]);
-        //RGBA *data = (RGBA *())v8::Uint32Array::Data(array);
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++, pixels++) {
+                _matrix->setPixel(x, y, pixels->red, pixels->green, pixels->blue);
+            }
+        }
+
+/*
+        v8::Local<v8::Uint32Array> array = v8::Local<v8::Uint32Array>::Cast(info[0]);
         RGBA *data = (RGBA *)(uint8_t *)node::Buffer::Data(array);
 
         for (int y = 0; y < height; y++) {
@@ -251,6 +261,8 @@ NAN_METHOD(Addon::draw)
                 _matrix->setPixel(x, y, data->red, data->green, data->blue);
             }
         }
+*/
+
 /*
         if (!node::Buffer::HasInstance(info[0])) {
             return Nan::ThrowTypeError("render(): expected argument to be a Buffer.");
