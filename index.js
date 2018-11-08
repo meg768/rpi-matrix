@@ -11,8 +11,8 @@ var Matrix = module.exports = function(config) {
 
         this.draw = function() {
 			return matrix.draw.apply(this, arguments);
-
         }
+        
         this.update = function() {
 			return matrix.update.apply(this, arguments);
         }
