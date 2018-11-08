@@ -1,7 +1,6 @@
 #ifndef _matrix_h
 #define _matrix_h
 
-
 #include "includes.h"
 
 typedef struct {

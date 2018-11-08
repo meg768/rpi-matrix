@@ -3,6 +3,7 @@
 #define _addon_h
 
 #include "includes.h"
+#include "matrix.h"
 
 class Addon {
 

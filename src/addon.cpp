@@ -1,6 +1,5 @@
 
 #include "addon.h"
-#include "matrix.h"
 
 Matrix *Addon::_matrix = NULL;
 
