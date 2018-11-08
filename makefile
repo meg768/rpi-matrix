@@ -3,6 +3,9 @@ all: ./build/Release/rpi-matrix.node
 
 pull:
 	git pull
+
+test:
+	node ./tests/foo.js
 	
 ./hzeller/lib/librgbmatrix.a: ./hzeller/lib/*.cc ./hzeller/lib/*.h
 	make -C ./hzeller/lib
