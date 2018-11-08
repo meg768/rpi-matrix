@@ -4,7 +4,6 @@
 Matrix *Addon::_matrix = NULL;
 
 
-
 NAN_METHOD(Addon::configure)
 {
 	static int initialized = 0;
