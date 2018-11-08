@@ -3,7 +3,7 @@ var Matrix = require('../index.js');
 
 var matrix = new Matrix({width:32, height:32});
 var size = 32 * 32;
-var buffer = new Buffer(size*4);
+var buffer = new Buffer(size*8);
 
 for (var x = 0; x < 32; x++) {
     for (var y = 0; y < 32; y++) {
@@ -16,7 +16,7 @@ for (var x = 0; x < 32; x++) {
 }
 
 
-matrix.draw(buffer);
+matrix.draw(buffer.buffer);
 matrix.update();
 
 
