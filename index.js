@@ -9,6 +9,13 @@ var Matrix = module.exports = function(config) {
 		this.width  = matrix.width;
 		this.height = matrix.height;
 
+        this.draw = function() {
+			return matrix.draw.apply(this, arguments);
+
+        }
+        this.update = function() {
+			return matrix.update.apply(this, arguments);
+        }
 		this.runText = function() {
 			return matrix.runText.apply(this, arguments);
 		}

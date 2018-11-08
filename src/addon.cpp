@@ -214,6 +214,71 @@ NAN_METHOD(Addon::drawImage)
 };
 
 
+
+NAN_METHOD(Addon::draw)
+{
+	Nan::HandleScope();
+
+	int argc = info.Length();
+
+	if (_matrix == NULL) {
+        return Nan::ThrowError("Matrix is not configured.");
+	}
+
+	if (argc < 1) {
+		return Nan::ThrowError("draw requires at least one argument.");
+	}
+
+	v8::Local<v8::Object> image = info[0]->ToObject();
+
+
+
+    try {
+
+		if (image->IsUndefined()) {
+	        return Nan::ThrowError("drawImage needs an image");
+	    }
+
+
+		if (node::Buffer::HasInstance(image) ) {
+            byte *bp = (byte *)node::Buffer::Data(image);
+            unsigned int length = node::Buffer::Length(image);
+            int width = matrix->width();
+            int height = matrix->height();
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    int red = *bp++;
+                    int green = *bp++;
+                    int blue = *bp++;
+                    int alpha = *bp++;
+                    matrix->setPixel(x, y, red, green, blue);
+                }
+            }
+
+	    }
+
+	    else
+			return Nan::ThrowError("drawImage needs an filename or image");
+
+
+
+
+    }
+    catch (exception &error) {
+        string what = error.what();
+        string message = string("Failed reading image: ") + what;
+
+		return Nan::ThrowError(message.c_str());
+    }
+    catch (...) {
+        return Nan::ThrowError("Unhandled error");
+    }
+
+	info.GetReturnValue().Set(Nan::Undefined());
+
+};
+
+
 NAN_METHOD(Addon::drawPixel) {
 
 	if (_matrix == NULL) {
