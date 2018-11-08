@@ -8,16 +8,14 @@ var pixels  = new Uint32Array(size);
 function RGB(red, green, blue) {
     return (red << 16) | (green << 8) | blue;;
 }
-
+/*
 for (var x = 0; x < 32; x++) {
     for (var y = 0; y < 32; y++) {
         pixels[y * 32 + x] = RGB(128, 0, 0);
     }
 }
-
-console.log(typeof pixels);
-console.log(typeof pixels.buffer);
-matrix.draw(pixels.buffer);
+*/
+matrix.draw(pixels);
 matrix.update();
 
 
