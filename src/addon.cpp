@@ -241,16 +241,16 @@ NAN_METHOD(Addon::draw)
 
 
 		if (node::Buffer::HasInstance(image) ) {
-            byte *bp = (byte *)node::Buffer::Data(image);
-            unsigned int length = node::Buffer::Length(image);
+            unsigned char *bp = (unsigned char *)node::Buffer::Data(image);
+            int length = (int)node::Buffer::Length(image);
             int width = matrix->width();
             int height = matrix->height();
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
-                    int red = *bp++;
-                    int green = *bp++;
-                    int blue = *bp++;
-                    int alpha = *bp++;
+                    int red = (int)*bp++;
+                    int green = (int)*bp++;
+                    int blue = (int)*bp++;
+                    int alpha = (int)*bp++;
                     matrix->setPixel(x, y, red, green, blue);
                 }
             }
