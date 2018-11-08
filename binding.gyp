@@ -3,7 +3,7 @@
 
     "targets": [
         {
-            "target_name": "hzeller-matrix",
+            "target_name": "rpi-matrix",
 
             "sources": [
             	"src/addon.cpp",

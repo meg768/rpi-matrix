@@ -1,5 +1,5 @@
 var path   = require("path");
-var matrix = require(path.join(__dirname, "build", "Release", "hzeller-matrix.node"));
+var matrix = require(path.join(__dirname, "build", "Release", "rpi-matrix.node"));
 
 var Matrix = module.exports = function(config) {
 
