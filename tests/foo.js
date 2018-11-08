@@ -13,7 +13,7 @@ var pixels  = new Uint32Array(size);
 
 for (var x = 0; x < 32; x++) {
     for (var y = 0; y < 32; y++) {
-        pixels[y * 32 + x] = RGB(128, 0, 0);
+        pixels[y * 32 + x] = RGB(0, 128 , 0);
     }
 }
 
