@@ -23,6 +23,10 @@ var Matrix = module.exports = function(config) {
         }
     }
 
+    this.setPixelRGB = function(x, y, red, green, blue) {
+        this.setPixel(x, y, RGB(red, green, blue));
+    }
+
     this.setPixel = function(x, y, color) {
         this.pixels[y * this.height + x] = color;
     }
