@@ -219,46 +219,43 @@ NAN_METHOD(Addon::draw)
 {
 	Nan::HandleScope();
 
-	int argc = info.Length();
 
-	if (_matrix == NULL) {
-        return Nan::ThrowError("Matrix is not configured.");
-	}
-
-	if (argc < 1) {
-		return Nan::ThrowError("draw requires at least one argument.");
-	}
-
-	v8::Local<v8::Object> image = info[0]->ToObject();
-
-
+    typedef struct {
+        uint8_t red;     // 0 - 255 */
+        uint8_t green;   // 0 - 255 */
+        uint8_t blue;    // 0 - 255 */
+        uint8_t alpha;   // 0 - 255 */
+    } RGB;
 
     try {
+        if (_matrix == NULL) {
+            return Nan::ThrowError("Matrix is not configured.");
+        }
 
-		if (image->IsUndefined()) {
-	        return Nan::ThrowError("drawImage needs an image");
-	    }
+    	int argc = info.Length();
+
+        if (argc < 1) {
+            return Nan::ThrowError("draw requires at least one argument.");
+        }
+
+        if (!node::Buffer::HasInstance(info[0])) {
+            return Nan::ThrowTypeError("render(): expected argument to be a Buffer.");
+        }
+
+        v8::Local<Object> buffer = info[0]->ToObject();
+
+        int numBytes = (int)node::Buffer::Length(buffer);
+        RGBA *data = (RGBA *)node::Buffer::Data(buffer);
 
 
-		if (node::Buffer::HasInstance(image) ) {
-            unsigned char *bp = (unsigned char *)node::Buffer::Data(image);
-            int length = (int)node::Buffer::Length(image);
-            int width = _matrix->width();
-            int height = _matrix->height();
-            for (int y = 0; y < height; y++) {
-                for (int x = 0; x < width; x++) {
-                    int red = (int)*bp++;
-                    int green = (int)*bp++;
-                    int blue = (int)*bp++;
-                    int alpha = (int)*bp++;
-                    _matrix->setPixel(x, y, red, green, blue);
-                }
+        int width = _matrix->width();
+        int height = _matrix->height();
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++, data++) {
+                _matrix->setPixel(x, y, data.red, data.green, data.blue);
             }
-
-	    }
-
-	    else
-			return Nan::ThrowError("drawImage needs an filename or image");
+        }
 
 
 
