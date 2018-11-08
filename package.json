@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "install": "make -C hzeller/lib && node-gyp rebuild",
+    "build": "node-gyp rebuild",    
     "commit": "git add -A && git commit -m '-' && git push"    
   },
   "dependencies": {
