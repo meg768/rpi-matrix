@@ -16,8 +16,9 @@ for (var x = 0; x < 32; x++) {
 }
 
 
-matrix.draw(pixels);
+matrix.draw(pixels.buffer);
 matrix.update();
+
 
 
 setTimeout(function(){ console.log("Hello"); }, 3000);
