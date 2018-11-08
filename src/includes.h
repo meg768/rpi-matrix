@@ -2,6 +2,7 @@
 #define _includes_h
 
 #include <nan.h>
+#include <v8.h>
 #include <stdexcept>
 #include <unistd.h>
 #include <stdio.h>
