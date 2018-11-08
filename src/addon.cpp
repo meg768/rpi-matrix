@@ -244,7 +244,7 @@ NAN_METHOD(Addon::draw)
         v8::Local<v8::Uint32Array> view = info[0].As<v8::Uint32Array>();
         void *data = view->Buffer()->GetContents().Data();
         int32_t *contents = static_cast<int32_t*>(data);        
-    	RGBA *pixels = (RGBA *)content;
+    	RGBA *pixels = (RGBA *)contents;
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++, pixels++) {
