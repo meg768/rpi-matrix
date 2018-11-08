@@ -3,7 +3,6 @@
 #define _addon_h
 
 #include "includes.h"
-#include "animation.h"
 
 class Addon {
 
