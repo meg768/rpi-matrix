@@ -35,6 +35,7 @@ function main() {
 
     var canvas = new Canvas();
     canvas.fillRGB(128, 0, 0);
+    canvas.render();
 
     setTimeout(function(){ console.log("Hello"); }, 3000);
 
