@@ -3,7 +3,8 @@ var Matrix = require('../index.js');
 
 var matrix = new Matrix({width:32, height:32});
 var size = 32 * 32;
-var pixels  = new Uint32Array(size);
+//var pixels  = new Uint32Array(size);
+var pixels  = new Buffer(size * 4);
 
 function RGB(red, green, blue) {
     return (red << 16) | (green << 8) | blue;;
@@ -15,6 +16,15 @@ for (var x = 0; x < 32; x++) {
     }
 }
 */
+for (var x = 0; x < 32; x++) {
+    for (var y = 0; y < 32; y++) {
+        pixels[y * 32 + x + 0] = 0;
+        pixels[y * 32 + x + 1] = 128;
+        pixels[y * 32 + x + 2] = 0;
+        pixels[y * 32 + x + 3] = 0;
+    }
+}
+
 matrix.draw(pixels);
 matrix.update();
 
