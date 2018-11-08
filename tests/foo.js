@@ -28,7 +28,7 @@ for (var x = 0; x < 32; x++) {
     }
 }
 */
-matrix.draw(pixels.buffer);
+matrix.draw(pixels);
 matrix.update();
 
 
