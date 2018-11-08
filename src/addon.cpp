@@ -253,7 +253,7 @@ NAN_METHOD(Addon::draw)
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++, data++) {
-                _matrix->setPixel(x, y, data.red, data.green, data.blue);
+                _matrix->setPixel(x, y, data->red, data->green, data->blue);
             }
         }
 
