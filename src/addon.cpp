@@ -225,7 +225,7 @@ NAN_METHOD(Addon::draw)
         uint8_t green;   // 0 - 255 */
         uint8_t blue;    // 0 - 255 */
         uint8_t alpha;   // 0 - 255 */
-    } RGB;
+    } RGBA;
 
     try {
         if (_matrix == NULL) {
