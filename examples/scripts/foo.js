@@ -1,5 +1,5 @@
 
-var Matrix = require('../index.js');
+var Matrix = require('../../index.js');
 var matrix = new Matrix({width:32, height:32});
 
 function pulse() {

@@ -1,6 +1,5 @@
-
-var Matrix = require('../index.js');
-
+var path   = require("path");
+var Matrix = require('../../index.js');
 
 
 function main() {
@@ -13,7 +12,7 @@ function main() {
     ctx.clearRect(0, 0, matrix.width, matrix.height);
     canvas.render();
 
-    canvas.loadImage('./images/50.png').then(function(image) {
+    canvas.loadImage(path.join(__dirname, '../images/50.png').then(function(image) {
         console.log('image loaded', image);
         ctx.drawImage(image, 0, 0);
         canvas.render();
@@ -28,7 +27,7 @@ function main() {
     })
     .catch(function(error) {
         console.log(error);
-    })
+    });
 
     
 
