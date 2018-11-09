@@ -1,21 +1,16 @@
-var Matrix = require('../../index.js');
+var Sample = require('./sample.js');
 
-class Sample {
+class HelloWorld extends Sample {
 
     constructor(options) {
         var path = require("path");
 
-        this.matrix = new Matrix(options);
+        super(options);
         this.matrix.registerFont(path.join(__dirname, '../fonts/Verdana.ttf'), { family: 'Comic Sans' });
         this.canvas = this.matrix.getCanvas();
 
     }
 
-    delay(ms = 3000) {
-        return new Promise((resolve, reject) => {
-            return setTimeout(resolve, ms);
-        });
-    }
 
     scrollText(text) {
         return new Promise((resolve, reject) => {
@@ -32,11 +27,9 @@ class Sample {
                 ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
                 ctx.fillText(text, offset, this.canvas.height / 2);
 
-                this.canvas.render();
-                this.canvas.render();
-                this.canvas.render();
-                this.canvas.render();
+                this.canvas.render(18);
 
+            
             }
             resolve();
         });
@@ -51,5 +44,5 @@ class Sample {
     }
 };
 
-var sample = new Sample({width:32, height:32});
+var sample = new HelloWorld({width:32, height:32});
 sample.run();

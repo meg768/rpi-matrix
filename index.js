@@ -24,8 +24,8 @@ var Matrix = module.exports = function(config) {
             self.height = config.height;
             self.canvas = Canvas.createCanvas(self.width, self.height);
     
-            self.canvas.render = function() {
-                return matrix.render(self.canvas.toBuffer('raw'));
+            self.canvas.render = function(delay) {
+                return matrix.render(self.canvas.toBuffer('raw'), delay);
             }    
 
             self.canvas.loadImage = function(image) {

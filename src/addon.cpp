@@ -52,9 +52,14 @@ NAN_METHOD(Addon::render)
         }
 
     	int argc = info.Length();
+        int delay = 0;
 
         if (argc < 1) {
             return Nan::ThrowError("draw requires at least one argument.");
+        }
+
+        if (argc > 1) {
+        	delay = info[1]->IntegerValue();
         }
 
         int width = _matrix->width();
@@ -71,9 +76,14 @@ NAN_METHOD(Addon::render)
             }
         }
 
-    _matrix->refresh();
+        _matrix->refresh();
 
+        if (delay > 0) {
+            usleep(delay * 1000);
+
+        }
     }
+    
     catch (exception &error) {
         string what = error.what();
         string message = string("Failed reading image: ") + what;
@@ -97,4 +107,4 @@ NAN_MODULE_INIT(initAddon)
 }
 
 
-NODE_MODULE(addon, initAddon)
+NODE_MODULE(addon, initAddon);

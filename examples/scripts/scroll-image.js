@@ -1,17 +1,13 @@
-var Matrix = require('../../index.js');
+var Sample = require('./sample.js');
 
-class Sample {
+class ScrollSample extends Sample {
 
     constructor(options) {
-        this.matrix = new Matrix(options);
+        super(options);
+
         this.canvas = this.matrix.getCanvas();
 
-    }
 
-    delay(ms = 3000) {
-        return new Promise((resolve, reject) => {
-            return setTimeout(resolve, ms);
-        });
     }
 
     getImage(image) {
@@ -29,10 +25,7 @@ class Sample {
                 ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
                 ctx.drawImage(image, offset, 0);
 
-                this.canvas.render();
-                this.canvas.render();
-                this.canvas.render();
-                this.canvas.render();
+                this.canvas.render(18);
 
             }
             resolve();
@@ -55,5 +48,5 @@ class Sample {
     }
 };
 
-var sample = new Sample({width:32, height:32});
+var sample = new ScrollSample({width:32, height:32});
 sample.run();
