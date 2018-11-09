@@ -36,6 +36,12 @@ class ScrollSample extends Sample {
         this.getImage('124.png').then((image) => {
             return this.scrollImage(image);
         })
+        this.getImage('125.png').then((image) => {
+            return this.scrollImage(image);
+        })
+        this.getImage('632.png').then((image) => {
+            return this.scrollImage(image);
+        })
         .then(() => {
             return this.delay(0);
 
