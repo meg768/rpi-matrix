@@ -9,7 +9,7 @@ class ScrollSample extends Sample {
 
     getEmoji(name) {
         var path = require("path");
-        var fileName = path.join(__dirname, '../emojis', `${this.canvas.width}x${this.canvas.height}`, name + '.png');
+        var fileName = path.join(__dirname, '../emojis', name + '.png');
         return this.canvas.loadImage(fileName);
     }
 
@@ -17,10 +17,16 @@ class ScrollSample extends Sample {
         return new Promise((resolve, reject) => {
             var ctx = this.canvas.getContext('2d');
 
-            for (var offset = this.canvas.width; offset > -image.width; offset--) {
-                ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                ctx.drawImage(image, offset, 0);
+            var margin = this.canvas.height * 0.15;
+            var scale = (this.canvas.height - margin) / image.height;  
 
+            var imageWidth = image.width * scale;
+            var imageHeight = image.height * scale;
+
+            for (var offset = this.canvas.width; offset > -imageWidth; offset--) {
+                ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                ctx.drawImage(image, offset, margin / 2, imageWidth, imageHeight);
+                
                 this.canvas.render(18);
 
             }
@@ -30,16 +36,19 @@ class ScrollSample extends Sample {
     }
 
     run() {
-        this.getImage('beer').then((image) => {
+        this.getEmoji('beer').then((image) => {
             return this.scrollImage(image);
         })
-        this.getImage('grapes').then((image) => {
+        this.getEmoji('grapes').then((image) => {
             return this.scrollImage(image);
         })
-        this.getImage('grinning').then((image) => {
+        this.getEmoji('grinning').then((image) => {
             return this.scrollImage(image);
         })
-        this.getImage('joy').then((image) => {
+        this.getEmoji('joy').then((image) => {
+            return this.scrollImage(image);
+        })
+        this.getEmoji('partly_sunny').then((image) => {
             return this.scrollImage(image);
         })
         .then(() => {
