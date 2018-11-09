@@ -1,6 +1,6 @@
 var Matrix = require('../../index.js');
 
-class ScrollTextSample {
+class Sample {
 
     constructor(options) {
         var path = require("path");
@@ -21,7 +21,7 @@ class ScrollTextSample {
         return new Promise((resolve, reject) => {
             var ctx = this.canvas.getContext('2d');
 
-            ctx.font = 'bold 16px Arial';
+            ctx.font = `bold ${this.canvas.height / 2}px Arial`;
             ctx.fillStyle = 'red';
             ctx.textAlign = 'left';
             ctx.textBaseline = 'middle';
@@ -51,5 +51,5 @@ class ScrollTextSample {
     }
 };
 
-var sample = new ScrollTextSample({width:32, height:32});
+var sample = new Sample({width:32, height:32});
 sample.run();
