@@ -37,7 +37,7 @@ class HelloWorld extends Sample {
     }
 
     run() {
-        this.scrollText('Hello World!').then(() => {
+        this.scrollText('Hello WorldXX!').then(() => {
             return this.delay();
         })
 
