@@ -13,7 +13,6 @@ class ScrollSample extends Sample {
     getImage(image) {
         var path = require("path");
         var fileName = path.join(__dirname, '../images', `${this.canvas.width}x${this.canvas.height}`, image);
-        console.log('imagefile', fileName);
         return this.canvas.loadImage(fileName);
     }
 
@@ -34,7 +33,7 @@ class ScrollSample extends Sample {
     }
 
     run() {
-        this.getImage('50.png').then((image) => {
+        this.getImage('123.png').then((image) => {
             return this.scrollImage(image);
         })
         .then(() => {

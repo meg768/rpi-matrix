@@ -1,27 +1,30 @@
+var Sample = require('./sample.js');
 
-var Matrix = require('../../index.js');
-var matrix = new Matrix({width:32, height:32});
+class PulseSample extends Sample {
 
-function pulse() {
-
-
-    for (var red = 0; red <= 255; red++) {
-        matrix.fillRGB(red, 0, 0);
-        matrix.render();
-    
-    }
-    for (var red = 255; red >= 0; red--) {
-        matrix.fillRGB(red, 0, 0);
-        matrix.render();
-    
+    constructor(options) {
+        super(options);
     }
 
+    run() {
+        for (var red = 0; red <= 255; red++) {
+            this.matrix.fillRGB(red, 0, 0);
+            this.matrix.render();
+        
+        }
+        for (var red = 255; red >= 0; red--) {
+            this.matrix.fillRGB(red, 0, 0);
+            this.matrix.render();
+        
+        }
+    
+    }
 
 }
 
 
-pulse();
-setTimeout(function(){ console.log("Hello"); }, 3000);
+var sample = new PulseSample({width:32, height:32});
+sample.run();
 
 
 
