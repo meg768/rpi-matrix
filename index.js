@@ -31,8 +31,8 @@ var Matrix = module.exports = function(config) {
         this.pixels[y * this.height + x] = color;
     }
 
-    this.render = function() {
-        return matrix.render(this.pixels);
+    this.render = function(pixels) {
+        return matrix.render(pixels == undefined ? this.pixels : pixels);
     }
 
 
