@@ -15,7 +15,6 @@ var Matrix = module.exports = function(config) {
     self.length = self.width * self.height;
     self.pixels = new Uint32Array(self.length);
 
-    self.x = function(){};
     self.getCanvas = function() {
 
         if (self.canvas == undefined) {
