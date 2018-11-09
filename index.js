@@ -8,10 +8,17 @@ var Matrix = module.exports = function(config) {
 
     var self = this;
 
+    matrix.configure(config);
+
+    self.width  = config.width;
+    self.height = config.height;
+    self.length = self.width * self.height;
+    self.pixels = new Uint32Array(self.length);
+
+    
     self.getCanvas = function() {
 
         if (self.canvas == undefined) {
-            matrix.configure(config);
 
             self.width  = config.width;
             self.height = config.height;
@@ -20,17 +27,38 @@ var Matrix = module.exports = function(config) {
             self.canvas.render = function() {
                 return matrix.render(self.canvas.toBuffer('raw'));
             }    
-    
-            self.render = function() {
-                return matrix.render(self.canvas.toBuffer('raw'));
-            }      
+
+            self.canvas.loadImage = function(image) {
+                return Canvas.loadImage(image);
+            }        
         }
 
         return self.canvas;
     }
 
+    self.RGB = function(red, green, blue) {        
+		return ((red << 16) | (green << 8) | blue);
+    }
+
+    self.setPixelRGB = function(x, y, red, green, blue) {
+        this.pixels[y * self.width + x] = self.RGB(red, green, blue);
+    }
+
+	self.fillRGB = function(red, green, blue) {
+        var color = self.RGB(red, green, blue);
+        
+        for (var i = 0; i < self.length; i++)
+            this.pixels[i] = color;
+	}
+
+    self.render = function(pixels) {
+        return matrix.render(pixels == undefined ? self.pixels : pixels);
+    }      
+
     self.registerFont = function(font, options) {
         return Canvas.registerFont(font, options);
     }
+
+
 }
 

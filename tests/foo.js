@@ -40,7 +40,7 @@ function main() {
  
 }
 
-pulse();
+main();
 setTimeout(function(){ console.log("Hello"); }, 3000);
 
 

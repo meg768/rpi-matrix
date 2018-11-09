@@ -15,7 +15,7 @@ function main() {
     var ctx = canvas.getContext('2d');
 
     ctx.clearRect(0, 0, matrix.width, matrix.height);
-    matrix.render();
+    canvas.render();
     
     function scrollText(text) {
 
@@ -31,13 +31,12 @@ function main() {
                 ctx.clearRect(0, 0, matrix.width, matrix.height);
                 ctx.fillText(text, offset, matrix.height / 2);
 
-                matrix.render();
-                matrix.render();
-                matrix.render();
-                matrix.render();
+                canvas.render();
+                canvas.render();
+                canvas.render();
+                canvas.render();
 
             }
-            console.log('Done!');
             resolve();
         });
     
