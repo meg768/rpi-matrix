@@ -15,7 +15,7 @@ function main() {
 
     Canvas.registerFont('./fonts/Verdana.ttf', { family: 'Comic Sans' });
 
-    const canvas = Canvas.createCanvas(32, 32);
+    const canvas = Canvas.createCanvas(width, height);
     const ctx = canvas.getContext('2d');
 
     
@@ -36,8 +36,7 @@ function main() {
                 matrix.render(canvas.toBuffer('raw'));
                 matrix.render(canvas.toBuffer('raw'));
                 matrix.render(canvas.toBuffer('raw'));
-                matrix.render(canvas.toBuffer('raw'));
-        
+                matrix.render(canvas.toBuffer('raw'));        
             }
             console.log('Done!');
             resolve();

@@ -3,3 +3,6 @@ src
 hzeller
 binding.gyp
 tests
+fonts
+makefile
+binding.gyp
