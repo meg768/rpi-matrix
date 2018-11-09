@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "install": "make -C hzeller/lib && node-gyp rebuild",
-    "build": "node-gyp rebuild",    
-    "commit": "git add -A && git commit -m '-' && git push"    
+    "build": "node-gyp rebuild",
+    "commit": "git add -A && git commit -m '-' && git push"
   },
   "dependencies": {
+    "canvas": "^2.1.0",
     "nan": "^2.4.0"
   },
   "repository": {
