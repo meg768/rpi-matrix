@@ -16,7 +16,9 @@ class Sample {
 
     getImage(image) {
         var path = require("path");
-        return this.canvas.loadImage(path.join(__dirname, '..', image));
+        var fileName = path.join(__dirname, '../images', `${this.canvas.width}x${this.canvas.height}`, image);
+        console.log('imagefile', fileName);
+        return this.canvas.loadImage(fileName);
     }
 
     scrollImage(image) {
@@ -39,7 +41,7 @@ class Sample {
     }
 
     run() {
-        this.getImage('./images/50.png').then((image) => {
+        this.getImage('50.png').then((image) => {
             return this.scrollImage(image);
         })
         .then(() => {
