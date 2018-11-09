@@ -1,23 +1,21 @@
 
 var Matrix = require('../index.js');
-var matrix = new Matrix({width:32, height:32});
 var Canvas = require('canvas');
 
 
 
 function main() {
 
-    matrix.fillRGB(0, 0, 0);
+
+    var matrix = new Matrix({width:32, height:32});
+    
+    matrix.registerFont('./fonts/Verdana.ttf', { family: 'Comic Sans' });
+
+    var canvas = matrix.getCanvas();
+    var ctx = canvas.getContext('2d');
+
+    ctx.clearRect(0, 0, matrix.width, matrix.height);
     matrix.render();
-
-    var width   = matrix.width;
-    var height  = matrix.height;
-
-    Canvas.registerFont('./fonts/Verdana.ttf', { family: 'Comic Sans' });
-
-    const canvas = Canvas.createCanvas(width, height);
-    const ctx = canvas.getContext('2d');
-
     
     function scrollText(text) {
 
@@ -29,14 +27,15 @@ function main() {
     
             var textSize = ctx.measureText(text); 
         
-            for (var offset = canvas.width; offset > -textSize.width; offset--) {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.fillText(text, offset, canvas.height / 2);
-                matrix.render(canvas.toBuffer('raw'));
-                matrix.render(canvas.toBuffer('raw'));
-                matrix.render(canvas.toBuffer('raw'));
-                matrix.render(canvas.toBuffer('raw'));
-                matrix.render(canvas.toBuffer('raw'));        
+            for (var offset = matrix.width; offset > -textSize.width; offset--) {
+                ctx.clearRect(0, 0, matrix.width, matrix.height);
+                ctx.fillText(text, offset, matrix.height / 2);
+
+                matrix.render();
+                matrix.render();
+                matrix.render();
+                matrix.render();
+
             }
             console.log('Done!');
             resolve();
