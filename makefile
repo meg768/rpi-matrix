@@ -4,9 +4,6 @@ all: ./build/Release/rpi-matrix.node
 pull:
 	git pull
 
-commit:
-	git add -A && git commit -m '-' && git push
-
 test: ./build/Release/rpi-matrix.node
 	node ./tests/foo.js
 	
