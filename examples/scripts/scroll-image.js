@@ -4,10 +4,7 @@ class ScrollSample extends Sample {
 
     constructor(options) {
         super(options);
-
         this.canvas = this.matrix.getCanvas();
-
-
     }
 
     getImage(image) {
