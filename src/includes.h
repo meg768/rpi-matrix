@@ -25,6 +25,6 @@
 
 #include "led-matrix.h"
 
-using namespace std;
+using namespace stdx;
 
 #endif
