@@ -7,7 +7,7 @@ class PulseSample extends Sample {
     }
 
     run() {
-        for (var red = 0; red <= 255; red++) {
+        for (var red = 0; red <= 254; red++) {
             this.matrix.fillRGB(red, 0, 0);
             this.matrix.render();
         
@@ -21,7 +21,6 @@ class PulseSample extends Sample {
     }
 
 }
-
 
 var sample = new PulseSample({width:32, height:32});
 sample.run();
