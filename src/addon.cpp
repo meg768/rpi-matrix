@@ -40,11 +40,18 @@ NAN_METHOD(Addon::render)
 
 
     typedef struct {
+        uint8_t red;    // 0 - 255 */
+        uint8_t green;   // 0 - 255 */
+        uint8_t blue;     // 0 - 255 */
+        uint8_t alpha;   // 0 - 255 */
+    } RGBA;
+
+    typedef struct {
         uint8_t blue;    // 0 - 255 */
         uint8_t green;   // 0 - 255 */
         uint8_t red;     // 0 - 255 */
         uint8_t alpha;   // 0 - 255 */
-    } RGBA;
+    } BGRA;
 
     try {
         if (_matrix == NULL) {
@@ -64,17 +71,37 @@ NAN_METHOD(Addon::render)
 
         int width = _matrix->width();
         int height = _matrix->height();
+    
 
-        v8::Local<v8::Uint32Array> view = info[0].As<v8::Uint32Array>();
-        void *data = view->Buffer()->GetContents().Data();
+        v8::Local<v8::Uint32Array> array = info[0].As<v8::Uint32Array>();
+
+        void *data = array->Buffer()->GetContents().Data();
         int32_t *contents = static_cast<int32_t*>(data);        
-    	RGBA *pixels = (RGBA *)contents;
 
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++, pixels++) {
-                _matrix->setPixel(x, y, pixels->red, pixels->green, pixels->blue);
+        if (contents == NULL)
+            return Nan::ThrowError("Image must be a Buffer, Uint32Array or Uint8ClampedArray");
+
+        if (info[0]->IsUint8ClampedArray()) {
+            RGBA *pixels = (RGBA *)contents;
+
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++, pixels++) {
+                    _matrix->setPixel(x, y, pixels->red, pixels->green, pixels->blue);
+                }
             }
+
         }
+        else {
+            BGRA *pixels = (BGRA *)contents;
+
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++, pixels++) {
+                    _matrix->setPixel(x, y, pixels->red, pixels->green, pixels->blue);
+                }
+            }
+
+        }
+
 
         _matrix->refresh();
 

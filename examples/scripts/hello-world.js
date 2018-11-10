@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var Sample = require('./sample.js');
 
 class HelloWorld extends Sample {
@@ -28,7 +30,6 @@ class HelloWorld extends Sample {
                 ctx.fillText(text, offset, this.canvas.height / 2);
 
                 this.canvas.render(18);
-
             
             }
             resolve();
@@ -37,8 +38,8 @@ class HelloWorld extends Sample {
     }
 
     run() {
-        this.scrollText('Hello WorldXX!').then(() => {
-            return this.delay();
+        this.scrollText('Hello World!').then(() => {
+            return this.delay(1000);
         })
 
     }
