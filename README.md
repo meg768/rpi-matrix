@@ -27,7 +27,7 @@ Constructs a new matrix object. The **config** argument must contain the followi
 - **height**     - Specifies the height of the display.
 - **mode**       - Specifies mode, either **pixel** or **canvas**
 
-#### Example
+### Example
 
 	var Matrix = require('rpi-matrix');
 
@@ -56,8 +56,8 @@ Constructs a new matrix object. The **config** argument must contain the followi
     var sample = new Sample({mode:'pixel', width:32, height:32});
     sample.run();
 
+## Pixel Mode
 
-#### Pixel Mode
 
 When used in **pixel** mode the following methods are available
 
@@ -69,7 +69,7 @@ When used in **pixel** mode the following methods are available
 - **setPixelHLS(x, y, h, l, s)** - Sets a pixel using HLS colors
 - **render([pixels], [delay])**  - Renders the current pixels to the matrix
 
-#### Canvas Mode
+## Canvas Mode
 
 You may also construct a Matrix object in **canvas** mode.
 This gives you the ability to do more advanced graphics
@@ -88,7 +88,7 @@ When used in **canvas** mode the following methods are available
 - **loadImage(image)**            - Helper function to load PNG or JPEG images. Returns a **Promise**.
 - **render([image], [delay])**    - Renders the current canvas (or specified image) to the matrix.
 
-#### Simple Example using Canvas Mode
+### Simple Example using Canvas Mode
 
     class Sample extends Matrix {
 
