@@ -1,6 +1,6 @@
 {
   "name": "rpi-matrix",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Raspberry Pi RGB Matrix addon for Node",
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "canvas": "^2.1.0",
+    "color": "^3.1.0",
     "nan": "^2.4.0"
   },
   "repository": {

@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var Matrix = require('../../index.js');
 var path = require("path");
 

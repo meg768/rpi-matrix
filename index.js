@@ -1,7 +1,7 @@
 var path   = require("path");
 var matrix = require(path.join(__dirname, "build", "Release", "rpi-matrix.node"));
 var Canvas = require('canvas');
-
+var Color  = require('color');
 
 var Matrix = module.exports = function(config) {
 
@@ -9,30 +9,49 @@ var Matrix = module.exports = function(config) {
 
     matrix.configure(config);
 
-    self.mode   = config.mode ? config.mode : 'canvas';
+    self.mode   = config.mode ? config.mode : 'pixel';
     self.width  = config.width;
     self.height = config.height;
     self.length = self.width * self.height;
 
     self.renderDelay = undefined;
 
-    if (config.mode == 'rgb') {
+    if (this.mode == 'rgb' || this.mode == 'pixel') {
         self.pixels = new Uint32Array(self.length);
 
         self.RGB = function(red, green, blue) {        
             return ((red << 16) | (green << 8) | blue);
         }
+
+        self.HSL = function(h, s, l) {
+            return Color.hsl(h, s, l).rgbNumber();
+        }
+
+        self.fill = function(color) {
+
+            if (typeof color == 'string')
+                color = Color(color).rgbNumber();
+    
+            for (var i = 0; i < this.length; i++)
+                this.pixels[i] = color;
+        }
+
+        self.setPixel = function(x, y, color) {
+            this.pixels[y * self.width + x] = color;
+        }
+
+        self.getPixel = function(x, y) {
+            return this.pixels[y * self.width + x];
+        }
     
         self.setPixelRGB = function(x, y, red, green, blue) {
             this.pixels[y * self.width + x] = self.RGB(red, green, blue);
         }
-    
-        self.fillRGB = function(red, green, blue) {
-            var color = self.RGB(red, green, blue);
-            
-            for (var i = 0; i < self.length; i++)
-                this.pixels[i] = color;
+ 
+        self.setPixelHSL = function(x, y, h, s, l) {
+            this.pixels[y * self.width + x] = self.HSL(h, s, l);
         }
+ 
 
         self.render = function() {
 
@@ -61,7 +80,7 @@ var Matrix = module.exports = function(config) {
         }     
 
     }
-    else {
+    else if (this.mode == 'canvas') {
         self.canvas = Canvas.createCanvas(self.width, self.height);
 
         self.createCanvas = function(width, height) {
@@ -100,6 +119,8 @@ var Matrix = module.exports = function(config) {
 
     
     }
+    else
+        throw new Error("Invalid matrix mode. Specify 'pixel' or 'canvas'.");
 
 }
 
