@@ -84,7 +84,7 @@ class Worm {
 			this.row++;
 
 			if (this.row - this.length > this.height)
-            this.reset();
+                this.reset();
 
 		}        
 	}
