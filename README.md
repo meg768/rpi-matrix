@@ -2,10 +2,10 @@
 
 A module for generating animations on a Raspberry PI.
 Before you install this, please read this https://github.com/hzeller/rpi-rgb-led-matrix
-and make sure you have the apropriate libraries installed on your Raspberry Pi.
+and make sure you have the appropriate libraries installed on your Raspberry Pi.
 
-This module also uses the npm module **canvas** [https://www.npmjs.com/package/canvas]. Again, make sure your Raspberry
-is updated with the proper components.  
+This module also uses npm module **canvas** (https://www.npmjs.com/package/canvas). Again, make sure your Raspberry
+is updated with the proper components to compile.  
 
 ## Installation
 	$ npm install rpi-matrix --save
@@ -15,7 +15,6 @@ is updated with the proper components.
 
 	var Matrix = require('rpi-matrix');
 	var matrix = new Matrix({width:32, height:32});
-
 
 
 ## Constructor
@@ -66,3 +65,25 @@ When used in **pixel** mode the following methods are available
 - **setPixelRGB(x, y, r, g, b)** - Sets a pixel using RGB colors
 - **setPixelHLS(x, y, h, l, s)** - Sets a pixel using HLS colors
 - **render([pixels], [delay])**  - Renders the current pixels to the matrix
+
+You may also construct a Matrix object in **canvas** mode.
+This gives you the ability to do more advanced graphics
+by using the HTML-5 canvas API (or close to it).
+
+Simple Example using Canvas Mode
+
+    class Sample extends Matrix {
+
+        run() {
+            var ctx = this.canvas.getContext('2d');
+
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(0, 0, this.width, this.height);
+
+            this.render();
+            setTimeout(() => {}, 3000);
+        }
+    };
+
+    var sample = new Sample({mode:'canvas', width:32, height:32});
+    sample.run();
