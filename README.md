@@ -2,7 +2,7 @@
 
 A module for generating animations on a Raspberry PI.
 This module may be used in two modes, either simple **pixel-mode** or **canvas-mode**
-that enables you to draw graphics using the HTML5 Canvas API (https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API).
+that enables you to draw graphics using the HTML5 Canvas API https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API.
 
 Before you install this, please read this https://github.com/hzeller/rpi-rgb-led-matrix
 and make sure you have the appropriate libraries installed on your Raspberry Pi.
@@ -72,7 +72,8 @@ When used in **pixel** mode the following methods are available
 
 You may also construct a Matrix object in **canvas** mode.
 This gives you the ability to do more advanced graphics
-by using the HTML-5 canvas API (or close to it).
+by using the HTML5 canvas API (or close to it) thanks to 
+the npm module **canvas** https://www.npmjs.com/package/canvas.
 
 Example
 
@@ -84,7 +85,7 @@ When used in **canvas** mode the following methods are available
 
 - **getCanvas()**                 - Returns the canvas associated with the matrix display. Also available as member variable **matrix.canvas**.
 - **createCanvas(width, height)** - Creates and returns an off-screen canvas that may be used for more advanced graphics.
-- **loadImage(image)**            - Helper function to load PNG or JPEG images. Returns a **Promise**.
+- **loadImage(image)**            - Helper function to load PNG or JPEG images. Returns a **Promise** when loaded.
 - **render([image], [delay])**    - Renders the current canvas (or specified image) to the matrix.
 
 ### Simple Example using Canvas Mode
