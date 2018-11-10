@@ -75,6 +75,7 @@ You may also construct a Matrix object in **canvas** mode.
 This gives you the ability to do more advanced graphics
 by using the HTML5 canvas API (or close to it) thanks to 
 the npm module **canvas** https://www.npmjs.com/package/canvas.
+For more information about the Canvas API visit https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API.
 
 Example
 
