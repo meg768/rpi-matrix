@@ -4,22 +4,20 @@ class Sample  {
 
 
     parse(text) {
-        var regexp = new RegExp();
+        var regexp = new RegExp(':[^\s]*:');
 
-///        var split = text.split(/:*:/);
-
-//        var split = text.split(/:[a-z,-]+:/);
-
-       // var split = text.split(/:*^[\w]*:/);
+        //console.log(regexp.split(text));
 
         var split = text.split(/:*:/);
+
+        console.log('Text', text);
         split.forEach((element, index) => {
             console.log(index, element);
             
         });
     }
     run() {
-        this.parse('Hello :funny: :kalle olle: baby. I want some juice. And some :ice-gream: now!');
+        this.parse('Jag vill ha en ::beer::. Eller ::ice-gream:: nu. Eller kanske ::kalle olle::?!');
     }
 };
 
