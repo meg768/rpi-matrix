@@ -1,7 +1,11 @@
 # rpi-matrix
 
 A module for generating animations on a Raspberry PI.
-Before you install this, please read this https://github.com/hzeller/rpi-rgb-led-matrix.
+Before you install this, please read this https://github.com/hzeller/rpi-rgb-led-matrix
+and make sure you have the apropriate libraries installed on your Raspberry Pi.
+
+This module also uses the npm module **canvas** [https://www.npmjs.com/package/canvas]. Again, make sure your Raspberry
+is updated with the proper components.  
 
 ## Installation
 	$ npm install rpi-matrix --save
