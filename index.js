@@ -87,6 +87,10 @@ var Matrix = module.exports = function(config) {
     else if (this.mode == 'canvas') {
         self.canvas = Canvas.createCanvas(self.width, self.height);
 
+        self.getCanvas = function() {
+            return self.canvas;
+        }
+        
         self.createCanvas = function(width, height) {
             return Canvas.createCanvas(width, height);
         }
