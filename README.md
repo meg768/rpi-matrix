@@ -141,3 +141,5 @@ When used in **canvas** mode the following methods are available
 The example above displays the letter 'X' centered on the display.
 To use fonts not already installed on you Raspberry Pi, make sure to
 call **Matrix.registerFont()** before any graphics ar drawn.
+
+See https://github.com/meg768/rpi-matrix/examples/scripts for more examples.
