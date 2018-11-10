@@ -104,7 +104,7 @@ class Worm {
 class Sample extends Matrix {
 
     constructor(options) {
-        super({mode:'pixel', ...options});
+        super({mode:'pixel'});
 
         this.worms = [];
 
