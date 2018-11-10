@@ -3,7 +3,6 @@ var matrix = require(path.join(__dirname, "build", "Release", "rpi-matrix.node")
 var Canvas = require('canvas');
 
 
-
 var Matrix = module.exports = function(config) {
 
     var self = this;
