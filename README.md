@@ -55,8 +55,10 @@ Example
 
 When used in **pixel** mode the following methods are available
 
+- **clear()**                    - Clears the matrix, all pixels off
 - **fill(color)**                - Fills entire matrix with a color
 - **setPixel(x, y, color)**      - Set pixel at specified position
-- **getPixel(x. y)**             - Returns color at specified location
+- **getPixel(x, y)**             - Returns color at specified location
 - **setPixelRGB(x, y, r, g, b)** - Sets a pixel using RGB colors
-- **setPixelHTL(x, y, h, l, s)** - Sets a pixel using HLS colors
+- **setPixelHLS(x, y, h, l, s)** - Sets a pixel using HLS colors
+- **render([pixels], [delay])**  - Renders the current pixels to the matrix
