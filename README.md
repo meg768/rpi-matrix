@@ -52,3 +52,11 @@ Example
 
     var sample = new Sample({mode:'pixel', width:32, height:32});
     sample.run();
+
+When used in **pixel** mode the following methods are available
+
+- **fill(color)**                - Fills entire matrix with a color
+- **setPixel(x, y, color)**      - Set pixel at specified position
+- **getPixel(x. y)**             - Returns color at specified location
+- **setPixelRGB(x, y, r, g, b)** - Sets a pixel using RGB colors
+- **setPixelHTL(x, y, h, l, s)** - Sets a pixel using HLS colors
