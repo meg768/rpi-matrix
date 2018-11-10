@@ -90,6 +90,8 @@ When used in **canvas** mode the following methods are available
 
 ### Simple Example using Canvas Mode
 
+	var Matrix = require('rpi-matrix');
+
     class Sample extends Matrix {
 
         run() {
@@ -106,3 +108,33 @@ When used in **canvas** mode the following methods are available
     var sample = new Sample({mode:'canvas', width:32, height:32});
     sample.run();
 
+### Simple Example using Font in Canvas Mode
+
+	var Matrix = require('rpi-matrix');
+    var path = require("path");
+
+    Matrix.registerFont(path.join(__dirname, '../fonts/Verdana.ttf'), { family: 'what-ever' });
+
+    class Sample extends Matrix {
+
+        run() {
+            var ctx = this.canvas.getContext('2d');
+
+            ctx.font = 'bold 16px Verdana';
+            ctx.fillStyle = 'blue';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('X', this.width / 2, this.height / 2);
+
+            this.render();
+
+            setTimeout(() => {}, 3000);
+        }
+    };
+    var sample = new Sample({mode:'canvas', width:32, height:32});
+    sample.run();
+
+
+The example above displays the letter 'X' centered on the display.
+To use fonts not already installed on you Raspberry Pi, make sure to
+call **Matrix.registerFont()** before any graphics ar drawn.
