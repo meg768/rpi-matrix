@@ -7,9 +7,9 @@ pull:
 commit:
 	git add -A && git commit -m '-' && git push
 
-test: ./build/Release/rpi-matrix.node
-	node ./tests/foo.js
-	
+publish:
+	npm publish
+
 ./hzeller/lib/librgbmatrix.a: ./hzeller/lib/*.cc ./hzeller/lib/*.h
 	make -C ./hzeller/lib
 
