@@ -30,7 +30,6 @@ class ScrollSample extends Sample {
                 this.canvas.render(18);
 
             }
-            
             resolve();
         });
 
