@@ -8,6 +8,7 @@
     "build": "node-gyp rebuild",
     "pull": "git pull",
     "goto-github": "open https://github.com/meg768/rpi-matrix",
+    "goto-npm": "open https://www.npmjs.com/package/rpi-matrix",
     "commit": "git add -A && git commit -m '-' && git push"
   },
   "dependencies": {
@@ -19,6 +20,14 @@
     "type": "git",
     "url": "git+https://github.com/meg768/rpi-matrix.git"
   },
+  "keywords": [
+    "matrix",
+    "led",
+    "canvas",
+    "rpi-rgb-led-matrix",
+    "hzeller",
+    "adafruit"
+  ],
   "author": "meg768",
   "license": "ISC",
   "bugs": {

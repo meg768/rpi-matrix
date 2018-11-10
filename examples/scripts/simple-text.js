@@ -13,7 +13,6 @@ class Sample extends Matrix {
         ctx.fillStyle = 'blue';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-
         ctx.fillText('X', this.width / 2, this.height / 2);
 
         this.render();

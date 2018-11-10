@@ -7,7 +7,7 @@ that enables you to draw graphics using the HTML5 Canvas API (https://developer.
 Before you install this, please read this https://github.com/hzeller/rpi-rgb-led-matrix
 and make sure you have the appropriate libraries installed on your Raspberry Pi.
 
-This module also uses npm module **canvas** (https://www.npmjs.com/package/canvas). Again, make sure your Raspberry
+This module also uses npm module **canvas** https://www.npmjs.com/package/canvas. Again, make sure your Raspberry
 is updated with the proper components to compile.  
 
 ## Installation
@@ -35,10 +35,6 @@ Constructs a new matrix object. The **config** argument must contain the followi
 	var Matrix = require('rpi-matrix');
 
     class Sample extends Matrix {
-
-        constructor(options) {
-            super(options);
-        }
 
         run() {
             var red;
@@ -140,6 +136,6 @@ When used in **canvas** mode the following methods are available
 
 The example above displays the letter 'X' centered on the display.
 To use fonts not already installed on you Raspberry Pi, make sure to
-call **Matrix.registerFont()** before any graphics ar drawn.
+call **Matrix.registerFont()** before any graphics are drawn.
 
 See https://github.com/meg768/rpi-matrix/tree/master/examples/scripts for more examples.
