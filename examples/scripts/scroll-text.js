@@ -1,48 +1,35 @@
-#!/usr/bin/env node
+var Matrix = require('../../index.js');
+var path = require("path");
 
-var Sample = require('./sample.js');
+Matrix.registerFont(path.join(__dirname, '../fonts/Verdana.ttf'), { family: 'Comic Sans' });
 
-class HelloWorld extends Sample {
+class Sample extends Matrix {
 
     constructor(options) {
-        var path = require("path");
-
         super(options);
-        this.matrix.registerFont(path.join(__dirname, '../fonts/Verdana.ttf'), { family: 'Comic Sans' });
-        this.canvas = this.matrix.getCanvas();
-
     }
 
     createText(text) {
         var ctx = null;
         
-        console.log('creating text');
         ctx = this.canvas.getContext('2d');
 
-        ctx.font = `bold ${this.canvas.height / 2}px Arial`;
+        ctx.font = `bold ${this.height / 2}px Verdana`;
         ctx.fillStyle = 'red';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'middle';
 
         var textSize = ctx.measureText(text); 
 
-        var canvas = this.matrix.createCanvas(textSize.width + 2 * this.matrix.width, this.matrix.height);
+        var canvas = this.createCanvas(textSize.width + 2 * this.width, this.height);
 
         ctx = canvas.getContext('2d');
-        ctx.font = `bold ${this.canvas.height / 2}px Arial`;
+        ctx.font = `bold ${this.height / 2}px Verdana`;
         ctx.fillStyle = 'blue';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
 
-/*
-        ctx.fillRect(0, 0, canvas.width, canvas.height);        
-        ctx.fillStyle = 'red';
-        ctx.fillRect(this.matrix.width, 0, textSize.width, canvas.height);
-*/
-        
-        ctx.fillStyle = 'blue';
         ctx.fillText(text, canvas.width / 2, canvas.height / 2);
-
 
         return canvas;
     }
@@ -53,10 +40,10 @@ class HelloWorld extends Sample {
                 var src = canvas.getContext('2d');
                 var dst = this.canvas.getContext('2d');
 
-                for (var offset = 0; offset <= canvas.width - this.matrix.width; offset++) {
-                    var image = src.getImageData(offset, 0, this.matrix.width, this.matrix.height);
+                for (var offset = 0; offset <= canvas.width - this.width; offset++) {
+                    var image = src.getImageData(offset, 0, this.width, this.height);
                     dst.putImageData(image, 0, 0);
-                    this.matrix.render(image.data, 20);
+                    this.render(image.data, 20);
                 }
 
                 resolve();
@@ -76,8 +63,6 @@ class HelloWorld extends Sample {
 
     run() {
         this.scrollText('Hello World!').then(() => {
-
-            return this.delay(1000);
         })
         .catch(error => {
             console.error(error);
@@ -86,6 +71,5 @@ class HelloWorld extends Sample {
     }
 };
 
-var sample = new HelloWorld({width:32, height:32});
-
+var sample = new Sample({mode:'canvas', width:32, height:32});
 sample.run();

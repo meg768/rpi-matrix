@@ -1,16 +1,15 @@
-var Sample = require('./sample.js');
+var Matrix = require('../../index.js');
 
-class ScrollSample extends Sample {
+class Sample extends Matrix {
 
     constructor(options) {
         super(options);
-        this.canvas = this.matrix.getCanvas();
     }
 
     getImage(image) {
         var path = require("path");
         var fileName = path.join(__dirname, '../images', `${this.canvas.width}x${this.canvas.height}`, image);
-        return this.canvas.loadImage(fileName);
+        return this.loadImage(fileName);
     }
 
     scrollImage(image) {
@@ -21,7 +20,7 @@ class ScrollSample extends Sample {
                 ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
                 ctx.drawImage(image, offset, 0);
 
-                this.canvas.render(18);
+                this.render(18);
 
             }
             resolve();
@@ -42,10 +41,6 @@ class ScrollSample extends Sample {
         this.getImage('632.png').then((image) => {
             return this.scrollImage(image);
         })
-        .then(() => {
-            return this.delay(0);
-
-        })
         .catch((error) => {
             console.log(error);
         });
@@ -53,5 +48,5 @@ class ScrollSample extends Sample {
     }
 };
 
-var sample = new ScrollSample({width:32, height:32});
+var sample = new Sample({mode:'canvas', width:32, height:32});
 sample.run();
