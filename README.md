@@ -1,8 +1,9 @@
 # rpi-matrix
 
-A module for generating animations on a Raspberry PI.
-This module may be used in two modes, either simple **pixel-mode** or **canvas-mode**
-that enables you to draw graphics using the HTML5 Canvas API https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API.
+A module for generating animations on a Raspberry PI connected to a RGB LED matrix display (See https://www.adafruit.com/product/607).
+
+This module may be used in two modes, either simple **pixel-mode** or in **canvas-mode**
+which enables you to draw graphics using the HTML5 Canvas API https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API.
 
 Before you install this, please read this https://github.com/hzeller/rpi-rgb-led-matrix
 and make sure you have the appropriate libraries installed on your Raspberry Pi.
@@ -108,7 +109,7 @@ When used in **canvas** mode the following methods are available
     var sample = new Sample({mode:'canvas', width:32, height:32});
     sample.run();
 
-### Simple Example using Font in Canvas Mode
+### Simple Example using Fonts in Canvas Mode
 
 	var Matrix = require('rpi-matrix');
     var path = require("path");
