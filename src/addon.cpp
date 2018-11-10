@@ -84,9 +84,15 @@ NAN_METHOD(Addon::render)
         if (info[0]->IsUint8ClampedArray()) {
             RGBA *pixels = (RGBA *)contents;
 
+
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++, pixels++) {
-                    _matrix->setPixel(x, y, pixels->red, pixels->green, pixels->blue);
+                    
+                    int red   = (pixels->red   * pixels->alpha) / 255;
+                    int green = (pixels->green * pixels->alpha) / 255;
+                    int blue  = (pixels->blue  * pixels->alpha) / 255;
+                    
+                    _matrix->setPixel(x, y, red, green, blue);
                 }
             }
 

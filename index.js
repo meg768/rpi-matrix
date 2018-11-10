@@ -54,8 +54,8 @@ var Matrix = module.exports = function(config) {
             this.pixels[i] = color;
 	}
 
-    self.render = function(pixels) {
-        return matrix.render(pixels == undefined ? self.pixels : pixels);
+    self.render = function(pixels, delay) {
+        return matrix.render(pixels == undefined ? self.pixels : pixels, delay);
     }      
 
     self.registerFont = function(font, options) {
