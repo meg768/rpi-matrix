@@ -36,6 +36,10 @@ var Matrix = module.exports = function(config) {
                 this.pixels[i] = color;
         }
 
+        self.clear = function() {
+            self.fill(0);
+        }
+
         self.setPixel = function(x, y, color) {
             this.pixels[y * self.width + x] = color;
         }
