@@ -1,13 +1,10 @@
 #!/usr/bin/env node
 var Matrix = require('../../index.js');
-var path = require("path");
-
-Matrix.registerFont(path.join(__dirname, '../fonts/Verdana.ttf'), { family: 'Comic Sans' });
 
 class Sample extends Matrix {
 
     constructor(options) {
-        super(options);
+        super({...options, ...{mode:'canvas'}});
     }
 
     createText(text) {
@@ -15,7 +12,7 @@ class Sample extends Matrix {
         
         ctx = this.canvas.getContext('2d');
 
-        ctx.font = `bold ${this.height / 2}px Verdana`;
+        ctx.font = `bold ${this.height / 2}px Arial`;
         ctx.fillStyle = 'red';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'middle';
@@ -25,7 +22,7 @@ class Sample extends Matrix {
         var canvas = this.createCanvas(textSize.width + 2 * this.width, this.height);
 
         ctx = canvas.getContext('2d');
-        ctx.font = `bold ${this.height / 2}px Verdana`;
+        ctx.font = `bold ${this.height / 2}px Arial`;
         ctx.fillStyle = 'blue';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -38,13 +35,14 @@ class Sample extends Matrix {
     scrollCanvas(canvas) {
         return new Promise((resolve, reject) => {
             try {
-                var src = canvas.getContext('2d');
-                var dst = this.canvas.getContext('2d');
+                if (canvas.height != this.height)
+                    throw new Error('Canvas height does not match matrix height.');
+
+                var ctx = canvas.getContext('2d');
 
                 for (var offset = 0; offset <= canvas.width - this.width; offset++) {
-                    var image = src.getImageData(offset, 0, this.width, this.height);
-                    dst.putImageData(image, 0, 0);
-                    this.render(image.data, {sleep:20});
+                    var image = ctx.getImageData(offset, 0, this.width, this.height);
+                    this.render(image.data, {sleep:18});
                 }
 
                 resolve();
@@ -66,11 +64,11 @@ class Sample extends Matrix {
         this.scrollText('Hello World!').then(() => {
         })
         .catch(error => {
-            console.error(error);
+            console.error(error.message);
         })
 
     }
 };
 
-var sample = new Sample({mode:'canvas', width:32, height:32});
+var sample = new Sample({width:32, height:32});
 sample.run();

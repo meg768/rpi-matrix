@@ -111,17 +111,18 @@ NAN_METHOD(Addon::render)
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
                     
-                    dst->red   = src->red;   // (src->red   * src->alpha) / 255;
-                    dst->green = src->green; // (src->green * src->alpha) / 255;
-                    dst->blue  = src->blue;  // (src->blue  * src->alpha) / 255;
-
-                    //dst->red   = (src->red   * src->alpha) / 255;
-                    //dst->green = (src->green * src->alpha) / 255;
-                    //dst->blue  = (src->blue  * src->alpha) / 255;
-
-
+                    dst->red   = src->red;
+                    dst->green = src->green;
+                    dst->blue  = src->blue;
                     dst->alpha = 255;
 
+                    /*
+                    dst->red   = (src->red   * src->alpha) / 255;
+                    dst->green = (src->green * src->alpha) / 255;
+                    dst->blue  = (src->blue  * src->alpha) / 255;
+                    dst->alpha = 255;
+                    */
+                   
                     src++, dst++;
                     
                 }
