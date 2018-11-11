@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-var Matrix = require('../../index.js');
+var Matrix = require('../../../index.js');
 var path = require("path");
 
-Matrix.registerFont(path.join(__dirname, '../fonts/Verdana.ttf'), { family: 'what-ever' });
+Matrix.registerFont(path.join(__dirname, '../../fonts/Verdana.ttf'), { family: 'what-ever' });
 
 class Sample extends Matrix {
 

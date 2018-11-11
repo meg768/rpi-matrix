@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var Matrix = require('../../index.js');
+var Matrix = require('../../../index.js');
 
 
 class Sample extends Matrix {

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var Matrix = require('../../index.js');
+var Matrix = require('../../../index.js');
 var path = require("path");
 
 class Sample extends Matrix {
@@ -9,7 +9,7 @@ class Sample extends Matrix {
     }
 
     getImage(image) {
-        return this.loadImage(path.join(__dirname, '../images', `${this.canvas.width}x${this.canvas.height}`, image));
+        return this.loadImage(path.join(__dirname, '../../images', `${this.canvas.width}x${this.canvas.height}`, image));
     }
 
     scrollImage(image) {

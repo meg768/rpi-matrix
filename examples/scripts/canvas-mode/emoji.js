@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var Matrix = require('../../index.js');
+var Matrix = require('../../../index.js');
 
 class Sample extends Matrix {
 
@@ -9,7 +9,7 @@ class Sample extends Matrix {
 
     getEmoji(name) {
         var path = require("path");
-        var fileName = path.join(__dirname, '../emojis', name + '.png');
+        var fileName = path.join(__dirname, '../../emojis', name + '.png');
         return this.loadImage(fileName);
     }
 
