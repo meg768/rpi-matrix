@@ -61,13 +61,13 @@ Constructs a new matrix object. The **config** argument must contain the followi
 
 When used in **pixel** mode the following methods are available
 
-- **clear()**                    - Clears the matrix, all pixels off
-- **fill(color)**                - Fills entire matrix with a color
-- **setPixel(x, y, color)**      - Set pixel at specified position
-- **getPixel(x, y)**             - Returns color at specified location
-- **setPixelRGB(x, y, r, g, b)** - Sets a pixel using RGB colors
-- **setPixelHLS(x, y, h, l, s)** - Sets a pixel using HLS colors
-- **render([pixels], [delay])**  - Renders the current pixels to the matrix
+- **clear()**                      - Clears the matrix, all pixels off
+- **fill(color)**                  - Fills entire matrix with a color
+- **setPixel(x, y, color)**        - Set pixel at specified position
+- **getPixel(x, y)**               - Returns color at specified location
+- **setPixelRGB(x, y, r, g, b)**   - Sets a pixel using RGB colors
+- **setPixelHLS(x, y, h, l, s)**   - Sets a pixel using HLS colors
+- **render([pixels], [options])**  - Renders the current pixels to the matrix. The **options** parameter may contain **blend** or **sleep** values.
 
 ## Canvas Mode
 
@@ -88,7 +88,7 @@ When used in **canvas** mode the following methods are available
 - **getCanvas()**                 - Returns the canvas associated with the matrix display. Also available as member variable **matrix.canvas**.
 - **createCanvas(width, height)** - Creates and returns an off-screen canvas that may be used for more advanced graphics.
 - **loadImage(image)**            - Helper function to load PNG or JPEG images. Returns a **Promise** when loaded.
-- **render([image], [delay])**    - Renders the current canvas (or specified image) to the matrix.
+- **render([image], [options])**    - Renders the current canvas (or specified image) to the matrix. The **options** parameter may contain **blend** or **sleep** values.
 
 ### Simple Example using Canvas Mode
 

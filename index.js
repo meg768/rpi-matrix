@@ -16,6 +16,18 @@ var Matrix = module.exports = function(config) {
 
     self.renderDelay = undefined;
 
+    function isPixels(value) {
+        return (value instanceof Buffer) || (value instanceof Uint32Array) || (value instanceof Uint8ClampedArray);
+    }
+
+    function isObject(value) {
+        return (value instanceof Object);
+    }
+
+    self.renderRaw = function (a, b) {
+        matrix.render(a, b);
+    }
+
     if (this.mode == 'rgb' || this.mode == 'pixel') {
         self.pixels = new Uint32Array(self.length);
 
@@ -59,21 +71,22 @@ var Matrix = module.exports = function(config) {
 
         self.render = function() {
 
+
             switch (arguments.length) {
                 case 0: {
                     return matrix.render(self.pixels);
                 }
                 case 1: {
-                    if (typeof arguments[0] == 'object') {
+                    if (isPixels(arguments[0])) {
                         return matrix.render(arguments[0]);
                     }
-                    if (typeof arguments[0] == 'number') {
+                    if (isObject(arguments[0])) {
                         return matrix.render(self.pixels, arguments[0]);
                     }
                     break;
                 }
                 case 2: {
-                    if (typeof arguments[0] == 'object' && typeof arguments[1] == 'number') {
+                    if (isPixels(arguments[0]) && isObject(arguments[1])) {
                         return matrix.render(arguments[0], arguments[1]);
                     }
                     break;
@@ -106,16 +119,16 @@ var Matrix = module.exports = function(config) {
                     return matrix.render(self.canvas.toBuffer('raw'));
                 }
                 case 1: {
-                    if (typeof arguments[0] == 'object') {
+                    if (isPixels(arguments[0])) {
                         return matrix.render(arguments[0]);
                     }
-                    if (typeof arguments[0] == 'number') {
+                    if (isObject(arguments[0])) {
                         return matrix.render(self.canvas.toBuffer('raw'), arguments[0]);
                     }
                     break;
                 }
                 case 2: {
-                    if (typeof arguments[0] == 'object' && typeof arguments[1] == 'number') {
+                    if (isPixels(arguments[0]) && isObject(arguments[1])) {
                         return matrix.render(arguments[0], arguments[1]);
                     }
                     break;

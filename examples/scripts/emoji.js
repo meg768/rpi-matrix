@@ -27,7 +27,7 @@ class Sample extends Matrix {
                 ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
                 ctx.drawImage(image, offset, margin / 2, imageWidth, imageHeight);
                 
-                this.render(18);
+                this.render({sleep:18});
 
             }
             resolve();

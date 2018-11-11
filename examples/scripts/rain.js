@@ -104,7 +104,7 @@ class Worm {
 class Sample extends Matrix {
 
     constructor(options) {
-        super({mode:'pixel'});
+        super({...options, ...{mode:'pixel'}});
 
         this.worms = [];
 
@@ -112,10 +112,6 @@ class Sample extends Matrix {
             this.worms.push(new Worm(this, offset));
         }
 
-    }
-
-    render() {
-        console.log('.');
     }
 
     run() {
@@ -130,7 +126,6 @@ class Sample extends Matrix {
             this.render();
     
         }
-
     }
 
 }

@@ -44,7 +44,7 @@ class Sample extends Matrix {
                 for (var offset = 0; offset <= canvas.width - this.width; offset++) {
                     var image = src.getImageData(offset, 0, this.width, this.height);
                     dst.putImageData(image, 0, 0);
-                    this.render(image.data, 20);
+                    this.render(image.data, {sleep:20});
                 }
 
                 resolve();

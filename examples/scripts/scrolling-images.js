@@ -1,53 +1,66 @@
 #!/usr/bin/env node
 var Matrix = require('../../index.js');
+var path = require("path");
 
 class Sample extends Matrix {
 
     constructor(options) {
-        super(options);
+        super({...options, ...{mode:'canvas'}});
     }
 
     getImage(image) {
-        var path = require("path");
-        var fileName = path.join(__dirname, '../images', `${this.canvas.width}x${this.canvas.height}`, image);
-        return this.loadImage(fileName);
+        return this.loadImage(path.join(__dirname, '../images', `${this.canvas.width}x${this.canvas.height}`, image));
     }
 
     scrollImage(image) {
         return new Promise((resolve, reject) => {
-            var ctx = this.canvas.getContext('2d');
+            try {
+                var ctx = this.canvas.getContext('2d');
 
-            for (var offset = this.canvas.width; offset > -image.width; offset--) {
-                ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                ctx.drawImage(image, offset, 0);
+                for (var offset = this.canvas.width; offset > -image.width; offset--) {
+                    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                    ctx.drawImage(image, offset, 0);
 
-                this.render(18);
-
+                    this.render({sleep:18});
+    
+                }
+                resolve();
+    
             }
-            resolve();
+            catch(error) {
+                reject(error);
+            }
         });
 
     }
 
+    displayImage(image) {
+        return this.getImage(image).then((image) => {
+            return this.scrollImage(image);
+        })
+    }
+
     run() {
-        this.getImage('123.png').then((image) => {
-            return this.scrollImage(image);
+        var promise = Promise.resolve();
+
+        promise.then(() => {
+            return this.displayImage('123.png');
         })
-        this.getImage('124.png').then((image) => {
-            return this.scrollImage(image);
+        .then(() => {
+            return this.displayImage('124.png');
         })
-        this.getImage('125.png').then((image) => {
-            return this.scrollImage(image);
+        .then(() => {
+            return this.displayImage('125.png');
         })
-        this.getImage('632.png').then((image) => {
-            return this.scrollImage(image);
+        .then(() => {
+            return this.displayImage('632.png');
         })
         .catch((error) => {
-            console.log(error);
+            console.error(error);
         });
 
     }
 };
 
-var sample = new Sample({mode:'canvas', width:32, height:32});
+var sample = new Sample({width:32, height:32});
 sample.run();
