@@ -192,15 +192,10 @@ class Sample extends Matrix {
         var noise =  new SimplexNoise();
         var zoff = 0;
         var yoff = 0;
-        var step = 0.05;
+        var step = 0.1;
         for (;;) {
-/* 
-            generator.generate( [ 0, 0 ], [ 32, 32 ], function ( point, value ) {
-                console.log( point, value );
-            } );
 
-*/
-
+            
             for (var y = 0; y < this.height; y++) {
                     
                 var xoff = 0;
@@ -216,7 +211,7 @@ class Sample extends Matrix {
                 }
                 yoff += step;
             }
-            this.render(100);
+            this.render({blend:200});
 
         }
     }
