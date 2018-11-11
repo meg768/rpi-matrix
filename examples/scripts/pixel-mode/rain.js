@@ -4,7 +4,7 @@ var Matrix = require('../../../index.js');
 
 function random() {
 
-    var isType = module.exports.isType = function (obj, type) {
+    var isType = function (obj, type) {
         return Object.prototype.toString.call(obj) == '[object ' + type + ']';
     };
 
