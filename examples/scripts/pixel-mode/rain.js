@@ -81,7 +81,7 @@ class Worm {
 
 		if (this.ticks >= this.loops) {
 			this.ticks = 0;
-			this.row++;
+			this.row--;
 
 			if (this.row - this.length > this.height)
                 this.reset();
