@@ -1,6 +1,6 @@
 {
   "name": "rpi-matrix",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Raspberry Pi RGB Matrix addon for Node",
   "main": "index.js",
   "scripts": {
@@ -33,5 +33,6 @@
   "bugs": {
     "url": "https://github.com/meg768/rpi-matrix/issues"
   },
-  "homepage": "https://github.com/meg768/rpi-matrix#readme"
+  "homepage": "https://github.com/meg768/rpi-matrix#readme",
+  "devDependencies": {}
 }
