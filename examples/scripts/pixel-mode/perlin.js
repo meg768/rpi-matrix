@@ -232,15 +232,14 @@ class Sample extends Matrix {
                     var value = noise.noise(xoff, yoff, zoff);
                     zoff += step / 100;
 
-                    var red = Math.floor(value * 127 + 128);
-                    var green = 0;
-                    var blue = 0;
-                    this.setPixelRGB(x, y, red, green, blue);
+                    value = Math.floor(value * 127 + 128);
+
+                    this.setPixelRGB(x, y, value, 0, 0);
                     xoff += step;
                 }
                 yoff += step;
             }
-            this.render({ blend: 200 });
+            this.render({ blend: 250 });
 
         }
     }
