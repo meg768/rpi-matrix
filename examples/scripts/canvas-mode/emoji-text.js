@@ -35,7 +35,6 @@ class EmojiParser  {
             }
         });
 
-        console.log(output);
         return output;
     }
 
@@ -49,7 +48,8 @@ class Sample  {
 
     run() {
         var parser = new EmojiParser(['beer', 'ice_cream', 'joy', 'fries']);
-        parser.parse('Jag vill ha en :beer:. Eller :ice_cream: :foo: nu. Eller kanske :kalle olle:?!');
+        var result = parser.parse('Jag vill ha en :beer:. Eller :ice_cream: :foo: nu. Eller kanske :kalle olle:?!');
+        console.log(result);
     }
 }
 
