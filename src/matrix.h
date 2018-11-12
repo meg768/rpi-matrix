@@ -46,7 +46,7 @@ class Matrix {
 			exit(-1);
 		}
 		
-		_matrix = new rgb_matrix::RGBMatrix(_io, 32, width / 32, height / 32);
+		_matrix = new rgb_matrix::RGBMatrix(_io, height, 1, 1);
 		_canvas = _matrix->CreateFrameCanvas();
 		
 		setBrightness(_brightness);
