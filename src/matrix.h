@@ -23,7 +23,7 @@ class Matrix {
 
 	public:
 	
-	Matrix(int width, int height) {
+	Matrix(int width, int height, const char *hardware, int pwmBits, int brightness) {
 		srand(time(NULL));
 		
 		__matrix = this;
@@ -35,8 +35,6 @@ class Matrix {
 		_io         = 0;
 		_matrix     = 0;
 		_canvas     = 0;
-		_pwmBits    = 0;
-		_brightness = 0;
 		_width      = width;
 		_height     = height;  
 
@@ -45,12 +43,17 @@ class Matrix {
 		if (!_io->Init()) {
 			exit(-1);
 		}
-		
-		_matrix = new rgb_matrix::RGBMatrix(_io, height, 1, 1);
+
+		rgb_matrix::RGBMatrix::Options options;		
+		options.rows = height;
+		options.cols = width;
+		options.pwm_bits = pwmBits;
+		options.brightness = brightness;
+		options.hardware_mapping = hardware;
+
+		_matrix = new rgb_matrix::RGBMatrix(_io, options);
 		_canvas = _matrix->CreateFrameCanvas();
 		
-		setBrightness(_brightness);
-		setPWMBits(_pwmBits);
 	}
 
 	virtual ~Matrix() {
@@ -97,34 +100,6 @@ class Matrix {
 			}
 		}
 	}	
-
-	inline void setBrightness(int value) {
-
-		_brightness = value;
-		
-		if (_brightness > 0) {
-			if (_matrix != 0)
-				_matrix->SetBrightness(_brightness);
-			
-			if (_canvas != 0)
-				_canvas->SetBrightness(_brightness);
-		}
-	}
-	
-	inline void setPWMBits(int value) {
-		
-		_pwmBits = value;
-		
-		if (_pwmBits > 0) {
-			if (_matrix != 0)
-				_matrix->SetPWMBits(_pwmBits);
-
-			if (_canvas != 0)
-				_canvas->SetPWMBits(_pwmBits);
-		}
-	
-	}
-
 	inline void setPixel(int x, int y, int r, int g, int b) {
 		_canvas->SetPixel(x, y, r, g, b);
 	}
@@ -206,8 +181,6 @@ class Matrix {
 
 	
 protected:
-	int _pwmBits;
-	int _brightness;
 	int _width;
 	int _height;
 	rgb_matrix::RGBMatrix *_matrix;

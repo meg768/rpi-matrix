@@ -70,5 +70,5 @@ class Sample extends Matrix {
     }
 };
 
-var sample = new Sample({width:64, height:64});
+var sample = new Sample({width:32, height:32});
 sample.run();

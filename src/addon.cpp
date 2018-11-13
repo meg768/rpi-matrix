@@ -20,11 +20,13 @@ NAN_METHOD(Addon::configure)
 		return Nan::ThrowError("configure requires an argument.");
 	}
 
-	v8::Local<v8::Object> options = v8::Local<v8::Object>::Cast( info[ 0 ] );
+	v8::Local<v8::Object> options = v8::Local<v8::Object>::Cast(info[0]);
 
-
-	int width = options->Get(Nan::New<v8::String>("width").ToLocalChecked() )->Int32Value();
-	int height = options->Get(Nan::New<v8::String>("height").ToLocalChecked() )->Int32Value();
+	v8::Local<v8::Value> width = options->Get(Nan::New<v8::String>("width").ToLocalChecked());
+	v8::Local<v8::Value> height = options->Get(Nan::New<v8::String>("height").ToLocalChecked());
+	v8::Local<v8::Value> hardware = options->Get(Nan::New<v8::String>("hardware").ToLocalChecked());
+	v8::Local<v8::Value> pwmBits = options->Get(Nan::New<v8::String>("pwmBits").ToLocalChecked());
+	v8::Local<v8::Value> brightness = options->Get(Nan::New<v8::String>("brightness").ToLocalChecked());
 
     if (_screen != NULL)
         delete _screen;
@@ -35,12 +37,14 @@ NAN_METHOD(Addon::configure)
 	if (_matrix != NULL)
 		delete _matrix;
 
-	_matrix = new Matrix(width, height);
-	_pixels = new RGBA[width * height];
-	_screen = new RGBA[width * height];
+	_matrix = new Matrix(width->Int32Value(), height->Int32Value(), *v8::String::Utf8Value(hardware), pwmBits->Int32Value(), brightness->Int32Value());
 
-    memset(_pixels, 0, sizeof(RGBA) * width * height);
-    memset(_screen, 0, sizeof(RGBA) * width * height);
+    int size = width->Int32Value() * height->Int32Value();
+	_pixels = new RGBA[size];
+	_screen = new RGBA[size];
+
+    memset(_pixels, 0, sizeof(RGBA) * size);
+    memset(_screen, 0, sizeof(RGBA) * size);
 
 	info.GetReturnValue().Set(Nan::Undefined());
 };
