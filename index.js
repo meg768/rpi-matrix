@@ -8,12 +8,13 @@ var Matrix = module.exports = function(config) {
     var self = this;
 
     var options = {};
-    options.hardware   = config.hardware || 'regular';
-    options.width      = config.width || 32;
-    options.height     = config.height || 32;
-    options.brightness = config.brightness || 100;
-    options.pwmBits    = config.pwmBits || 11;
-
+    options.hardware    = config.hardware || 'regular';
+    options.width       = config.width || 32;
+    options.height      = config.height || 32;
+    options.brightness  = config.brightness || 100;
+    options.pwmBits     = config.pwmBits || 11;
+    options.rgbSequence = config.rgbSequence || "RGB";
+    
     matrix.configure(options);
 
     self.mode   = config.mode ? config.mode : 'pixel';

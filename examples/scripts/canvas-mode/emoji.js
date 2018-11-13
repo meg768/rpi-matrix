@@ -27,7 +27,7 @@ class Sample extends Matrix {
                 ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
                 ctx.drawImage(image, offset, margin / 2, imageWidth, imageHeight);
                 
-                this.render({sleep:18});
+                this.render({sleep:0});
 
             }
             resolve();
@@ -58,5 +58,5 @@ class Sample extends Matrix {
     }
 };
 
-var sample = new Sample({mode:'canvas', width:32, height:32});
+var sample = new Sample({hardware:'adafruit-hat-pwm', pwmBits: 8, mode:'canvas', rgbSequence:'RBG', width:64, height:64});
 sample.run();

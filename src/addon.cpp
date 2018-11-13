@@ -27,7 +27,9 @@ NAN_METHOD(Addon::configure)
 	v8::Local<v8::Value> hardware = options->Get(Nan::New<v8::String>("hardware").ToLocalChecked());
 	v8::Local<v8::Value> pwmBits = options->Get(Nan::New<v8::String>("pwmBits").ToLocalChecked());
 	v8::Local<v8::Value> brightness = options->Get(Nan::New<v8::String>("brightness").ToLocalChecked());
+	v8::Local<v8::Value> rgbSequence = options->Get(Nan::New<v8::String>("rgbSequence").ToLocalChecked());
 
+		
     if (_screen != NULL)
         delete _screen;
 
@@ -37,7 +39,9 @@ NAN_METHOD(Addon::configure)
 	if (_matrix != NULL)
 		delete _matrix;
 
-	_matrix = new Matrix(width->Int32Value(), height->Int32Value(), *v8::String::Utf8Value(hardware), pwmBits->Int32Value(), brightness->Int32Value());
+    
+
+	_matrix = new Matrix(width->Int32Value(), height->Int32Value(), *v8::String::Utf8Value(hardware), pwmBits->Int32Value(), brightness->Int32Value(), *v8::String::Utf8Value(rgbSequence));
 
     int size = width->Int32Value() * height->Int32Value();
 	_pixels = new RGBA[size];

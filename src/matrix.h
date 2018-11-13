@@ -23,7 +23,7 @@ class Matrix {
 
 	public:
 	
-	Matrix(int width, int height, const char *hardware, int pwmBits, int brightness) {
+	Matrix(int width, int height, const char *hardware, int pwmBits, int brightness, const char *rgbSequence) {
 		srand(time(NULL));
 		
 		__matrix = this;
@@ -50,6 +50,7 @@ class Matrix {
 		options.pwm_bits = pwmBits;
 		options.brightness = brightness;
 		options.hardware_mapping = hardware;
+		options.led_rgb_sequence = rgbSequence;
 
 		_matrix = new rgb_matrix::RGBMatrix(_io, options);
 		_canvas = _matrix->CreateFrameCanvas();

@@ -7,12 +7,40 @@ class Sample extends Matrix {
         super({...options, ...{mode:'canvas'}});
     }
 
+    createTextY(text) {
+        var ctx = null;
+        
+        ctx = this.canvas.getContext('2d');
+
+        ctx.font = `bold ${this.height / 3}px Arial`;
+        ctx.fillStyle = 'red';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+
+        var textSize = ctx.measureText(text); 
+        var textWidth = textSize.width;
+        var textHeight = textSize.actualBoundingBoxAscent + textSize.actualBoundingBoxDescent;
+
+        console.log(textSize);
+        var canvas = this.createCanvas(textWidth + 2 * this.width, textHeight);
+
+        ctx = canvas.getContext('2d');
+        ctx.font = `bold ${this.height / 3}px Arial`;
+        ctx.fillStyle = 'blue';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        ctx.fillText(text, canvas.width / 2, 0);
+
+        return canvas;
+    }
+
     createText(text) {
         var ctx = null;
         
         ctx = this.canvas.getContext('2d');
 
-        ctx.font = `bold ${this.height / 2}px Arial`;
+        ctx.font = `bold ${this.height / 3}px Arial`;
         ctx.fillStyle = 'red';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'middle';
@@ -22,7 +50,7 @@ class Sample extends Matrix {
         var canvas = this.createCanvas(textSize.width + 2 * this.width, this.height);
 
         ctx = canvas.getContext('2d');
-        ctx.font = `bold ${this.height / 2}px Arial`;
+        ctx.font = `bold ${this.height / 3}px Arial`;
         ctx.fillStyle = 'blue';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -42,7 +70,7 @@ class Sample extends Matrix {
 
                 for (var offset = 0; offset <= canvas.width - this.width; offset++) {
                     var image = ctx.getImageData(offset, 0, this.width, this.height);
-                    this.render(image.data, {sleep:18});
+                    this.render(image.data, {sleep:10});
                 }
 
                 resolve();
@@ -70,5 +98,5 @@ class Sample extends Matrix {
     }
 };
 
-var sample = new Sample({width:32, height:32});
+var sample = new Sample({hardware:'adafruit-hat-pwm', rgbSequence:'RBG', width:64, height:64});
 sample.run();
