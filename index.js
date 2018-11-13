@@ -17,8 +17,8 @@ var Matrix = module.exports = function(config) {
     matrix.configure(options);
 
     self.mode   = config.mode ? config.mode : 'pixel';
-    self.width  = config.width;
-    self.height = config.height;
+    self.width  = options.width;
+    self.height = options.height;
     self.length = self.width * self.height;
 
     self.renderDelay = undefined;
