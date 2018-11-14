@@ -21,9 +21,12 @@ static void *__matrix = 0;
 
 class Matrix {
 
-	public:
-	
-	Matrix(int width, int height, const char *hardware, int pwmBits, int brightness, const char *rgbSequence) {
+public:
+
+	class Options : public rgb_matrix::RGBMatrix::Options {
+	};
+
+	Matrix(Matrix::Options &options) {
 		srand(time(NULL));
 		
 		__matrix = this;
@@ -35,8 +38,8 @@ class Matrix {
 		_io         = 0;
 		_matrix     = 0;
 		_canvas     = 0;
-		_width      = width;
-		_height     = height;  
+		_width      = options.cols;
+		_height     = options.rows;  
 
 		_io = new rgb_matrix::GPIO();
 		
@@ -44,18 +47,11 @@ class Matrix {
 			exit(-1);
 		}
 
-		rgb_matrix::RGBMatrix::Options options;		
-		options.rows = height;
-		options.cols = width;
-		options.pwm_bits = pwmBits;
-		options.brightness = brightness;
-		options.hardware_mapping = hardware;
-		options.led_rgb_sequence = rgbSequence;
-
 		_matrix = new rgb_matrix::RGBMatrix(_io, options);
 		_canvas = _matrix->CreateFrameCanvas();
 		
 	}
+
 
 	virtual ~Matrix() {
 		delete _matrix;
