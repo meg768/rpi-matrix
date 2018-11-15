@@ -92,6 +92,8 @@ When used in **pixel** mode the following methods are available
 - **setPixelRGB(x, y, r, g, b)**   - Sets a pixel using RGB colors
 - **setPixelHLS(x, y, h, l, s)**   - Sets a pixel using HLS colors
 - **render([pixels], [options])**  - Renders the current pixels to the matrix. The **options** parameter may contain **blend** or **sleep** values.
+- **RGB(r, g, b)**                 - Returns a RGB color as an integer
+- **HLS(h, l, s)**                 - Returns a HLS color as an integer
 
 ## Canvas Mode
 
