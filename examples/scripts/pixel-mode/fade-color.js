@@ -16,9 +16,6 @@ class Sample extends Matrix {
         this.fill(this.RGB(0, 0, 255));
         this.render({blend:500});
         
-        // Render contents again, but with a pause
-        this.render({sleep:1000});
-
         // Fade out to black...
         this.fill(this.RGB(0, 0, 0));
         this.render({blend:100});
@@ -26,5 +23,5 @@ class Sample extends Matrix {
     }
 }
 
-var sample = new Sample({mode:'pixel', width:32, height:32});
+var sample = new Sample({mode:'pixel', 'led-gpio-mapping':'adafruit-hat-pwm', 'led-rgb-sequence':'RBG', 'led-cols':64, 'led-rows':64, 'led-scan-mode':0});
 sample.run();

@@ -26,6 +26,10 @@ NAN_METHOD(Addon::configure)
 	v8::Local<v8::Object> options = v8::Local<v8::Object>::Cast(info[0]);
 
     ///////////////////////////////////////////////////////////////////////////
+    // debug
+    v8::Local<v8::Value> debug = options->Get(Nan::New<v8::String>("debug").ToLocalChecked());
+
+    ///////////////////////////////////////////////////////////////////////////
     // hardware_mapping
     v8::Local<v8::Value> hardware_mapping = options->Get(Nan::New<v8::String>("led-gpio-mapping").ToLocalChecked());
 
@@ -212,23 +216,27 @@ NAN_METHOD(Addon::configure)
         opts.pixel_mapper_config = pixel_mapper_config_string.c_str(); 
     }
 
-    printf("hardware_mapping         : %s\n", opts.hardware_mapping == NULL ? "" : opts.hardware_mapping);
-    printf("rows                     : %d\n", opts.rows);
-    printf("cols                     : %d\n", opts.cols);
-    printf("chain_length             : %d\n", opts.chain_length);
-    printf("parallel                 : %d\n", opts.parallel);
-    printf("pwm_bits                 : %d\n", opts.pwm_bits);
-    printf("pwm_lsb_nanoseconds      : %d\n", opts.pwm_lsb_nanoseconds);
-    printf("pwm_dither_bits          : %d\n", opts.pwm_dither_bits);
-    printf("brightness               : %d\n", opts.brightness);
-    printf("scan_mode                : %d\n", opts.scan_mode);
-    printf("row_address_type         : %d\n", opts.row_address_type);
-    printf("multiplexing             : %d\n", opts.multiplexing);
-    printf("disable_hardware_pulsing : %d\n", opts.disable_hardware_pulsing);
-    printf("show_refresh_rate        : %d\n", opts.show_refresh_rate);
-    printf("inverse_colors           : %d\n", opts.inverse_colors);
-    printf("led_rgb_sequence         : %s\n", opts.led_rgb_sequence == NULL ? "" : opts.led_rgb_sequence);
-    printf("pixel_mapper_config      : %s\n", opts.pixel_mapper_config == NULL ? "" : opts.pixel_mapper_config);
+    if (!debug->IsUndefined()) {
+        printf("Creating matrix with the following options.\n");
+        printf("hardware_mapping         : %s\n", opts.hardware_mapping == NULL ? "" : opts.hardware_mapping);
+        printf("rows                     : %d\n", opts.rows);
+        printf("cols                     : %d\n", opts.cols);
+        printf("chain_length             : %d\n", opts.chain_length);
+        printf("parallel                 : %d\n", opts.parallel);
+        printf("pwm_bits                 : %d\n", opts.pwm_bits);
+        printf("pwm_lsb_nanoseconds      : %d\n", opts.pwm_lsb_nanoseconds);
+        printf("pwm_dither_bits          : %d\n", opts.pwm_dither_bits);
+        printf("brightness               : %d\n", opts.brightness);
+        printf("scan_mode                : %d\n", opts.scan_mode);
+        printf("row_address_type         : %d\n", opts.row_address_type);
+        printf("multiplexing             : %d\n", opts.multiplexing);
+        printf("disable_hardware_pulsing : %d\n", opts.disable_hardware_pulsing);
+        printf("show_refresh_rate        : %d\n", opts.show_refresh_rate);
+        printf("inverse_colors           : %d\n", opts.inverse_colors);
+        printf("led_rgb_sequence         : %s\n", opts.led_rgb_sequence == NULL ? "" : opts.led_rgb_sequence);
+        printf("pixel_mapper_config      : %s\n", opts.pixel_mapper_config == NULL ? "" : opts.pixel_mapper_config);
+
+    }
 
     if (_tmp != NULL)
         delete _tmp;
@@ -252,183 +260,6 @@ NAN_METHOD(Addon::configure)
 	info.GetReturnValue().Set(Nan::Undefined());
 };
 
-
-/*
-
-NAN_METHOD(Addon::configure)
-{
-	static int initialized = 0;
-
-	Nan::HandleScope();
-
-	if (!initialized) {
-		initialized = 1;
-	}
-
-    Matrix::Options opts;
-
-	if (info.Length() != 1 ) {
-		return Nan::ThrowError("configure requires an argument.");
-	}
-
-	v8::Local<v8::Object> options = v8::Local<v8::Object>::Cast(info[0]);
-
-    // hardware_mapping
-    v8::Local<v8::Value> hardware_mapping = options->Get(Nan::New<v8::String>("hardware_mapping").ToLocalChecked());
-    string hardware_mapping_string;
-
-    if (!hardware_mapping->IsUndefined()) {
-        v8::String::Utf8Value value(hardware_mapping->ToString());
-        hardware_mapping_string = string(*value);        
-        opts.hardware_mapping = hardware_mapping_string.c_str(); 
-    }
-
-    // rows
-    v8::Local<v8::Value> rows = options->Get(Nan::New<v8::String>("rows").ToLocalChecked());
-
-    if (!rows->IsUndefined())
-        opts.rows = rows->Int32Value();
-
-    // cols
-    v8::Local<v8::Value> cols = options->Get(Nan::New<v8::String>("cols").ToLocalChecked());
-
-    if (!cols->IsUndefined())
-        opts.cols = cols->Int32Value();
-
-
-    // chain_length
-    v8::Local<v8::Value> chain_length = options->Get(Nan::New<v8::String>("chain_length").ToLocalChecked());
-
-    if (!chain_length->IsUndefined())
-        opts.chain_length = chain_length->Int32Value();
-
-    // parallel
-    v8::Local<v8::Value> parallel = options->Get(Nan::New<v8::String>("parallel").ToLocalChecked());
-
-    if (!parallel->IsUndefined())
-        opts.parallel = parallel->Int32Value();
-
-    // pwm_bits
-    v8::Local<v8::Value> pwm_bits = options->Get(Nan::New<v8::String>("pwm_bits").ToLocalChecked());
-
-    if (!pwm_bits->IsUndefined())
-        opts.pwm_bits = pwm_bits->Int32Value();
-
-    // pwm_lsb_nanoseconds
-    v8::Local<v8::Value> pwm_lsb_nanoseconds = options->Get(Nan::New<v8::String>("pwm_lsb_nanoseconds").ToLocalChecked());
-
-    if (!pwm_lsb_nanoseconds->IsUndefined())
-        opts.pwm_lsb_nanoseconds = pwm_lsb_nanoseconds->Int32Value();
-
-    // pwm_dither_bits
-    v8::Local<v8::Value> pwm_dither_bits = options->Get(Nan::New<v8::String>("pwm_dither_bits").ToLocalChecked());
-
-    if (!pwm_dither_bits->IsUndefined())
-        opts.pwm_dither_bits = pwm_dither_bits->Int32Value();
-
-    // brightness
-    v8::Local<v8::Value> brightness = options->Get(Nan::New<v8::String>("brightness").ToLocalChecked());
-
-    if (!brightness->IsUndefined())
-        opts.brightness = brightness->Int32Value();
-
-    // scan_mode
-    v8::Local<v8::Value> scan_mode = options->Get(Nan::New<v8::String>("scan_mode").ToLocalChecked());
-
-    if (!scan_mode->IsUndefined())
-        opts.scan_mode = scan_mode->Int32Value();
-
-    // row_address_type
-    v8::Local<v8::Value> row_address_type = options->Get(Nan::New<v8::String>("row_address_type").ToLocalChecked());
-
-    if (!row_address_type->IsUndefined())
-        opts.row_address_type = row_address_type->Int32Value();
-
-    // multiplexing
-    v8::Local<v8::Value> multiplexing = options->Get(Nan::New<v8::String>("multiplexing").ToLocalChecked());
-
-    if (!multiplexing->IsUndefined())
-        opts.multiplexing = multiplexing->Int32Value();
-
-    // disable_hardware_pulsing
-    v8::Local<v8::Value> disable_hardware_pulsing = options->Get(Nan::New<v8::String>("disable_hardware_pulsing").ToLocalChecked());
-
-    if (!disable_hardware_pulsing->IsUndefined())
-        opts.disable_hardware_pulsing = disable_hardware_pulsing->Int32Value();
-
-    // show_refresh_rate
-    v8::Local<v8::Value> show_refresh_rate = options->Get(Nan::New<v8::String>("show_refresh_rate").ToLocalChecked());
-
-    if (!show_refresh_rate->IsUndefined())
-        opts.show_refresh_rate = show_refresh_rate->Int32Value();
-
-    // inverse_colors
-    v8::Local<v8::Value> inverse_colors = options->Get(Nan::New<v8::String>("inverse_colors").ToLocalChecked());
-
-    if (!inverse_colors->IsUndefined())
-        opts.inverse_colors = inverse_colors->Int32Value();
-
-    // led_rgb_sequence
-    v8::Local<v8::Value> led_rgb_sequence = options->Get(Nan::New<v8::String>("led_rgb_sequence").ToLocalChecked());
-    string led_rgb_sequence_string;
-
-    if (!led_rgb_sequence->IsUndefined()) {
-        v8::String::Utf8Value value(led_rgb_sequence->ToString());
-        led_rgb_sequence_string = string(*value);        
-        opts.led_rgb_sequence = led_rgb_sequence_string.c_str(); 
-    }
-
-    // pixel_mapper_config
-    v8::Local<v8::Value> pixel_mapper_config = options->Get(Nan::New<v8::String>("pixel_mapper_config").ToLocalChecked());
-    string pixel_mapper_config_string;
-
-    if (!pixel_mapper_config->IsUndefined()) {
-        v8::String::Utf8Value value(pixel_mapper_config->ToString());
-        pixel_mapper_config_string = string(*value);        
-        opts.pixel_mapper_config = pixel_mapper_config_string.c_str(); 
-    }
-
-    printf("hardware_mapping         : %s\n", opts.hardware_mapping == NULL ? "" : opts.hardware_mapping);
-    printf("rows                     : %d\n", opts.rows);
-    printf("cols                     : %d\n", opts.cols);
-    printf("chain_length             : %d\n", opts.chain_length);
-    printf("parallel                 : %d\n", opts.parallel);
-    printf("pwm_bits                 : %d\n", opts.pwm_bits);
-    printf("pwm_lsb_nanoseconds      : %d\n", opts.pwm_lsb_nanoseconds);
-    printf("pwm_dither_bits          : %d\n", opts.pwm_dither_bits);
-    printf("brightness               : %d\n", opts.brightness);
-    printf("scan_mode                : %d\n", opts.scan_mode);
-    printf("row_address_type         : %d\n", opts.row_address_type);
-    printf("multiplexing             : %d\n", opts.multiplexing);
-    printf("disable_hardware_pulsing : %d\n", opts.disable_hardware_pulsing);
-    printf("show_refresh_rate        : %d\n", opts.show_refresh_rate);
-    printf("inverse_colors           : %d\n", opts.inverse_colors);
-    printf("led_rgb_sequence         : %s\n", opts.led_rgb_sequence == NULL ? "" : opts.led_rgb_sequence);
-    printf("pixel_mapper_config      : %s\n", opts.pixel_mapper_config == NULL ? "" : opts.pixel_mapper_config);
-
-    if (_tmp != NULL)
-        delete _tmp;
-
-    if (_pixels != NULL)
-        delete _pixels;
-
-	if (_matrix != NULL)
-		delete _matrix;
-
-	_matrix = new Matrix(opts);
-
-    int size = opts.rows * opts.cols;
-
-	_pixels = new RGBA[size];
-	_tmp = new RGBA[size];
-
-    memset(_pixels, 0, sizeof(RGBA) * size);
-    memset(_tmp, 0, sizeof(RGBA) * size);
-
-	info.GetReturnValue().Set(Nan::Undefined());
-};
-
-*/
 
 NAN_METHOD(Addon::sleep)
 {
