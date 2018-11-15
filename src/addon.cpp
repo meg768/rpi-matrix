@@ -218,7 +218,7 @@ NAN_METHOD(Addon::configure)
 
     if (!debug->IsUndefined()) {
         printf("Creating matrix with the following options.\n");
-        printf("hardware_mapping         : %s\n", opts.hardware_mapping == NULL ? "" : opts.hardware_mapping);
+        printf("hardware_mapping         : %s\n", opts.hardware_mapping == NULL ? "-" : opts.hardware_mapping);
         printf("rows                     : %d\n", opts.rows);
         printf("cols                     : %d\n", opts.cols);
         printf("chain_length             : %d\n", opts.chain_length);
@@ -233,8 +233,8 @@ NAN_METHOD(Addon::configure)
         printf("disable_hardware_pulsing : %d\n", opts.disable_hardware_pulsing);
         printf("show_refresh_rate        : %d\n", opts.show_refresh_rate);
         printf("inverse_colors           : %d\n", opts.inverse_colors);
-        printf("led_rgb_sequence         : %s\n", opts.led_rgb_sequence == NULL ? "" : opts.led_rgb_sequence);
-        printf("pixel_mapper_config      : %s\n", opts.pixel_mapper_config == NULL ? "" : opts.pixel_mapper_config);
+        printf("led_rgb_sequence         : %s\n", opts.led_rgb_sequence == NULL ? "-" : opts.led_rgb_sequence);
+        printf("pixel_mapper_config      : %s\n", opts.pixel_mapper_config == NULL ? "-" : opts.pixel_mapper_config);
 
     }
 
