@@ -7,19 +7,20 @@ var Matrix = module.exports = function(config) {
 
     var self = this;
 
-    var options = {};
-    options.hardware    = config.hardware || 'regular';
-    options.width       = config.width || 32;
-    options.height      = config.height || 32;
-    options.brightness  = config.brightness || 100;
-    options.pwmBits     = config.pwmBits || 11;
-    options.rgbSequence = config.rgbSequence || "RGB";
-    
+    var options = Object.assign({}, config);
+
+    if (options.width)
+        options.cols = options.width;
+
+    if (options.height)
+        options.rows = options.height;
+
+    console.log(options);
     matrix.configure(options);
 
-    self.mode   = config.mode ? config.mode : 'pixel';
-    self.width  = options.width;
-    self.height = options.height;
+    self.mode   = options.mode ? options.mode : 'pixel';
+    self.width  = options.cols;
+    self.height = options.rows;
     self.length = self.width * self.height;
 
     self.renderDelay = undefined;
@@ -107,6 +108,10 @@ var Matrix = module.exports = function(config) {
     }
     else if (this.mode == 'canvas') {
         self.canvas = Canvas.createCanvas(self.width, self.height);
+
+        self.scroll = function(image, options) {
+            matrix.scroll(image, options);
+        }
 
         self.getCanvas = function() {
             return self.canvas;

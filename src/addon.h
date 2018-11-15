@@ -27,6 +27,7 @@ public:
 
 	static NAN_METHOD(configure);
 	static NAN_METHOD(render);
+	static NAN_METHOD(scroll);
 
 private:
 	static Matrix *_matrix;

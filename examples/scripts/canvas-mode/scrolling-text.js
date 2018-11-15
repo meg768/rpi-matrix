@@ -70,7 +70,7 @@ class Sample extends Matrix {
 
                 for (var offset = 0; offset <= canvas.width - this.width; offset++) {
                     var image = ctx.getImageData(offset, 0, this.width, this.height);
-                    this.render(image.data, {sleep:10});
+                    this.render(image.data, {sleep:5});
                 }
 
                 resolve();
@@ -98,5 +98,5 @@ class Sample extends Matrix {
     }
 };
 
-var sample = new Sample({hardware:'adafruit-hat-pwm', rgbSequence:'RBG', width:64, height:64});
+var sample = new Sample({hardware_mapping:'adafruit-hat-pwm', led_rgb_sequence:'RBG', cols:64, rows:64, scan_mode:1});
 sample.run();
