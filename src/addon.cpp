@@ -408,9 +408,9 @@ NAN_METHOD(Addon::render)
                         BGRA *src = image + (y * imageWidth) + x;
                         RGBA *dst = _tmp + (y * width) + x;
 
-                        dst->red   = (src->red   * src->alpha) / 255;
-                        dst->green = (src->green * src->alpha) / 255;
-                        dst->blue  = (src->blue  * src->alpha) / 255;
+                        dst->red   = src->red; // (src->red   * src->alpha) / 255;
+                        dst->green = src->green; // (src->green * src->alpha) / 255;
+                        dst->blue  = src->blue; //(src->blue  * src->alpha) / 255;
                         dst->alpha = 255;                            
                     }
                 }

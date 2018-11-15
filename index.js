@@ -45,6 +45,7 @@ var Matrix = module.exports = function(config) {
     
 
     if (this.mode == 'rgb' || this.mode == 'pixel') {
+        console.log('skaldjfsd');
         self.pixels = new Uint32Array(self.length);
 
         self.RGB = function(red, green, blue) {        
@@ -56,7 +57,7 @@ var Matrix = module.exports = function(config) {
         }
 
         self.fill = function(color) {
-
+            console.log('Filling');
             if (typeof color == 'string')
                 color = Color(color).rgbNumber();
     

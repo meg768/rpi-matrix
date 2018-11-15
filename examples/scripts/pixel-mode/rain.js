@@ -129,6 +129,6 @@ class Sample extends Matrix {
 
 }
 
-var sample = new Sample({ width: 32, height: 32 });
+var sample = new Sample({mode:'pixel', 'led-gpio-mapping':'adafruit-hat-pwm', 'led-rgb-sequence':'RBG', 'led-cols':64, 'led-rows':64, 'led-scan-mode':0});
 sample.run();
 
