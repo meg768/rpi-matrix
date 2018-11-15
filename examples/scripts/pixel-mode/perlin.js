@@ -211,6 +211,8 @@ SimplexNoise.prototype.noise3d = function (xin, yin, zin) {
     // The result is scaled to stay just inside [-1,1] 
     return 32.0 * (n0 + n1 + n2 + n3);
 };
+
+
 class Sample extends Matrix {
 
     constructor(options) {
@@ -218,16 +220,20 @@ class Sample extends Matrix {
 
     }
 
+    // A really bad implementation of Simplex Noise...
+
     run() {
         var noise = new SimplexNoise();
-        var zoff = 0;
+        var xoff = 0;
         var yoff = 0;
+        var zoff = 0;
         var step = 0.1;
         for (;;) {
 
             for (var y = 0; y < this.height; y++) {
 
-                var xoff = 0;
+                xoff = 0;
+                
                 for (var x = 0; x < this.width; x++) {
                     var value = noise.noise(xoff, yoff, zoff);
                     zoff += step / 100;
@@ -237,9 +243,10 @@ class Sample extends Matrix {
                     this.setPixelRGB(x, y, value, 0, 0);
                     xoff += step;
                 }
+
                 yoff += step;
             }
-            this.render({ blend: 250 });
+            this.render({ blend: 100 });
 
         }
     }
