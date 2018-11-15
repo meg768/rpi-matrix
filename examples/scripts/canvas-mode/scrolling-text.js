@@ -37,6 +37,8 @@ class Sample extends Matrix {
     scrollCanvas(canvas) {
         return new Promise((resolve, reject) => {
             try {
+                console.log('Canvas height', canvas.height);
+                console.log('This height', this.height);
                 if (canvas.height != this.height)
                     throw new Error('Canvas height does not match matrix height.');
 
@@ -76,5 +78,5 @@ class Sample extends Matrix {
     }
 };
 
-var sample = new Sample({hardware_mapping:'adafruit-hat-pwm', led_rgb_sequence:'RBG', cols:64, rows:64, scan_mode:0});
+var sample = new Sample({mode:'canvas', 'led-gpio-mapping':'adafruit-hat-pwm', 'led-rgb-sequence':'RBG', 'led-cols':64, 'led-rows':64, 'led-scan-mode':0});
 sample.run();

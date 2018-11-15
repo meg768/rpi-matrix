@@ -27,9 +27,33 @@ is updated with the proper components to compile.
 
 Constructs a new matrix object. The **config** argument must contain the following values.
 
-- **width**      - Specifies the width of the display.
-- **height**     - Specifies the height of the display.
+- **width**      - Specifies the width of the display. Same as **led-cols** below.
+- **height**     - Specifies the height of the display. Same as **led-rows** below.
 - **mode**       - Specifies mode, either **pixel** or **canvas**
+
+This module also supports all of the command line options available with
+the samples from H Zeller. See https://github.com/hzeller/rpi-rgb-led-matrix
+for details.
+
+- **led-rows**  
+- **led-cols**  
+- **led-row-addr-type**
+- **led-multiplexing**
+- **led-gpio-mapping**
+- **led-chain**
+- **led-parallel**
+- **led-pixel-mapper**
+- **led-brightness**
+- **led-pwm-bits**
+- **led-show-refresh**
+- **led-scan-mode**
+- **led-pwm-lsb-nanoseconds**
+- **led-pwm-dither-bits**
+- **led-slowdown-gpio**
+- **led-no-hardware-pulse**
+- **led-inverse**
+- **led-rgb-sequence**
+
 
 ### Example
 

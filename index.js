@@ -17,19 +17,13 @@ var Matrix = module.exports = function(config) {
 
     var options = Object.assign({}, config);
 
-    if (options.width)
-        options.cols = options.width;
+    self.mode   = options.mode ? options.mode : 'pixel';
+    self.width  = options['led-rows'] || options['led_rows'] || options['width'];
+    self.height = options['led-cols'] || options['led_cols'] || options['height'];
+    self.length = self.width * self.height;
 
-    if (options.height)
-        options.rows = options.height;
-
-    console.log(options);
     matrix.configure(options);
 
-    self.mode   = options.mode ? options.mode : 'pixel';
-    self.width  = options.cols;
-    self.height = options.rows;
-    self.length = self.width * self.height;
 
     self.sleep = function(ms) {
         matrix.sleep(ms)
