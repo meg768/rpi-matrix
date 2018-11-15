@@ -309,8 +309,8 @@ NAN_METHOD(Addon::render)
         v8::Local<v8::Uint32Array> array = info[0].As<v8::Uint32Array>();
 
         void *imageData = array->Buffer()->GetContents().Data();
+        int imageWidth  = array->Buffer()->GetContents().ByteLength() / height / 4;
         int imageHeight = height;
-        int imageWidth  = array->Length() / height;
         int isRGBA      = info[0]->IsUint8ClampedArray();
 
         if (!scroll->IsUndefined()) {

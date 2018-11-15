@@ -5,7 +5,7 @@ class Sample extends Matrix {
 
     run() {
         var color = this.RGB(0, 0, 255);
-        console.log('Filling', color);
+
         this.fill(this.RGB(0, 0, 255));
         this.render();
 

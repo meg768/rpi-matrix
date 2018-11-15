@@ -26,7 +26,6 @@ var Matrix = module.exports = function(config) {
     self.mode   = options.mode ? options.mode : 'pixel';
     self.width  = options['led-rows'] || options['led_rows'] || options['width'];
     self.height = options['led-cols'] || options['led_cols'] || options['height'];
-    self.length = self.width * self.height;
 
     matrix.configure(options);
 
@@ -43,9 +42,12 @@ var Matrix = module.exports = function(config) {
         return matrix.render(image, options);
     }
     
+    if (self.mode == 'raw') {
+    
+    }
 
-    if (this.mode == 'rgb' || this.mode == 'pixel') {
-        self.pixels = new Uint32Array(self.length);
+    else if (this.mode == 'pixel') {
+        self.pixels = new Uint32Array(self.width * self.height);
 
         self.RGB = function(red, green, blue) {        
             return ((red << 16) | (green << 8) | blue);
@@ -59,7 +61,7 @@ var Matrix = module.exports = function(config) {
             if (typeof color == 'string')
                 color = Color(color).rgbNumber();
     
-            for (var i = 0; i < this.length; i++)
+            for (var i = 0; i < this.pixels.length; i++)
                 this.pixels[i] = color;
         }
 
@@ -156,7 +158,7 @@ var Matrix = module.exports = function(config) {
     
     }
     else
-        throw new Error("Invalid matrix mode. Specify 'pixel' or 'canvas'.");
+        throw new Error("Invalid matrix mode. Specify 'raw', 'pixel' or 'canvas'.");
 
 }
 

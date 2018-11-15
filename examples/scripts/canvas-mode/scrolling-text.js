@@ -3,12 +3,6 @@ var Matrix = require('../../../index.js');
 
 class Sample extends Matrix {
 
-    constructor(options) {
-        super({...options, ...{mode:'canvas'}});
-    }
-
-  
-
     createText(text) {
         var ctx = null;
         
@@ -37,8 +31,8 @@ class Sample extends Matrix {
     scrollCanvas(canvas) {
         return new Promise((resolve, reject) => {
             try {
-                console.log('Canvas height', canvas.height);
-                console.log('This height', this.height);
+                console.log('Canvas size', canvas.width, 'x', canvas.height);
+
                 if (canvas.height != this.height)
                     throw new Error('Canvas height does not match matrix height.');
 
