@@ -85,15 +85,27 @@ for details.
 
 When used in **pixel** mode the following methods are available
 
-- **clear()**                      - Clears the matrix, all pixels off
-- **fill(color)**                  - Fills entire matrix with a color
-- **setPixel(x, y, color)**        - Set pixel at specified position
-- **getPixel(x, y)**               - Returns color at specified location
-- **setPixelRGB(x, y, r, g, b)**   - Sets a pixel using RGB colors
-- **setPixelHLS(x, y, h, l, s)**   - Sets a pixel using HLS colors
-- **render([pixels], [options])**  - Renders the current pixels to the matrix. The **options** parameter may contain **blend** or **sleep** values.
-- **RGB(r, g, b)**                 - Returns a RGB color as an integer
-- **HLS(h, l, s)**                 - Returns a HLS color as an integer
+### Methods
+
+- **clear()**                       - Clears the matrix, all pixels off
+- **fill(color)**                   - Fills entire matrix with a color
+- **setPixel(x, y, color)**         - Set pixel at specified position
+- **getPixel(x, y)**                - Returns color at specified location
+- **setPixelRGB(x, y, r, g, b)**    - Sets a pixel using RGB colors
+- **setPixelHLS(x, y, h, l, s)**    - Sets a pixel using HLS colors
+- **render([image], [options])**    - Renders the current pixels (or specified image) to the matrix. The **options** parameter may contain **blend** or **scroll** values. See source code for details.
+- **RGB(r, g, b)**                  - Returns a RGB color as an integer
+- **HLS(h, l, s)**                  - Returns a HLS color as an integer
+- **loadImage(image)**              - Helper function to load PNG or JPEG images. Returns a **Promise** when loaded.
+- **renderImage(image)**            - Renders a loaded image to the display.
+- **sleep(milliseconds)**           - Helper function. Sleep the number of milliseconds specified.
+
+### Member Variables
+
+- **mode**    - Specifies the matrix mode. Either **pixel** or **canvas**.
+- **width**   - Specifies the width of the display
+- **height**  - Specifies the height of the display
+- **pixels**  - An array (Uint32Array) representing the pixels.
 
 ## Canvas Mode
 
@@ -111,10 +123,21 @@ Example
 
 When used in **canvas** mode the following methods are available
 
-- **getCanvas()**                 - Returns the canvas associated with the matrix display. Also available as member variable **matrix.canvas**.
-- **createCanvas(width, height)** - Creates and returns an off-screen canvas that may be used for more advanced graphics.
-- **loadImage(image)**            - Helper function to load PNG or JPEG images. Returns a **Promise** when loaded.
-- **render([image], [options])**    - Renders the current canvas (or specified image) to the matrix. The **options** parameter may contain **blend** or **sleep** values.
+### Methods
+
+- **getCanvas()**                   - Returns the canvas associated with the matrix display. Also available as member variable **matrix.canvas**.
+- **createCanvas(width, height)**   - Creates and returns an off-screen canvas that may be used for more advanced graphics.
+- **loadImage(image)**              - Helper function to load PNG or JPEG images. Returns a **Promise** when loaded.
+- **renderImage(image)**            - Renders a loaded image to the display.
+- **render([image], [options])**    - Renders the current canvas (or specified image) to the matrix. The **options** parameter may contain **blend** or **scroll** values. See source code for details.
+- **sleep(milliseconds)**           - Helper function. Sleep the number of milliseconds specified.
+
+### Member Variables
+
+- **mode**    - Specifies the matrix mode. Either **pixel** or **canvas**.
+- **width**   - Specifies the width of the display
+- **height**  - Specifies the height of the display
+- **canvas**  - The canvas used.
 
 ### Simple Example using Canvas Mode
 
