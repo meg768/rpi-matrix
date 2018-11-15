@@ -310,7 +310,7 @@ NAN_METHOD(Addon::render)
 
         void *imageData = array->Buffer()->GetContents().Data();
         int imageHeight = height;
-        int imageWidth  = array->Length() / height / 4;
+        int imageWidth  = array->Length() / height;
         int isRGBA      = info[0]->IsUint8ClampedArray();
 
         if (!scroll->IsUndefined()) {
