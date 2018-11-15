@@ -20,5 +20,5 @@ class Sample extends Matrix {
     }
 };
 
-var sample = new Sample({mode:'canvas', width:32, height:32});
+var sample = new Sample({mode:'canvas', hardware_mapping:'adafruit-hat-pwm', led_rgb_sequence:'RBG', cols:64, rows:64, scan_mode:0});
 sample.run();

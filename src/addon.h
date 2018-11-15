@@ -27,12 +27,12 @@ public:
 
 	static NAN_METHOD(configure);
 	static NAN_METHOD(render);
-	static NAN_METHOD(scroll);
+	static NAN_METHOD(sleep);
 
 private:
 	static Matrix *_matrix;
+	static RGBA *_tmp;
 	static RGBA *_pixels;
-	static RGBA *_screen;
 
 };
 

@@ -3,6 +3,14 @@ var matrix = require(path.join(__dirname, "build", "Release", "rpi-matrix.node")
 var Canvas = require('canvas');
 var Color  = require('color');
 
+function isPixels(value) {
+    return (value instanceof Buffer) || (value instanceof Uint32Array) || (value instanceof Uint8ClampedArray);
+}
+
+function isObject(value) {
+    return (value instanceof Object);
+}
+
 var Matrix = module.exports = function(config) {
 
     var self = this;
@@ -23,19 +31,18 @@ var Matrix = module.exports = function(config) {
     self.height = options.rows;
     self.length = self.width * self.height;
 
-    self.renderDelay = undefined;
-
-    function isPixels(value) {
-        return (value instanceof Buffer) || (value instanceof Uint32Array) || (value instanceof Uint8ClampedArray);
+    self.sleep = function(ms) {
+        matrix.sleep(ms)
     }
 
-    function isObject(value) {
-        return (value instanceof Object);
+    self.loadImage = function(image) {
+        return Canvas.loadImage(image);
     }
-
-    self.renderRaw = function (a, b) {
-        matrix.render(a, b);
+    
+    self.renderImage = function(image, options) {
+        return matrix.render(image, options);
     }
+    
 
     if (this.mode == 'rgb' || this.mode == 'pixel') {
         self.pixels = new Uint32Array(self.length);
@@ -119,10 +126,6 @@ var Matrix = module.exports = function(config) {
         
         self.createCanvas = function(width, height) {
             return Canvas.createCanvas(width, height);
-        }
-
-        self.loadImage = function(image) {
-            return Canvas.loadImage(image);
         }
 
         self.render = function() {

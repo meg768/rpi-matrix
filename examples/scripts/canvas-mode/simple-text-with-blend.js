@@ -18,16 +18,18 @@ class Sample extends Matrix {
         ctx.fillText('X', this.width / 2, this.height / 2);
 
         // Fade in
-        this.render({blend:500});
+        this.render({blend:250});
 
         // Clear matrix
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, this.width, this.height);
 
         // Fade out
-        this.render({blend:100});
+        this.render({blend:250});
 
     }
 };
-var sample = new Sample({mode:'canvas', width:32, height:32});
+
+var sample = new Sample({mode:'canvas', hardware_mapping:'adafruit-hat-pwm', led_rgb_sequence:'RBG', cols:64, rows:64, scan_mode:0});
 sample.run();
+

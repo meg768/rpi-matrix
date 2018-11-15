@@ -3,7 +3,7 @@
 
 Matrix *Addon::_matrix = NULL;
 RGBA *Addon::_pixels = NULL;
-RGBA *Addon::_screen = NULL;
+RGBA *Addon::_tmp = NULL;
 
 NAN_METHOD(Addon::configure)
 {
@@ -156,8 +156,8 @@ NAN_METHOD(Addon::configure)
     printf("led_rgb_sequence         : %s\n", opts.led_rgb_sequence == NULL ? "" : opts.led_rgb_sequence);
     printf("pixel_mapper_config      : %s\n", opts.pixel_mapper_config == NULL ? "" : opts.pixel_mapper_config);
 
-    if (_screen != NULL)
-        delete _screen;
+    if (_tmp != NULL)
+        delete _tmp;
 
     if (_pixels != NULL)
         delete _pixels;
@@ -170,13 +170,25 @@ NAN_METHOD(Addon::configure)
     int size = opts.rows * opts.cols;
 
 	_pixels = new RGBA[size];
-	_screen = new RGBA[size];
+	_tmp = new RGBA[size];
 
     memset(_pixels, 0, sizeof(RGBA) * size);
-    memset(_screen, 0, sizeof(RGBA) * size);
+    memset(_tmp, 0, sizeof(RGBA) * size);
 
 	info.GetReturnValue().Set(Nan::Undefined());
 };
+
+
+NAN_METHOD(Addon::sleep)
+{
+	Nan::HandleScope();
+
+    usleep(info[0]->Int32Value() * 1000);
+
+    info.GetReturnValue().Set(Nan::Undefined());
+
+}
+
 
 
 NAN_METHOD(Addon::render)
@@ -189,287 +201,182 @@ NAN_METHOD(Addon::render)
             return Nan::ThrowError("Matrix is not configured.");
         }
 
-    	int argc   = info.Length();
-        int blend  = 0;
-        int sleep  = 0;
-        int width  = _matrix->width();
-        int height = _matrix->height();
+    	int argc    = info.Length();
+        int width   = _matrix->width();
+        int height  = _matrix->height();
+
+    	v8::Local<v8::Value> scroll = Nan::Undefined();
+    	v8::Local<v8::Value> scrollDelay = Nan::Undefined();
+    	v8::Local<v8::Value> blend = Nan::Undefined();
 
         if (argc < 1) {
             return Nan::ThrowError("draw requires at least one argument.");
         }
 
         if (argc > 1) {
-
             if (info[1]->IsObject()) {
                 v8::Local<v8::Object> options = v8::Local<v8::Object>::Cast(info[1]);
 
-                sleep = options->Get(Nan::New<v8::String>("sleep").ToLocalChecked())->Int32Value();
-                blend = options->Get(Nan::New<v8::String>("blend").ToLocalChecked())->Int32Value();
+                scrollDelay = options->Get(Nan::New<v8::String>("scrollDelay").ToLocalChecked());
+                scroll = options->Get(Nan::New<v8::String>("scroll").ToLocalChecked());
+                blend = options->Get(Nan::New<v8::String>("blend").ToLocalChecked());
 
             }
         }
 
         v8::Local<v8::Uint32Array> array = info[0].As<v8::Uint32Array>();
 
-        void *data = array->Buffer()->GetContents().Data();
-        int32_t *contents = static_cast<int32_t*>(data);        
+        void *imageData = array->Buffer()->GetContents().Data();
+        int imageHeight = height;
+        int imageWidth  = array->Length() / height / 4;
+        int isRGBA      = info[0]->IsUint8ClampedArray();
 
-        if (contents == NULL)
-            return Nan::ThrowError("Image must be a Buffer, Uint32Array or Uint8ClampedArray");
-
-        if (info[0]->IsUint8ClampedArray()) {
-
-            RGBA *src = (RGBA *)contents;
-            RGBA *dst = _pixels;
-
-            for (int y = 0; y < height; y++) {
-                for (int x = 0; x < width; x++) {
-                    
-                    dst->red   = (src->red   * src->alpha) / 255;
-                    dst->green = (src->green * src->alpha) / 255;
-                    dst->blue  = (src->blue  * src->alpha) / 255;
-                    dst->alpha = 255;
-
-                    src++, dst++;
-                    
-                }
-            }
-
-        }
-        else {
-            BGRA *src = (BGRA *)contents;
-            RGBA *dst = _pixels;
-
-            for (int y = 0; y < height; y++) {
-                for (int x = 0; x < width; x++) {
-                    
-                    dst->red   = src->red;
-                    dst->green = src->green;
-                    dst->blue  = src->blue;
-                    dst->alpha = 255;
-
-                    /*
-                    dst->red   = (src->red   * src->alpha) / 255;
-                    dst->green = (src->green * src->alpha) / 255;
-                    dst->blue  = (src->blue  * src->alpha) / 255;
-                    dst->alpha = 255;
-                    */
-                   
-                    src++, dst++;
-                    
-                }
-            }
-        }
-
-  
-
-        if (blend > 0) {
-            int numSteps = blend;
-
-            for (int step = 0; step < numSteps; step++) {
-
-                RGBA *pp = _pixels;
-                RGBA *sp = _screen;
-
-                for (int y = 0; y < height; y++) {
-                    for (int x = 0; x < width; x++) {
-                        int red   = (sp->red + (step * (pp->red - sp->red)) / numSteps);
-                        int green = (sp->green + (step * (pp->green - sp->green)) / numSteps);
-                        int blue  = (sp->blue + (step * (pp->blue - sp->blue)) / numSteps);
-
-                        _matrix->setPixel(x, y, red, green, blue);
-                        sp++, pp++;             
-                    }
-                }
-
-                _matrix->refresh();
-
-            }
-        }
-
-        if (true) {
-            RGBA *pp = _pixels;
-            RGBA *sp = _screen;
-
-            for (int y = 0; y < height; y++) {
-                for (int x = 0; x < width; x++) {
-                    _matrix->setPixel(x, y, pp->red, pp->green, pp->blue);                    
-                    *sp++ = *pp++;
-                }
-            }
-            
-        }
-
-        _matrix->refresh();
-
-        if (sleep > 0) {
-            usleep(sleep * 1000);
-
-        }
-    }
-    
-    catch (exception &error) {
-        string what = error.what();
-        string message = string("Failed reading image: ") + what;
-
-		return Nan::ThrowError(message.c_str());
-    }
-    catch (...) {
-        return Nan::ThrowError("Unhandled error");
-    }
-
-	info.GetReturnValue().Set(Nan::Undefined());
-
-};
-
-
-
-NAN_METHOD(Addon::scroll)
-{
-	Nan::HandleScope();
-
-
-    try {
-        if (_matrix == NULL) {
-            return Nan::ThrowError("Matrix is not configured.");
-        }
-
-    	int argc   = info.Length();
-        int sleep  = 0;
-        int width  = _matrix->width();
-        int height = _matrix->height();
-
-        if (argc < 1) {
-            return Nan::ThrowError("draw requires at least one argument.");
-        }
-
-        if (argc > 1) {
-
-            if (info[1]->IsObject()) {
-                v8::Local<v8::Object> options = v8::Local<v8::Object>::Cast(info[1]);
-
-                sleep = options->Get(Nan::New<v8::String>("sleep").ToLocalChecked())->Int32Value();
-
-            }
-        }
-
-        if (!info[0]->IsUint8ClampedArray())
-            return Nan::ThrowError("Image must be a Uint8ClampedArray");
-
-        v8::Local<v8::Uint8ClampedArray> array = info[0].As<v8::Uint8ClampedArray>();
-
-
-        if (true) {
-
-            int imageHeight = height;
-            int imageWidth  = array->Length() / height / 4;
-
-            printf("ImageHeight %d\n", imageHeight);
-            printf("ImageWidth %d\n", imageWidth);
-
-            void *data = array->Buffer()->GetContents().Data();
-            RGBA *image = static_cast<RGBA *>(data);        
-            int scrollOffset = 0;
+        if (!scroll->IsUndefined()) {
+            int delay = scrollDelay->IsUndefined() ? 0 : scrollDelay->Int32Value();
 
             for (int i = 0; i < imageWidth; i++) {
 
+                // Shift pixels one step left
                 for (int y = 0; y < height; y++) {
-                    for (int x = 0; x < width; x++) {
-                        RGBA *dst = _pixels + (y * width) + x;
+                    for (int x = 1; x < width; x++) {
+                        RGBA *src = _pixels + (y * width) + x;
+                        RGBA *dst = _pixels + (y * width) + (x - 1);
                         
-                        if (x == width - 1) {
-                            RGBA *src = image + (y * imageWidth) + x + i + 1;
+                        *dst = *src;
+                    }
+                }
 
-                            dst->red   = (src->red   * src->alpha) / 255;
-                            dst->green = (src->green * src->alpha) / 255;
-                            dst->blue  = (src->blue  * src->alpha) / 255;
-                            dst->alpha = 255;
+                if (isRGBA) {
+                    RGBA *image = static_cast<RGBA *>(imageData);        
 
+                    // Render last column
+                    for (int y = 0; y < height; y++) {
+                        RGBA *src = image + (y * imageWidth) + i;
+                        RGBA *dst = _pixels + ((y+1) * width) - 1;
 
-                        }
-                        else {
-                            RGBA *src = _screen + (y * width) + x + 1;
-
-                            *dst = *src;
-
-
-                        }
-                        _matrix->setPixel(x, y, dst->red, dst->green, dst->blue);                    
+                        dst->red   = (src->red   * src->alpha) / 255;
+                        dst->green = (src->green * src->alpha) / 255;
+                        dst->blue  = (src->blue  * src->alpha) / 255;
+                        dst->alpha = 255;
 
                     }
                 }
-                _matrix->refresh();
-                memcpy(_screen, _pixels, width * height * sizeof(RGBA));
+                else {
+                    BGRA *image = static_cast<BGRA *>(imageData);        
 
-                usleep(1000 * 10);
+                    // Render last column
+                    for (int y = 0; y < height; y++) {
+                        BGRA *src = image + (y * imageWidth) + i;
+                        RGBA *dst = _pixels + ((y+1) * width) - 1;
+
+                        dst->red   = (src->red   * src->alpha) / 255;
+                        dst->green = (src->green * src->alpha) / 255;
+                        dst->blue  = (src->blue  * src->alpha) / 255;
+                        dst->alpha = 255;
+
+                    }
+
+                }
+
+                if (true) {
+                    RGBA *pp = _pixels;
+
+                    for (int y = 0; y < height; y++) {
+                        for (int x = 0; x < width; x++, pp++) {
+                            _matrix->setPixel(x, y, pp->red, pp->green, pp->blue);                    
+                        }
+                    }
+                    
+                    _matrix->refresh();
+
+                    if (delay > 0) {
+                        usleep(delay * 1000);
+                    }            
+
+                }                    
 
             }
-            if (sleep > 0) {
-                usleep(sleep * 1000);
-            }            
 
+            memcpy(_tmp, _pixels, width * height * sizeof(RGBA));
 
         }
-/*
         else {
-            int imageHeight = height;
-            int imageWidth  = array->Length() / height / 4;
 
-            printf("ImageHeight %d\n", imageHeight);
-            printf("ImageWidth %d\n", imageWidth);
-
-            void *data = array->Buffer()->GetContents().Data();
-            RGBA *image = static_cast<RGBA *>(data);        
-
-            for (int scrollOffset = 0; scrollOffset < imageWidth; scrollOffset++) {
+            if (isRGBA) {
+                RGBA *image = static_cast<RGBA *>(imageData);        
 
                 for (int y = 0; y < height; y++) {
                     for (int x = 0; x < width; x++) {
+                        RGBA *src = image + (y * imageWidth) + x;
+                        RGBA *dst = _tmp + (y * width) + x;
 
-                        RGBA *dst = _pixels + (y * width) + x;
-
-                        int scrollX = x + scrollOffset - width;
-                        int scrollY = y;
-
-                        if (scrollX < 0) {
-                            RGBA *src = _screen + (y * width) + x;
-
-                            *dst = *src;
-                        }
-                        else if (scrollX >= imageWidth) {
-                            dst->red   = 128;
-                            dst->green = 0;
-                            dst->blue  = 0;
-                            dst->alpha = 255;
-                        }
-                        else {
-                            RGBA *src = image + (scrollY * imageWidth) + scrollX;
-
-                            dst->red   = (src->red   * src->alpha) / 255;
-                            dst->green = (src->green * src->alpha) / 255;
-                            dst->blue  = (src->blue  * src->alpha) / 255;
-                            dst->alpha = 255;
-                        }
-
-                        _matrix->setPixel(x, y, dst->red, dst->green, dst->blue);                    
-
+                        dst->red   = (src->red   * src->alpha) / 255;
+                        dst->green = (src->green * src->alpha) / 255;
+                        dst->blue  = (src->blue  * src->alpha) / 255;
+                        dst->alpha = 255;                            
                     }
-        
-                }
-
-                _matrix->refresh();
-                memcpy(_screen, _pixels, width * height * sizeof(RGBA));
-
-                if (sleep > 0) {
-                    usleep(sleep * 1000);
                 }
 
             }
+            else {
+                BGRA *image = static_cast<BGRA *>(imageData);        
 
+                for (int y = 0; y < height; y++) {
+                    for (int x = 0; x < width; x++) {
+                        BGRA *src = image + (y * imageWidth) + x;
+                        RGBA *dst = _tmp + (y * width) + x;
+
+                        dst->red   = (src->red   * src->alpha) / 255;
+                        dst->green = (src->green * src->alpha) / 255;
+                        dst->blue  = (src->blue  * src->alpha) / 255;
+                        dst->alpha = 255;                            
+                    }
+                }
+            }
+
+
+            if (blend->IsInt32()) {
+                int numSteps = blend->Int32Value();
+
+                for (int step = 0; step < numSteps; step++) {
+
+                    RGBA *tp = _tmp;
+                    RGBA *pp = _pixels;
+
+                    for (int y = 0; y < height; y++) {
+                        for (int x = 0; x < width; x++) {
+                            int red   = (pp->red   + (step   * (tp->red   - pp->red)) / numSteps);
+                            int green = (pp->green + (step   * (tp->green - pp->green)) / numSteps);
+                            int blue  = (pp->blue  + (step   * (tp->blue  - pp->blue)) / numSteps);
+
+                            _matrix->setPixel(x, y, red, green, blue);
+                            pp++, tp++;             
+                        }
+                    }
+
+                    _matrix->refresh();
+
+                }
+            }
+
+            if (true) {
+                RGBA *src = _tmp;
+                RGBA *dst = _pixels;
+
+                for (int y = 0; y < height; y++) {
+                    for (int x = 0; x < width; x++) {
+                        _matrix->setPixel(x, y, src->red, src->green, src->blue);                    
+                        *dst++ = *src++;
+                    }
+                }
+
+                _matrix->refresh();
+
+            }
 
         }
-        */
+
+
 
     }
     
@@ -492,7 +399,7 @@ NAN_MODULE_INIT(initAddon)
 {
 	Nan::SetMethod(target, "configure",  Addon::configure);
 	Nan::SetMethod(target, "render",     Addon::render);
-	Nan::SetMethod(target, "scroll",     Addon::scroll);
+	Nan::SetMethod(target, "sleep",      Addon::sleep);
 }
 
 

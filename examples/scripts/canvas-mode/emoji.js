@@ -18,19 +18,15 @@ class Sample extends Matrix {
             var canvas = this.createCanvas(this.width, this.height);
             var ctx = canvas.getContext('2d');
 
-            var margin = canvas.height * 0;
+            var margin = canvas.height * 0.15;
             var scale = (canvas.height - margin) / image.height;  
 
             var imageWidth = image.width * scale;
             var imageHeight = image.height * scale;
 
-            console.log(imageWidth, imageHeight);
-
             ctx.drawImage(image, 0, 0, imageWidth, imageHeight);
 
-            var scaledImage = ctx.getImageData(0, 0, this.width, this.height);
-            console.log(scaledImage.width, scaledImage.height, scale);
-            this.scroll(scaledImage.data, {sleep:2000});
+            this.render(canvas.toBuffer('raw'), {scroll:'left', scrollDelay:10});
 
             resolve();
         });
@@ -60,29 +56,8 @@ class Sample extends Matrix {
         });
 
     }
-    runxxx() {
-        this.getEmoji('beer').then((image) => {
-            return this.displayImage(image);
-        })
-        this.getEmoji('grapes').then((image) => {
-            return this.scrollImage(image);
-        })
-        this.getEmoji('grinning').then((image) => {
-            return this.scrollImage(image);
-        })
-        this.getEmoji('joy').then((image) => {
-            return this.scrollImage(image);
-        })
-        this.getEmoji('partly_sunny').then((image) => {
-            return this.scrollImage(image);
-        })
 
-        .catch((error) => {
-            console.log(error);
-        });
-
-    }
-
+    
     run() {
         this.getEmoji('beer').then((image) => {
             return this.scrollImage(image);
@@ -107,4 +82,4 @@ class Sample extends Matrix {
 };
 
 var sample = new Sample({mode:'canvas', hardware_mapping:'adafruit-hat-pwm', led_rgb_sequence:'RBG', cols:64, rows:64, scan_mode:0});
-sample.runxxx();
+sample.run();
