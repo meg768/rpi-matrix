@@ -122,8 +122,6 @@ class Sample extends Matrix  {
 
         return new Promise((resolve, reject) => {
             var output = [];
-            var regexp = new RegExp(/(\:[\w\-\+]+\:)/g);
-    
             var regexp = new RegExp(/(\:[\w\-\+]+\:|\{[\w\-\+]+\})/g);
             var emojiRegExp = new RegExp(/(\:[\w\-\+]+\:)/g);
             var colorRegExp = new RegExp(/(\{[\w\-\+]+\})/g);
