@@ -225,4 +225,4 @@ class Sample extends Matrix  {
 var sample = new Sample({mode:'canvas', 'led-gpio-mapping':'adafruit-hat-pwm', 'led-rgb-sequence':'RBG', 'led-cols':64, 'led-rows':64, 'led-scan-mode':1});
 //sample.run('{red}Jag vill ha en :beer: tror jag. {blue}Nej, vill ha :grapes: istället. {white}Vädret i morgon :partly_sunny:...');
 
-sample.run('{white}Fått regexp att funka! :sunglasses: {lightgreen}Nästa steg är att få det att funka med {blue}G{red}o{yellow}o{blue}g{green}l{red}e {white}home... :winking:');
+sample.run('{white}Fått regexp att funka! :sunglasses: {lightgreen}Nästa steg är att få det att funka med {blue}G{red}o{yellow}o{blue}g{green}l{red}e {white}home... :wink:');
