@@ -9,13 +9,14 @@ class Sample extends Matrix  {
         super(matrixOptions);
 
         var defaultOptions = {
-            scrollDelay: 10,
-            fontSize: 0.35,
-            fontName: 'Arial'
+            scrollDelay : 10,
+            fontSize    : 0.35,
+            emojiSize   : 0.60,
+            fontName    : 'Arial',
+            textColor   : 'purple'
         };
 
         this.options = {...defaultOptions, ...options};
-        console.log('OPTIONS:', this.options);
     }
 
     loadEmojis(folder) {
@@ -52,7 +53,7 @@ class Sample extends Matrix  {
         ctx.font = myctx.font;
         ctx.fillStyle = myctx.fillStyle;
         ctx.textAlign = 'center';
-        ctx.textBaseline = myctx.textBaseline;
+        ctx.textBaseline = 'middle';
 
         ctx.fillText(text, canvas.width / 2, canvas.height / 2);
 
@@ -60,7 +61,7 @@ class Sample extends Matrix  {
     }
 
     createEmojiImage(image) {
-        var margin = this.height * 0.5;
+        var margin = this.height * (1 - this.options.emojiSize);
         var scale = (this.height - margin) / image.height;  
 
         var imageWidth = image.width * scale;
@@ -153,7 +154,6 @@ class Sample extends Matrix  {
                 }
             });
     
-            console.log(output);
             var promise = Promise.resolve();
 
             output.forEach((item) => {
@@ -200,9 +200,8 @@ class Sample extends Matrix  {
     run(text) {
 
         var ctx = this.canvas.getContext('2d');
-        ctx.font = '' + this.height * this.options.fontSize + 'px ' + this.options.fontName;
-        ctx.fillStyle = 'red';
-        ctx.textBaseline = 'middle';
+        ctx.font = '' + (this.height * this.options.fontSize) + 'px ' + this.options.fontName;
+        ctx.fillStyle = this.options.textColor;
 
         this.loadEmojis(path.join(__dirname, '../../emojis'));
 
@@ -219,10 +218,5 @@ class Sample extends Matrix  {
 };
 
 
-
-
-
 var sample = new Sample({mode:'canvas', 'led-gpio-mapping':'adafruit-hat-pwm', 'led-rgb-sequence':'RBG', 'led-cols':64, 'led-rows':64, 'led-scan-mode':1});
-//sample.run('{red}Jag vill ha en :beer: tror jag. {blue}Nej, vill ha :grapes: istället. {white}Vädret i morgon :partly_sunny:...');
-
-sample.run('{white}Fått regexp att funka! :sunglasses: {lightgreen}Nästa steg är att få det att funka med {blue}G{red}o{yellow}o{blue}g{green}l{red}e {white}home... :wink:');
+sample.run('Fått {white}regexp{yellow} att funka! :sunglasses: {lightgreen}Nästa steg är att få det att funka med {blue}G{red}o{yellow}o{blue}g{green}l{red}e {white}home... :wink:');
