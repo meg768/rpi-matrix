@@ -1,14 +1,18 @@
 #!/usr/bin/env node
 var Matrix = require('../../../index.js');
+var path = require('path');
+
+Matrix.registerFont(path.join(__dirname, '../../fonts/Verdana.ttf'), { family: 'what-ever' });
+
 
 class Sample extends Matrix {
 
-    createText(text) {
+    createTextImage(text) {
         var ctx = null;
         
         ctx = this.canvas.getContext('2d');
 
-        ctx.font = ` ${this.height / 2}px Arial`;
+        ctx.font = '' + this.height / 2 + 'px Verdana';
         ctx.fillStyle = 'red';
         ctx.textAlign = 'left';
         ctx.textBaseline = 'middle';
@@ -18,25 +22,21 @@ class Sample extends Matrix {
         var canvas = this.createCanvas(textSize.width + 2 * this.width, this.height);
 
         ctx = canvas.getContext('2d');
-        ctx.font = ` ${this.height / 2}px Arial`;
+        ctx.font = '' + this.height / 2 + 'px Verdana';
         ctx.fillStyle = 'blue';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
 
         ctx.fillText(text, canvas.width / 2, canvas.height / 2);
 
-        return canvas;
+        return ctx.getImageData(0, 0, canvas.width, canvas.height);
     }
 
-    scrollCanvas(canvas) {
+    scrollImage(image) {
         return new Promise((resolve, reject) => {
             try {
-                console.log('Canvas size', canvas.width, 'x', canvas.height);
 
-                if (canvas.height != this.height)
-                    throw new Error('Canvas height does not match matrix height.');
-
-                this.render(canvas.toBuffer('raw'), {scroll:'left', scrollDelay:10});
+                this.render(image.data, {scroll:'left', scrollDelay:10});
 
                 resolve();
     
@@ -49,7 +49,7 @@ class Sample extends Matrix {
     }
 
     scrollText(text) {
-        return this.scrollCanvas(this.createText(text));
+        return this.scrollImage(this.createTextImage(text));
     }
 
     delay(ms = 1000) {
@@ -72,5 +72,5 @@ class Sample extends Matrix {
     }
 };
 
-var sample = new Sample({mode:'canvas', 'led-gpio-mapping':'adafruit-hat-pwm', 'led-rgb-sequence':'RBG', 'led-cols':64, 'led-rows':64, 'led-scan-mode':0});
+var sample = new Sample({mode:'canvas', 'led-gpio-mapping':'adafruit-hat-pwm', 'led-rgb-sequence':'RBG', 'led-cols':64, 'led-rows':64, 'led-scan-mode':1});
 sample.run();

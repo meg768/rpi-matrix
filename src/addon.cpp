@@ -6,6 +6,28 @@ RGBA *Addon::_pixels = NULL;
 RGBA *Addon::_tmp = NULL;
 
 
+class Timer {
+
+public:
+	Timer(const char *text) {
+        _start = clock();
+        _stop  = 0;
+        _text  = text;
+    }
+
+    ~Timer() {
+        _stop = clock();
+
+        printf("%s %.2f milliseconds\n", _text, (1000.0 * double(_stop - _start)) / CLOCKS_PER_SEC);
+    }
+
+
+private:
+    clock_t _start;
+    clock_t _stop;
+    const char *_text;
+
+};
 
 NAN_METHOD(Addon::configure)
 {
@@ -277,6 +299,7 @@ NAN_METHOD(Addon::render)
 {
 	Nan::HandleScope();
 
+    //Timer timer("Total render time: ");
 
     try {
         if (_matrix == NULL) {
@@ -319,43 +342,66 @@ NAN_METHOD(Addon::render)
             for (int i = 0; i < imageWidth; i++) {
 
                 // Shift pixels one step left
-                for (int y = 0; y < height; y++) {
-                    for (int x = 1; x < width; x++) {
-                        RGBA *src = _pixels + (y * width) + x;
-                        RGBA *dst = _pixels + (y * width) + (x - 1);
+                if (true) {
+                    for (int y = 0; y < height; y++) {
                         
-                        *dst = *src;
+                        for (int x = 1; x < width; x++) {
+                            RGBA *src = _pixels + (y * width) + x;
+                            RGBA *dst = _pixels + (y * width) + (x - 1);
+
+                            _matrix->setPixel(x, y, src->red, src->green, src->blue);                    
+
+                            *dst = *src;
+
+                        }
                     }
+
                 }
 
+                /*
+                if (false) {
+                    for (int y = 0; y < height; y++) {
+                        RGBA *row = _pixels + (y * width);
+                        memmove(row, row + 1, (width - 1) * sizeof(RGBA));
+                    }
+
+                }
+                */
+
+
+                // Render last column
                 if (isRGBA) {
                     RGBA *image = static_cast<RGBA *>(imageData);        
 
-                    // Render last column
-                    for (int y = 0; y < height; y++) {
-                        RGBA *src = image + (y * imageWidth) + i;
-                        RGBA *dst = _pixels + ((y+1) * width) - 1;
+                    RGBA *src = image + imageWidth + i;
+                    RGBA *dst = _pixels + width - 1;
 
+                    for (int y = 0; y < height; y++) {
                         dst->red   = (src->red   * src->alpha) / 255;
                         dst->green = (src->green * src->alpha) / 255;
                         dst->blue  = (src->blue  * src->alpha) / 255;
                         dst->alpha = 255;
+
+                        dst += width;
+                        src += imageWidth;
 
                     }
                 }
                 else {
                     BGRA *image = static_cast<BGRA *>(imageData);        
 
-                    // Render last column
+                    BGRA *src = image + imageWidth + i;
+                    RGBA *dst = _pixels + width - 1;
+
                     for (int y = 0; y < height; y++) {
-                        BGRA *src = image + (y * imageWidth) + i;
-                        RGBA *dst = _pixels + ((y+1) * width) - 1;
 
                         dst->red   = (src->red   * src->alpha) / 255;
                         dst->green = (src->green * src->alpha) / 255;
                         dst->blue  = (src->blue  * src->alpha) / 255;
                         dst->alpha = 255;
 
+                        dst += width;
+                        src += imageWidth;
                     }
 
                 }

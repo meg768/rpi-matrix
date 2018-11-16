@@ -34,5 +34,7 @@
     "url": "https://github.com/meg768/rpi-matrix/issues"
   },
   "homepage": "https://github.com/meg768/rpi-matrix#readme",
-  "devDependencies": {}
+  "devDependencies": {
+    "color-name": "^1.1.4"
+  }
 }
