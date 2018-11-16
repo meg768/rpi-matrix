@@ -5,8 +5,17 @@ var path = require('path');
 
 class Sample extends Matrix  {
 
-    constructor(options) {
-        super(options);
+    constructor(matrixOptions, options) {
+        super(matrixOptions);
+
+        var defaultOptions = {
+            scrollDelay: 10,
+            fontSize: 0.35,
+            fontName: 'Arial'
+        };
+
+        this.options = {...defaultOptions, ...options};
+        console.log('OPTIONS:', this.options);
     }
 
     loadEmojis(folder) {
@@ -40,8 +49,8 @@ class Sample extends Matrix  {
         var canvas = this.createCanvas(textSize.width, this.height);
 
         var ctx = canvas.getContext('2d');
-        ctx.font = myctx.font; //'' + this.height * 0.4 + 'px Arial';
-        ctx.fillStyle = myctx.fillStyle; //'blue';
+        ctx.font = myctx.font;
+        ctx.fillStyle = myctx.fillStyle;
         ctx.textAlign = 'center';
         ctx.textBaseline = myctx.textBaseline;
 
@@ -193,7 +202,7 @@ class Sample extends Matrix  {
     run(text) {
 
         var ctx = this.canvas.getContext('2d');
-        ctx.font = '' + this.height * 0.35 + 'px Arial';
+        ctx.font = '' + this.height * this.options.fontSize + 'px ' + this.options.fontName;
         ctx.fillStyle = 'red';
         ctx.textBaseline = 'middle';
 
@@ -201,7 +210,7 @@ class Sample extends Matrix  {
 
         this.parse(text).then((context) => {
             var image = this.createDisplayImage(context);
-            this.render(image.data, {scroll:'left', scrollDelay:8});
+            this.render(image.data, {scroll:'left', scrollDelay:this.options.scrollDelay});
         })
         .catch(error => {
             console.log(error);
@@ -216,4 +225,6 @@ class Sample extends Matrix  {
 
 
 var sample = new Sample({mode:'canvas', 'led-gpio-mapping':'adafruit-hat-pwm', 'led-rgb-sequence':'RBG', 'led-cols':64, 'led-rows':64, 'led-scan-mode':1});
-sample.run('{red}Jag {green}vill {blue}ha en :beer:. {crimson}Eller kanske lite :wine_glass:? {blue}:sun_glasses:');
+//sample.run('{red}Jag vill ha en :beer: tror jag. {blue}Nej, vill ha :grapes: istället. {white}Vädret i morgon :partly_sunny:...');
+
+sample.run('{white}Fått regexp att funka! :sunglasses: {lightgreen}Nästa steg är att få det att funka med {blue}G{red}o{yellow}o{blue}g{green}l{red}e {white}home... :winking:');
