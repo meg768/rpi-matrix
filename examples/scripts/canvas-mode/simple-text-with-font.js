@@ -2,7 +2,7 @@
 var Matrix = require('../../../index.js');
 var path = require("path");
 
-Matrix.registerFont(path.join(__dirname, '../../fonts/Verdana.ttf'), { family: 'what-ever' });
+Matrix.Canvas.registerFont(path.join(__dirname, '../../fonts/Verdana.ttf'), { family: 'what-ever' });
 
 class Sample extends Matrix {
 

@@ -39,7 +39,7 @@ class Sample extends Matrix {
 
 
     run() {
-        var gif = new GIF.GifReader(this.loadGIF('pacman'));
+        var gif = new GIF.GifReader(this.loadGIF('circuitry'));
         var ctx = this.canvas.getContext('2d');
         var numFrames = gif.numFrames();
 
@@ -53,7 +53,7 @@ class Sample extends Matrix {
 
         ctx.scale(scaleX, scaleY);
 
-        if (scaleX > 1)
+        if (scaleX > 1 || scaleY > 1)
             ctx.imageSmoothingEnabled = false;
 
         for (;;) {
@@ -63,7 +63,6 @@ class Sample extends Matrix {
                 gif.decodeAndBlitFrameRGBA(i, image.data);
     
                 canvas.getContext("2d").putImageData(image, 0, 0);
-    
                 ctx.drawImage(canvas, 0, 0);
     
                 this.render();

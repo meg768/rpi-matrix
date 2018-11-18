@@ -162,6 +162,6 @@ var Matrix = module.exports = function(config) {
 
 }
 
-Matrix.registerFont = function(font, options) {
-    return Canvas.registerFont(font, options);
-}
+
+Matrix.Canvas = Canvas;
+Matrix.Color  = Color;

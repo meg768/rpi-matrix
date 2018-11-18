@@ -31,7 +31,7 @@ Constructs a new matrix object. The **config** argument must contain the followi
 - **height**     - Specifies the height of the display. Same as **led-rows** below.
 - **mode**       - Specifies mode, either **pixel** or **canvas**
 
-This module also supports all of the command line options available with
+This module also supports (almost) all of the command line options available with
 the samples from H Zeller. See https://github.com/hzeller/rpi-rgb-led-matrix
 for details.
 
@@ -54,6 +54,14 @@ for details.
 - **led-inverse**
 - **led-rgb-sequence**
 
+### Static Members
+
+This module has two dependencies, the npm module **canvas** and **color**.
+These may be access using the following static members.
+
+    - **Matrix.Canvas** - Contains the canvas API (same as **require('canvas')**)
+    - **Matrix.Color** - Contains the color API (same as **require('color')**)
+    
 
 ### Example
 
@@ -164,7 +172,7 @@ When used in **canvas** mode the following methods are available
 	var Matrix = require('rpi-matrix');
     var path = require("path");
 
-    Matrix.registerFont(path.join(__dirname, '../fonts/Verdana.ttf'), { family: 'what-ever' });
+    Matrix.Canvas.registerFont(path.join(__dirname, '../fonts/Verdana.ttf'), { family: 'what-ever' });
 
     class Sample extends Matrix {
 
@@ -188,6 +196,6 @@ When used in **canvas** mode the following methods are available
 
 The example above displays the letter 'X' centered on the display.
 To use fonts not already installed on you Raspberry Pi, make sure to
-call **Matrix.registerFont()** before any graphics are drawn.
+call **Matrix.Canvas.registerFont()** before any graphics are drawn.
 
 See https://github.com/meg768/rpi-matrix/tree/master/examples/scripts for more examples.
