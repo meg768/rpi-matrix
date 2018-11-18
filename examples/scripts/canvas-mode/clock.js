@@ -36,6 +36,27 @@ class Sample extends Matrix {
         return fs.readFileSync(fileName);    
     }
 
+    getLayerImage(psd, name) {
+        return new Promise((resolve, reject) => {
+            var layer = psd.tree().childrenAtPath(name)[0];
+            var image = layer.get('image');
+    
+            image.saveAsPng('X.png').then(() => {
+                return Promise.resolve();
+            })
+            .then(() => {
+                return this.loadImage('X.png');
+            })
+            .then((image) => {
+                resolve(image);
+            })
+            .catch(error => {
+                reject(error);
+            });
+    
+        });
+
+    }
 
     run() {
         var fileName = path.join(__dirname, '../../clocks', 'swiss-red' + '.psd');
@@ -44,6 +65,17 @@ class Sample extends Matrix {
 
         psd.parse();
 
+        this.getLayerImage(psd, 'background').then((image) => {
+            var ctx = this.canvas.getContext('2d');
+            ctx.drawImage(image, 0, 0, this.width, this.height);
+            this.render();
+            this.sleep(3000);
+    
+        })
+        .catch(error => {
+            console.log(error);
+        })
+/*
         var background = psd.tree().childrenAtPath('background')[0];
         var image = background.get('image');
         var png = image.toPng();
@@ -59,7 +91,7 @@ class Sample extends Matrix {
         ctx.drawImage(png, 0, 0, this.width, this.height);
         this.render();
         this.sleep(1000);
-
+*/
 //        console.log(background.get('image'));
 //        background.toPng();
   //      console.log(background.export());
