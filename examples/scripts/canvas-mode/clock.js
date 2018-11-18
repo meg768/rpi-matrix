@@ -10,32 +10,6 @@ var fs = require('fs');
 class Sample extends Matrix {
 
 
-    loadGIF(name) {
-
-        function fileExists(path) {
-
-            try {
-                fs.accessSync(path);		
-                return true;
-            }
-            catch (error) {
-            }
-        
-            return false;		
-        }
-
-        var fileName = '';
-
-        if (!fileExists(fileName))
-            fileName = path.join(__dirname, '../../gifs/96x96', name + '.gif');
- 
-        if (!fileExists(fileName))
-            fileName = path.join(__dirname, '../../gifs/32x32', name + '.gif');
-
- 
-        return fs.readFileSync(fileName);    
-    }
-
     getLayerImage(psd, name) {
         return new Promise((resolve, reject) => {
             var layer = psd.tree().childrenAtPath(name)[0];
