@@ -57,10 +57,10 @@ for details.
 ### Static Members
 
 This module has two dependencies, the npm module **canvas** and **color**.
-These may be access using the following static members.
+These may be accessed using the following static members.
 
-    - **Matrix.Canvas** - Contains the canvas API (same as **require('canvas')**)
-    - **Matrix.Color** - Contains the color API (same as **require('color')**)
+- **Matrix.Canvas** - Contains the canvas API (same as **require('canvas')**)
+- **Matrix.Color**  - Contains the color API (same as **require('color')**)
     
 
 ### Example
