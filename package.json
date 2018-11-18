@@ -35,6 +35,7 @@
   },
   "homepage": "https://github.com/meg768/rpi-matrix#readme",
   "devDependencies": {
-    "color-name": "^1.1.4"
+    "color-name": "^1.1.4",
+    "omggif": "^1.0.9"
   }
 }
