@@ -336,8 +336,6 @@ NAN_METHOD(Addon::render)
         int imageHeight = height;
         int isRGBA      = info[0]->IsUint8ClampedArray();
 
-        printf("image length: %dx%d %d\n", imageWidth, imageHeight, array->Buffer()->GetContents().ByteLength());
-
         if (!scroll->IsUndefined()) {
             int delay = scrollDelay->IsUndefined() ? 0 : scrollDelay->Int32Value();
 
