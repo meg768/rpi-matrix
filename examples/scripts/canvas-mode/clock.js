@@ -1,19 +1,15 @@
 #!/usr/bin/env node
 
-
 var Matrix = require('../../../index.js');
 var PSD = require('psd');
 var path = require('path');
 var fs = require('fs');
-
 
 class Sample extends Matrix {
 
 
     constructor(options) {
         super(options);
-
-
     }
 
     getLayer(psd, name) {
@@ -23,31 +19,34 @@ class Sample extends Matrix {
         return new Promise((resolve, reject) => {
             var layer = psd.tree().childrenAtPath(name)[0];
             var image = layer.get('image');
+            var fileName = '/tmp/_tmpImage.png';
 
             var canvas = this.createCanvas(psdWidth, psdHeight);
             var ctx = canvas.getContext('2d');
-    
-            image.saveAsPng('X.png').then(() => {
+            
+            image.saveAsPng(fileName).then(() => {
                 return Promise.resolve();
             })
             .then(() => {
-                return this.loadImage('X.png');
+                return this.loadImage(fileName);
             })
             .then((image) => {
+                fs.unlinkSync(fileName);
+
                 ctx.drawImage(image, layer.left, layer.top, layer.width, layer.height);
                 resolve(canvas);
             })
             .catch(error => {
                 reject(error);
             });
-    
+  
         });
     }
 
     
     getLayers(psd) {
-        return new Promise((resolve, reject) => {
 
+        return new Promise((resolve, reject) => {
             var layersNames = ['background', 'hours', 'minutes', 'seconds'];
             var promise = Promise.resolve();
             var layers = {};
@@ -73,18 +72,13 @@ class Sample extends Matrix {
 
 
     run() {
-        var fileName = path.join(__dirname, '../../clocks', 'swiss-red' + '.psd');
-
-
-        console.log('Loading PSD...');
+        var fileName = __filename.replace('.js', '.psd');
         var psd = PSD.fromFile(fileName);
+
         psd.parse();
-        
 
         var psdWidth = psd.header.rows; 
         var psdHeight = psd.header.cols; 
-
-        console.log(psdWidth, psdHeight);
 
         this.getLayers(psd).then((layers) => {
             for (;;) {
@@ -94,10 +88,10 @@ class Sample extends Matrix {
                 var hour   = (date.getHours() + date.getMinutes() / 60) / 12;
                 var minute = date.getMinutes() / 60; 
                 var second = date.getSeconds() / 60;
+                var hue    = 360 * ((date.getHours() * 60 * 60) + (date.getMinutes() * 60) + date.getSeconds()) / (60 * 60 * 12);
     
                 var canvas = this.createCanvas(psdWidth, psdHeight);
                 var ctx = canvas.getContext('2d');
-    
     
                 ctx.drawImage(layers['background'], 0, 0, canvas.width, canvas.height);
     
@@ -119,11 +113,28 @@ class Sample extends Matrix {
                 ctx.drawImage(layers['seconds'], -canvas.width/2, -canvas.height/2);
                 ctx.restore();
     
-                this.canvas.getContext('2d').clearRect(0, 0, this.width, this.height);
-                this.canvas.getContext('2d').drawImage(canvas, 0, 0, this.width, this.height);
+                ctx = this.canvas.getContext('2d');
+                ctx.clearRect(0, 0, this.width, this.height);
+                ctx.drawImage(canvas, 0, 0, this.width, this.height);
+
+                // Colorize
+                var image = ctx.getImageData(0, 0, this.width, this.height);
+
+                for (var i = 0, length = image.data.length; i < length; i += 4) {
+                    var color;
+
+                    color = Matrix.Color.rgb(image.data[i + 0], image.data[i + 1], image.data[i + 2]).hsl();
+                    color = Matrix.Color.hsl(hue, color.color[1], color.color[2]).rgb().array();
+
+                    image.data[i + 0] = color[0];
+                    image.data[i + 1] = color[1];
+                    image.data[i + 2] = color[2];
+                }
+
+                ctx.putImageData(image, 0, 0);
 
                 this.render();
-                this.sleep(0);
+                this.sleep(10);
     
             }
     
