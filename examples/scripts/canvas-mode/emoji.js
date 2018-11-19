@@ -13,21 +13,22 @@ class Sample extends Matrix {
         return this.loadImage(fileName);
     }
 
+
     scrollImage(image) {
         return new Promise((resolve, reject) => {
             var canvas = this.createCanvas(this.width, this.height);
             var ctx = canvas.getContext('2d');
 
-            var margin = canvas.height * 0.15;
+            var margin = canvas.height * 0.1;
             var scale = (canvas.height - margin) / image.height;  
 
             var imageWidth = image.width * scale;
             var imageHeight = image.height * scale;
 
-            ctx.drawImage(image, 0, 0, imageWidth, imageHeight);
+            ctx.drawImage(image, 0, margin / 2, imageWidth, imageHeight);
 
-            this.render(canvas.toBuffer('raw'), {scroll:'left', scrollDelay:10});
-
+            this.render(canvas.toBuffer('raw'), {scroll:'left', scrollDelay:20});
+            
             resolve();
         });
 
@@ -44,8 +45,6 @@ class Sample extends Matrix {
 
             var imageWidth = image.width * scale;
             var imageHeight = image.height * scale;
-
-            console.log(imageWidth, imageHeight);
 
             ctx.drawImage(image, 0, 0, imageWidth, imageHeight);
 
@@ -65,7 +64,7 @@ class Sample extends Matrix {
         this.getEmoji('grapes').then((image) => {
             return this.scrollImage(image);
         })
-        this.getEmoji('grinning').then((image) => {
+        this.getEmoji('grin').then((image) => {
             return this.scrollImage(image);
         })
         this.getEmoji('joy').then((image) => {

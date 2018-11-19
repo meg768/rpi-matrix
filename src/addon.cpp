@@ -336,20 +336,20 @@ NAN_METHOD(Addon::render)
         int imageHeight = height;
         int isRGBA      = info[0]->IsUint8ClampedArray();
 
+        printf("image length: %dx%d %d\n", imageWidth, imageHeight, array->Buffer()->GetContents().ByteLength());
+
         if (!scroll->IsUndefined()) {
             int delay = scrollDelay->IsUndefined() ? 0 : scrollDelay->Int32Value();
 
             for (int i = 0; i < imageWidth; i++) {
 
                 // Shift pixels one step left
-                if (true) {
+                if (false) {
                     for (int y = 0; y < height; y++) {
                         
                         for (int x = 1; x < width; x++) {
                             RGBA *src = _pixels + (y * width) + x;
                             RGBA *dst = _pixels + (y * width) + (x - 1);
-
-                            _matrix->setPixel(x, y, src->red, src->green, src->blue);                    
 
                             *dst = *src;
 
@@ -358,23 +358,21 @@ NAN_METHOD(Addon::render)
 
                 }
 
-                /*
-                if (false) {
+
+                if (true) {
                     for (int y = 0; y < height; y++) {
                         RGBA *row = _pixels + (y * width);
                         memmove(row, row + 1, (width - 1) * sizeof(RGBA));
                     }
 
                 }
-                */
 
 
                 // Render last column
                 if (isRGBA) {
                     RGBA *image = static_cast<RGBA *>(imageData);        
-
-                    RGBA *src = image + imageWidth + i;
-                    RGBA *dst = _pixels + width - 1;
+                    RGBA *src   = image + i;
+                    RGBA *dst   = _pixels + width - 1;
 
                     for (int y = 0; y < height; y++) {
                         dst->red   = (src->red   * src->alpha) / 255;
@@ -382,26 +380,23 @@ NAN_METHOD(Addon::render)
                         dst->blue  = (src->blue  * src->alpha) / 255;
                         dst->alpha = 255;
 
-                        dst += width;
                         src += imageWidth;
-
+                        dst += width;
                     }
                 }
                 else {
                     BGRA *image = static_cast<BGRA *>(imageData);        
-
-                    BGRA *src = image + imageWidth + i;
-                    RGBA *dst = _pixels + width - 1;
+                    BGRA *src   = image + i;
+                    RGBA *dst   = _pixels + width - 1;
 
                     for (int y = 0; y < height; y++) {
-
                         dst->red   = (src->red   * src->alpha) / 255;
                         dst->green = (src->green * src->alpha) / 255;
                         dst->blue  = (src->blue  * src->alpha) / 255;
                         dst->alpha = 255;
 
-                        dst += width;
                         src += imageWidth;
+                        dst += width;
                     }
 
                 }
