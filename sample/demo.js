@@ -8,6 +8,22 @@ var App = function() {
 
 	this.fileName = __filename;
 
+	function loadCommands(args) {
+		var folder = path.join(__dirname, './src/commands');
+
+		fs.readdirSync(folder).forEach((file) => {
+
+			var fileName = path.join(folder, file);
+			var components = path.parse(fileName);
+
+			if (components.ext == '.js') {
+				args.command(require(fileName));  
+			}
+
+		})
+
+	}
+
 	function run() {
 		try {
 			var args = require('yargs');
@@ -20,19 +36,7 @@ var App = function() {
             args.option('led-rgb-sequence', {describe:'Matrix RGB color order', default:'RBG'});
             args.option('led-scan-mode',    {describe:'Scan mode (0/1)', default:0});
 
-			var folder = path.join(__dirname, './src/commands');
-
-            fs.readdirSync(folder).forEach((file) => {
-
-                var fileName = path.join(folder, file);
-                var components = path.parse(fileName);
-    
-                if (components.ext == '.js') {
-                    args.command(require(fileName));  
-                }
-    
-            })
-
+			loadCommands(args);
 
 			args.help();
 			args.wrap(null);
