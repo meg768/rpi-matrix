@@ -1,16 +1,22 @@
-#!/usr/bin/env node
-
-window = {};
 
 var Matrix = require('../../../index.js');
 var GIF = require('omggif');
 var path = require('path');
 var fs = require('fs');
 
+function debug() {
+
+}
 
 class Sample extends Matrix {
 
 
+	constructor(options) {
+		super({...options, ...{mode:'canvas'}});
+
+		this.options = options;
+	}
+	
     loadGIF(name) {
 
         function fileExists(path) {
@@ -39,12 +45,9 @@ class Sample extends Matrix {
 
 
     run() {
-        var gif = new GIF.GifReader(this.loadGIF('circuitry'));
+        var gif = new GIF.GifReader(this.loadGIF(this.options.gif));
         var ctx = this.canvas.getContext('2d');
         var numFrames = gif.numFrames();
-
-        console.log(gif);
-        console.log(gif.frameInfo(0));
 
         var canvas = this.createCanvas(gif.width, gif.height);
 
@@ -75,6 +78,51 @@ class Sample extends Matrix {
     }
 };
 
-var sample = new Sample({mode:'canvas', 'led-gpio-mapping':'adafruit-hat-pwm', 'led-rgb-sequence':'RBG', width:64, height:64, 'led-scan-mode':0});
-sample.run();
+
+class Command {
+
+    constructor() {
+        module.exports.command  = 'animate [options]';
+        module.exports.describe = 'Animate gifs';
+        module.exports.builder  = this.defineArgs;
+        module.exports.handler  = this.run;
+        
+    }
+
+    defineArgs(args) {
+
+		args.usage('Usage: $0 [options]');
+
+		args.option('help', {describe:'Displays this information'});
+		args.option('gif',  {describe:'Specifies name of GIF', default:'pacman'});
+
+		args.wrap(null);
+
+		args.check(function(argv) {
+			return true;
+		});
+
+		return args.argv;
+	}
+
+
+	run(argv) {
+
+		try {
+			var sample = new Sample(argv);
+			sample.run();
+		}
+		catch (error) {
+			console.error(error.stack);
+		}
+
+    }
+    
+
+
+};
+
+new Command();
+
+
 

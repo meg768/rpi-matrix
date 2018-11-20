@@ -9,10 +9,12 @@ class Sample extends Matrix {
 
 
     constructor(options) {
-        super(options);
+		super({ ...options, ...{mode: 'canvas' } });
+
     }
 
     getLayer(psd, name) {
+
         var psdWidth = psd.header.rows; 
         var psdHeight = psd.header.cols; 
 
@@ -72,7 +74,8 @@ class Sample extends Matrix {
 
 
     run() {
-        var fileName = __filename.replace('.js', '.psd');
+        var fileName = path.join(__dirname, '../../psd', 'clock.psd');
+
         var psd = PSD.fromFile(fileName);
 
         psd.parse();
@@ -146,6 +149,49 @@ class Sample extends Matrix {
     }
 };
 
-var sample = new Sample({mode:'canvas', 'led-gpio-mapping':'adafruit-hat-pwm', 'led-rgb-sequence':'RBG', width:64, height:64, 'led-scan-mode':0});
-sample.run();
 
+
+
+class Command {
+
+    constructor() {
+        module.exports.command  = 'clock [options]';
+        module.exports.describe = 'Show time';
+        module.exports.builder  = this.defineArgs;
+        module.exports.handler  = this.run;
+        
+    }
+
+    defineArgs(args) {
+
+		args.usage('Usage: $0 [options]');
+
+		args.option('help', {describe:'Displays this information'});
+
+		args.wrap(null);
+
+		args.check(function(argv) {
+			return true;
+		});
+
+		return args.argv;
+	}
+
+
+	run(argv) {
+
+		try {
+			var sample = new Sample(argv);
+			sample.run();
+		}
+		catch (error) {
+			console.error(error.stack);
+		}
+
+    }
+    
+
+
+};
+
+new Command();

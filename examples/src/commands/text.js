@@ -1,12 +1,12 @@
-#!/usr/bin/env node
 
 var Matrix = require('../../../index.js');
 var path = require('path');
 
 class Sample extends Matrix  {
 
-    constructor(matrixOptions, options) {
-        super(matrixOptions);
+    constructor(options) {
+
+		super({ ...options, ...{ mode: 'canvas' } });
 
         var defaultOptions = {
             scrollDelay : 10,
@@ -197,8 +197,9 @@ class Sample extends Matrix  {
 
     }
 
-    run(text) {
+    run() {
 
+		var text = this.options.text;
         var ctx = this.canvas.getContext('2d');
         ctx.font = '' + (this.height * this.options.fontSize) + 'px ' + this.options.fontName;
         ctx.fillStyle = this.options.textColor;
@@ -218,6 +219,52 @@ class Sample extends Matrix  {
 };
 
 
-var sample = new Sample({mode:'canvas', 'led-gpio-mapping':'adafruit-hat-pwm', 'led-rgb-sequence':'RBG', 'led-cols':64, 'led-rows':64, 'led-scan-mode':1});
-sample.run('{red}Red,{white} white and {blue}blue. :sunglasses:  :wink:');
+
+class Command {
+
+    constructor() {
+        module.exports.command  = 'text [options]';
+        module.exports.describe = 'Scroll text';
+        module.exports.builder  = this.defineArgs;
+        module.exports.handler  = this.run;
+        
+    }
+
+    defineArgs(args) {
+
+		args.usage('Usage: $0 [options]');
+
+		args.option('help', {describe:'Displays this information'});
+		args.option('text', {describe:'Text to display', default:'Hello World'});
+		args.option('textColor', {describe:'Specifies text color', default:'blue'});
+
+		args.wrap(null);
+
+		args.check(function(argv) {
+			return true;
+		});
+
+		return args.argv;
+	}
+
+
+	run(argv) {
+
+		try {
+			var sample = new Sample(argv);
+			sample.run();
+		}
+		catch (error) {
+			console.error(error.stack);
+		}
+
+    }
+    
+
+
+};
+
+new Command();
+
+
 

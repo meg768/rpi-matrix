@@ -252,6 +252,49 @@ class Sample extends Matrix {
     }
 }
 
-var sample = new Sample({mode:'pixel', 'led-gpio-mapping':'adafruit-hat-pwm', 'led-rgb-sequence':'RBG', 'led-cols':64, 'led-rows':64, 'led-scan-mode':0});
-sample.run();
+
+
+class Command {
+
+    constructor() {
+        module.exports.command  = 'perlin [options]';
+        module.exports.describe = 'Make Perlin noise';
+        module.exports.builder  = this.defineArgs;
+        module.exports.handler  = this.run;
+        
+    }
+
+    defineArgs(args) {
+
+		args.usage('Usage: $0 [options]');
+		
+		args.option('help', {describe:'Displays this information'});
+
+		args.wrap(null);
+
+		args.check(function(argv) {
+			return true;
+		});
+
+		return args.argv;
+	}
+
+
+	run(argv) {
+
+		try {
+			var sample = new Sample(argv);
+			sample.run();
+		}
+		catch (error) {
+			console.error(error.stack);
+		}
+
+    }
+    
+
+
+};
+
+new Command();
 
