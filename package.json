@@ -35,7 +35,10 @@
   },
   "homepage": "https://github.com/meg768/rpi-matrix#readme",
   "devDependencies": {
+    "body-parser": "^1.18.3",
     "color-name": "^1.1.4",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
     "omggif": "^1.0.9",
     "psd": "^3.2.0",
     "yargs": "^12.0.5",

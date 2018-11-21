@@ -28,7 +28,7 @@ module.exports = class AnimationQueue extends Events {
 				if (this.animationQueue.length > 0) {
 
 					this.currentAnimation = this.animationQueue.splice(0, 1)[0];
-
+console.log('runnning!');
 					this.currentAnimation.run().then(() => {
 						return this.dequeue();
 					})

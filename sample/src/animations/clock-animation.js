@@ -14,6 +14,7 @@ module.exports = class ClockAnimation extends Animation {
         var {matrix, color, ...other} = options;
         super(Object.assign({}, other, {mode:'canvas'}));
 
+        console.log('MATRIX', matrix);
         this.matrix = matrix;
         this.hue    = undefined;
         this.psd    = undefined;
@@ -98,6 +99,7 @@ module.exports = class ClockAnimation extends Animation {
                 debug('Loading PSD library...');
                 var PSD = require('psd');
                 var fileName = __filename.replace('.js', '.psd');
+                debug('Loading clock', fileName);
                 
                 debug('Parsing PSD file...');
                 this.psd = PSD.fromFile(fileName);
