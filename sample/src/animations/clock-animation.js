@@ -4,6 +4,10 @@ var Color = Matrix.Color;
 
 var fs = require('fs');
 
+var debug = function() {
+    console.log.apply(this, arguments);
+}
+
 module.exports = class ClockAnimation extends Animation {
 
     constructor(options) {
@@ -14,6 +18,7 @@ module.exports = class ClockAnimation extends Animation {
         this.hue    = undefined;
         this.psd    = undefined;
         this.layers = undefined;
+
 
         if (color != undefined) {
             try {
@@ -90,11 +95,11 @@ module.exports = class ClockAnimation extends Animation {
             this.layers = null;
 
             super.start().then(() => {
-                console.log('Loading PSD-image of clock...');
+                debug('Loading PSD library...');
                 var PSD = require('psd');
                 var fileName = __filename.replace('.js', '.psd');
                 
-                
+                debug('Parsing PSD file...');
                 this.psd = PSD.fromFile(fileName);
                 this.psd.parse();
 
@@ -105,7 +110,7 @@ module.exports = class ClockAnimation extends Animation {
                 this.layers = layers;
             })
             .then(() => {
-                console.log('Done.');
+                debug('Done.');
                 resolve();
             })
             .catch(error => {
