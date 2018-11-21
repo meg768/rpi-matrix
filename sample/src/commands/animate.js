@@ -1,6 +1,5 @@
 
 var Matrix = require('../../../index.js');
-var GIF = require('omggif');
 var path = require('path');
 var fs = require('fs');
 
@@ -45,6 +44,7 @@ class Sample extends Matrix {
 
 
     run() {
+        var GIF = require('omggif');
         var gif = new GIF.GifReader(this.loadGIF(this.options.gif));
         var ctx = this.canvas.getContext('2d');
         var numFrames = gif.numFrames();
