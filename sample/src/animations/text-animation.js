@@ -6,7 +6,7 @@ module.exports = class TextAnimation extends Animation  {
     constructor(matrix, options) {
 
         var defaultOptions = {
-            scrollDelay : ((matrix.width * matrix.height) / (32*32)) * 25,
+            scrollDelay : 7 * (64*64) / (matrix.width * matrix.height),
             fontSize    : 0.45,
             emojiSize   : 0.60,
             fontName    : 'Arial',
