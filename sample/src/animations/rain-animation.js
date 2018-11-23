@@ -144,7 +144,6 @@ module.exports = class RainAnimation extends Animation {
         for (var i = 0; i < this.worms.length; i++) {
             this.worms[i].render();
         }
-
         this.matrix.render();
     }
 
