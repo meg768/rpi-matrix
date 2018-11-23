@@ -5,9 +5,11 @@ module.exports = class TextAnimation extends Animation  {
 
     constructor(matrix, options) {
 
+        console.log(matrix.width, matrix.height);
+
         var defaultOptions = {
-            scrollDelay : 10,
-            fontSize    : 0.35,
+            scrollDelay : matrix.width * matrix.height * 0.025,
+            fontSize    : 0.45,
             emojiSize   : 0.60,
             fontName    : 'Arial',
             textColor   : 'purple'
@@ -45,7 +47,6 @@ module.exports = class TextAnimation extends Animation  {
         
         var myctx = this.matrix.canvas.getContext('2d');
         var textSize = myctx.measureText(text); 
-
         var canvas = this.matrix.createCanvas(textSize.width, this.matrix.height);
 
         var ctx = canvas.getContext('2d');
@@ -197,7 +198,6 @@ module.exports = class TextAnimation extends Animation  {
     }
 
     run() {
-        console.log(this.options);
         return new Promise((resolve, reject) => {
             var text = this.options.text;
             var ctx = this.matrix.canvas.getContext('2d');
