@@ -8,7 +8,7 @@ module.exports = class TextAnimation extends Animation  {
         console.log(matrix.width, matrix.height);
 
         var defaultOptions = {
-            scrollDelay : matrix.width * matrix.height * 0.025,
+            scrollDelay : 10,
             fontSize    : 0.45,
             emojiSize   : 0.60,
             fontName    : 'Arial',
