@@ -19,7 +19,7 @@ class Command {
 		args.usage('Usage: $0 rain [options]');
 		
 		args.option('help', {describe:'Displays this information'});
-		args.option('duration', {describe:'Animation duration', default:-1});
+		args.option('duration', {describe:'Animation duration in milliseconds', default:-1});
 
 		args.wrap(null);
 

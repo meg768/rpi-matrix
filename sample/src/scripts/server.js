@@ -8,29 +8,67 @@ module.exports = class Server {
 
         this.options = Object.assign({}, {port:3013}, options);
 		this.app = express();
-        this.queue = new AnimationQueue(); 
+		this.queue = new AnimationQueue(); 
+		
 
     }
 
-    
 
 	defineRoutes(app) {
-		this.app.get('/clock', (request, response) => {
+		var Matrix = require('../../../index.js');
+		var ClockAnimation = require('../animations/clock-animation.js');
+		var TextAnimation = require('../animations/text-animation.js');
+
+
+		this.app.post('/clock', (request, response) => {
 			var options = Object.assign({}, request.body, request.query);
 
-			var Matrix = require('../../../index.js');
-			var ClockAnimation = require('../animations/clock-animation.js');
-
 			var matrix = new Matrix(Object.assign({}, this.options, {mode:'canvas'}));
-			var animation = new ClockAnimation(Object.assign({}, {matrix:matrix, duration:5000}, options));
+			var animation = new ClockAnimation(matrix, Object.assign({}, {duration:5000}, options));
+
+			this.queue.enqueue(animation);
+			response.status(200).json({status:'OK'});
+		});
+
+		this.app.post('/text', (request, response) => {
+			console.log('BODY', request.body);
+			console.log('QUERY', request.query);
+			var options = Object.assign({}, request.body, request.query);
+
+			var defaultOptions = {
+				text: 'Hello world',
+				textColor: 'red'
+			};
+
+			var matrix = new Matrix(Object.assign({}, this.options, {mode:'canvas', 'led-scan-mode':1}));
+			var animation = new TextAnimation(matrix, Object.assign({}, defaultOptions, options));
+
+			this.queue.enqueue(animation);
+			response.status(200).json({status:'OK'});
+		});
+
+		this.app.get('/text', (request, response) => {
+			console.log('BODY', request.body);
+			console.log('QUERY', request.query);
+			var options = Object.assign({}, request.body, request.query);
+
+			var defaultOptions = {
+				text: 'Hello world',
+				textColor: 'red'
+			};
+
+			var matrix = new Matrix(Object.assign({}, this.options, {mode:'canvas', 'led-scan-mode':1}));
+			var animation = new TextAnimation(matrix, Object.assign({}, defaultOptions, options));
 
 			this.queue.enqueue(animation);
 			response.status(200).json({status:'OK'});
 		});
 
 
+
     }
-    
+
+	
 	run() {
 
 

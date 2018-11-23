@@ -33,7 +33,7 @@ class Command {
 
 		try {
             var matrix = new Matrix(Object.assign({}, argv, {mode:'canvas'}));
-            var animation = new ClockAnimation(Object.assign({}, argv, {matrix:matrix}));
+            var animation = new ClockAnimation(matrix, argv);
             
 			animation.run();
 		}

@@ -17,6 +17,7 @@ typedef struct {
 
 
 static void *__matrix = 0;
+static rgb_matrix::GPIO __io;
 
 
 class Matrix {
@@ -26,44 +27,58 @@ public:
 	class Options : public rgb_matrix::RGBMatrix::Options {
 	};
 
+	static void Initialize() {
+		static int initialized = false;
+
+		if (!initialized) {
+			initialized = true;
+
+			srand(time(NULL));
+
+			// Trap ctrl-c to call quit function
+			signal(SIGINT, Matrix::quit);
+			signal(SIGKILL, Matrix::quit);
+
+			if (!__io.Init())
+				exit(-1);
+
+		}
+	}
+
 	Matrix(Matrix::Options &options) {
-		srand(time(NULL));
 		
-		__matrix = this;
-		
-		// Trap ctrl-c to call quit function
-		signal(SIGINT, Matrix::quit);
-		signal(SIGKILL, Matrix::quit);
-		
-		_io         = 0;
+		Matrix::Initialize();		
+
+		__matrix    = this;
+
 		_matrix     = 0;
 		_canvas     = 0;
 		_width      = options.cols;
 		_height     = options.rows;  
 
-		_io = new rgb_matrix::GPIO();
-		
-		if (!_io->Init()) {
-			exit(-1);
-		}
-
-		_matrix = new rgb_matrix::RGBMatrix(_io, options);
+		_matrix = new rgb_matrix::RGBMatrix(&__io, options);
 		_canvas = _matrix->CreateFrameCanvas();
-		
+
 	}
 
 
 	virtual ~Matrix() {
+		if (_matrix == __matrix) {
+			__matrix = 0;
+		}
+
 		delete _matrix;
-		delete _io;
+
 	}
 	
 	static void quit(int sig)
 	{
 		Matrix *matrix = (Matrix *)__matrix;
 		
-		matrix->clear();
-		matrix->refresh();
+		if (matrix != 0) {
+			matrix->clear();
+			matrix->refresh();
+		}
 		
 		exit(-1);
 	}
@@ -181,7 +196,6 @@ protected:
 	int _width;
 	int _height;
 	rgb_matrix::RGBMatrix *_matrix;
-	rgb_matrix::GPIO *_io;
 	rgb_matrix::FrameCanvas *_canvas;
 };
 
