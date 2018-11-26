@@ -35,8 +35,14 @@ module.exports = class Server {
 			console.log('QUERY', request.query);
 			var options = Object.assign({}, request.body, request.query);
 
+			var text = 'Hello world';
+			
+			if (request.body.queryResult) {
+				text = request.body.queryResult.fulfillmentText;
+			};
+
 			var defaultOptions = {
-				text: 'Hello world',
+				text: text,
 				textColor: 'red'
 			};
 
@@ -50,10 +56,17 @@ module.exports = class Server {
 		this.app.get('/text', (request, response) => {
 			console.log('BODY', request.body);
 			console.log('QUERY', request.query);
+
+			var text = 'Hello world';
+			
+			if (request.body.queryResult) {
+				text = fulfillmentText;
+			};
+
 			var options = Object.assign({}, request.body, request.query);
 
 			var defaultOptions = {
-				text: 'Hello world',
+				text: text,
 				textColor: 'red'
 			};
 
