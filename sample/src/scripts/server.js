@@ -1,5 +1,4 @@
 
-
 module.exports = class Server {
 
     constructor(options) {
@@ -11,6 +10,7 @@ module.exports = class Server {
 		this.queue = new AnimationQueue(); 
 		
 
+
     }
 
 
@@ -19,6 +19,10 @@ module.exports = class Server {
 		var ClockAnimation = require('../animations/clock-animation.js');
 		var TextAnimation = require('../animations/text-animation.js');
 
+
+		this.app.get('/hello', (request, response) => {
+			response.status(200).json({status:'OK'});
+		});
 
 		this.app.post('/clock', (request, response) => {
 			var options = Object.assign({}, request.body, request.query);
@@ -56,14 +60,13 @@ module.exports = class Server {
 		this.app.get('/text', (request, response) => {
 			console.log('BODY', request.body);
 			console.log('QUERY', request.query);
+			var options = Object.assign({}, request.body, request.query);
 
 			var text = 'Hello world';
 			
 			if (request.body.queryResult) {
-				text = fulfillmentText;
+				text = request.body.queryResult.fulfillmentText;
 			};
-
-			var options = Object.assign({}, request.body, request.query);
 
 			var defaultOptions = {
 				text: text,
@@ -78,6 +81,17 @@ module.exports = class Server {
 		});
 
 
+		this.app.get('/', (request, response) => {
+
+			var foo = {};
+			foo.kalle = 'HEJ';
+			foo.route = request.route;
+			foo.path = request.path;
+			foo.params = request.params;
+			foo.query = request.query;
+			foo.method = request.method;
+			response.status(200).json(foo);
+		});
 
     }
 
@@ -90,6 +104,11 @@ module.exports = class Server {
         })
         
 		.then(() => {
+			var path = require('path');
+			var fs = require('fs');
+			var https = require('https');
+			var http = require('http');
+			
             var cors = require('cors');
             var bodyParser = require('body-parser');
             var app = this.app;
@@ -103,9 +122,26 @@ module.exports = class Server {
 
 			this.defineRoutes(app);
 
-			app.listen(app.get('port'), () => {
-				console.log("Matrix service is running on port " + app.get('port'));
-			});
+			if (false) {
+				var httpsOptions = {
+					key: fs.readFileSync(path.join(__dirname, '../../key.pem')),
+					cert: fs.readFileSync(path.join(__dirname, '../../cert.pem')),
+					requestCert: false,
+					rejectUnauthorized: false,
+					passphrase: 'potatismos'
+				};
+	
+				const server = https.createServer(httpsOptions, app).listen(app.get('port'), () => {
+					console.log('server running at ' + app.get('port'))
+				});
+	
+			}
+			else {
+				app.listen(app.get('port'), () => {
+					console.log("Matrix service is running on port " + app.get('port'));
+				});
+	
+			}
 
 		})
 		.catch((error) => {
