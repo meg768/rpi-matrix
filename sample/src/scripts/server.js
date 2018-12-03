@@ -34,6 +34,28 @@ module.exports = class Server {
 			response.status(200).json({status:'OK'});
 		});
 
+		this.app.post('/assistant', (request, response) => {
+			try {
+				console.log('BODY', request.body);
+				console.log('QUERY', request.query);
+	
+				var options = Object.assign({}, request.body, request.query);
+				options.text = 'OK!';
+				var matrix = new Matrix(Object.assign({}, this.options, {mode:'canvas', 'led-scan-mode':1}));
+				var animation = new TextAnimation(matrix, Object.assign({}, options));
+	
+				this.queue.enqueue(animation);
+				response.status(200).json({status:'OK'});
+	
+			}
+			catch(error) {
+				console.log('---------------------------');
+				console.log(error);
+				response.status(200).json({status:'FAILED'});
+
+			}
+		});
+
 		this.app.post('/text', (request, response) => {
 			console.log('BODY', request.body);
 			console.log('QUERY', request.query);
@@ -122,25 +144,22 @@ module.exports = class Server {
 
 			this.defineRoutes(app);
 
-			if (false) {
-				var httpsOptions = {
-					key: fs.readFileSync(path.join(__dirname, '../../key.pem')),
-					cert: fs.readFileSync(path.join(__dirname, '../../cert.pem')),
-					requestCert: false,
-					rejectUnauthorized: false,
-					passphrase: 'potatismos'
-				};
-	
-				const server = https.createServer(httpsOptions, app).listen(app.get('port'), () => {
-					console.log('server running at ' + app.get('port'))
+			if (true) {
+				var fullChain  = fs.readFileSync('/etc/letsencrypt/live/router.egelberg.se/fullchain.pem');
+				var privateKey = fs.readFileSync('/etc/letsencrypt/live/router.egelberg.se/privkey.pem');
+
+				https.createServer({key:privateKey, cert:fullChain}, app).listen(app.get('port'), () => {
+					console.log('Matrix HTTPS server running at ' + app.get('port'))
 				});
 	
 			}
-			else {
-				app.listen(app.get('port'), () => {
-					console.log("Matrix service is running on port " + app.get('port'));
+
+			if (false) {
+				http.createServer(app).listen(app.get('port'), () => {
+					console.log('Matrix server running at ' + app.get('port'))
 				});
-	
+
+
 			}
 
 		})
