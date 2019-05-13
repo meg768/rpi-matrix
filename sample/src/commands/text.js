@@ -208,7 +208,7 @@ class Sample extends Matrix  {
 
         this.parse(text).then((context) => {
             var image = this.createDisplayImage(context);
-            this.render(image.data, {scroll:'left', scrollDelay:this.options.scrollDelay});
+            this.render(image.data, {scroll:'right', scrollDelay:this.options.scrollDelay});
         })
         .catch(error => {
             console.log(error);
