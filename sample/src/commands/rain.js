@@ -19,7 +19,7 @@ class Command {
 		args.usage('Usage: $0 rain [options]');
 		
 		args.option('help', {describe:'Displays this information'});
-		args.option('duration', {describe:'Animation duration', default:-1});
+		args.option('duration', {describe:'Animation duration in milliseconds', default:-1});
 
 		args.wrap(null);
 
@@ -35,7 +35,7 @@ class Command {
 
 		try {
             var matrix = new Matrix(Object.assign({}, argv, {mode:'pixel'}));
-            var animation = new RainAnimation(Object.assign({}, argv, {matrix:matrix}));
+            var animation = new RainAnimation(matrix, argv);
             
 			animation.run();
 		}

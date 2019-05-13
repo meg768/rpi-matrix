@@ -69,7 +69,7 @@ class Sample extends Matrix {
                 ctx.drawImage(canvas, 0, 0);
     
                 this.render();
-                this.sleep(frame.delay * 10)
+                this.sleep(frame.delay * 10);
     
             }
     
@@ -91,7 +91,7 @@ class Command {
 
     defineArgs(args) {
 
-		args.usage('Usage: $0 [options]');
+		args.usage('Usage: $0 animate [options]');
 
 		args.option('help', {describe:'Displays this information'});
 		args.option('gif',  {describe:'Specifies name of GIF', default:'pacman'});

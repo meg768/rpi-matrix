@@ -4,26 +4,27 @@ var Color = Matrix.Color;
 
 var fs = require('fs');
 
+var _layers = undefined;
+
 var debug = function() {
     console.log.apply(this, arguments);
 }
 
+
 module.exports = class ClockAnimation extends Animation {
 
-    constructor(options) {
-        var {matrix, color, ...other} = options;
-        super(Object.assign({}, other, {mode:'canvas'}));
+    constructor(matrix, options) {
+        super(options);
 
-        console.log('MATRIX', matrix);
         this.matrix = matrix;
         this.hue    = undefined;
         this.psd    = undefined;
         this.layers = undefined;
 
 
-        if (color != undefined) {
+        if (options.color != undefined) {
             try {
-                this.hue = Color(color).hsl().color[0];
+                this.hue = Color(options.color).hsl().color[0];
             }
             catch(error) {    
             }
@@ -89,7 +90,9 @@ module.exports = class ClockAnimation extends Animation {
         });
     }
 
+
     start() {
+
         return new Promise((resolve, reject) => {
 
             this.psd    = null;
