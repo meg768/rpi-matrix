@@ -19,6 +19,8 @@ class Sample extends Matrix  {
         this.options = {...defaultOptions, ...options};
 
         console.log(this.options);
+
+        console.log(tghis.width, this.height);
     }
 
     loadEmojis(folder) {
@@ -181,7 +183,7 @@ class Sample extends Matrix  {
         var offset = 0;
 
         console.log(items);
-        
+
         items.forEach((item) => {
             if (item.image != undefined)
                 totalWidth += item.image.width;
