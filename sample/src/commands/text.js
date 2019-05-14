@@ -55,7 +55,7 @@ class Sample extends Matrix  {
 
         var ctx = canvas.getContext('2d');
         ctx.font = myctx.font;
-        ctx.fillStyle = 'red'; //myctx.fillStyle;
+        ctx.fillStyle = myctx.fillStyle;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
 
