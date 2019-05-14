@@ -170,7 +170,6 @@ class Sample extends Matrix  {
                 resolve(output);
             })
             .catch(error => {
-                console.log('parse failed');
                 reject(error);
             });
  
@@ -218,7 +217,6 @@ class Sample extends Matrix  {
                 resolve();
             })
             .catch(error => {
-                console.log(error);
                 reject(error);
             });
     
@@ -273,12 +271,11 @@ class Command {
                 return sample.scrollText('Thats all folks! :sunglasses:', {textColor:'blue', fontStyle:'bold'});
             })
             .catch(error => {
-                console.log('run failed');
+                console.error(error.stack);
             })
 		}
 		catch (error) {
-            console.log('STACK-----------------------');
-			console.error(error.stack);
+    		console.error(error.stack);
 		}
 
     }
