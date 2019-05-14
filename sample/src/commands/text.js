@@ -270,7 +270,7 @@ class Command {
                 return sample.scrollText(argv.text, argv);
             })
             .then(() => {
-                return sample.scrollText('Det var allt :sunglasses:', {textColor:'blue'});
+                return sample.scrollText('Det var allt :sunglasses:', {textColor:'blue', fontStyle:'bold'});
 
             })
 		}
