@@ -17,6 +17,8 @@ class Sample extends Matrix  {
         };
 
         this.options = {...defaultOptions, ...options};
+
+        console.log(this.options);
     }
 
     loadEmojis(folder) {
