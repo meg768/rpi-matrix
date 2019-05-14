@@ -11,7 +11,7 @@ class TextScroller extends Matrix  {
         this.defaultOptions = {
             scrollDelay : 10,
             fontSize    : 0.60,
-            emojiSize   : 0.70,
+            emojiSize   : 0.75,
             fontName    : 'Arial',
             fontStyle   : 'bold',
             textColor   : 'purple'
@@ -19,7 +19,7 @@ class TextScroller extends Matrix  {
 
         this.options = {...this.defaultOptions};
         this.colors  = require('color-name');
-        this.emojis  = this.loadEmojis(path.join(__dirname, '../../emojis'));
+        this.emojis  = this.loadEmojis(path.join(__dirname, '../../../emojis'));
 
     }
 
