@@ -81,6 +81,7 @@ class Sample extends Matrix  {
 
     prepare(item) {
         var util = require('util');
+
         return new Promise((resolve, reject) => {
 
             try {
@@ -202,18 +203,24 @@ class Sample extends Matrix  {
 
     scrollText(text, options) {
 
-        this.options =  {...this.options, ...options};
+        return new Promise((resolve, reject) => {
+            this.options =  {...this.options, ...options};
 
-        var ctx = this.canvas.getContext('2d');
-        ctx.font = 'bold ' + (this.height * this.options.fontSize) + 'px ' + this.options.fontName;
-        ctx.fillStyle = this.options.textColor;
+            var ctx = this.canvas.getContext('2d');
+            ctx.font = 'bold ' + (this.height * this.options.fontSize) + 'px ' + this.options.fontName;
+            ctx.fillStyle = this.options.textColor;
+    
+            this.parse(text).then((context) => {
+                var image = this.createDisplayImage(context);
+                this.render(image.data, {scroll:'right', scrollDelay:this.options.scrollDelay});
 
-        this.parse(text).then((context) => {
-            var image = this.createDisplayImage(context);
-            this.render(image.data, {scroll:'right', scrollDelay:this.options.scrollDelay});
-        })
-        .catch(error => {
-            console.log(error);
+                resolve();
+            })
+            .catch(error => {
+                console.log(error);
+                reject(error);
+            });
+    
         });
 
  
@@ -256,9 +263,15 @@ class Command {
 	run(argv) {
 
 		try {
-			var sample = new Sample(argv);
-			sample.scrollText(argv.text, argv);
-			sample.scrollText('Det var allt', {textColor:'blue'});
+            var sample = new Sample(argv);
+            
+            Promise.resolve().then((() => {
+                return sample.scrollText(argv.text, argv);
+            })
+            .then(() => {
+                return sample.scrollText('Det var allt', {textColor:'blue'});
+
+            })
 		}
 		catch (error) {
 			console.error(error.stack);
