@@ -24,8 +24,8 @@ var Matrix = module.exports = function(config) {
         options.led_rows = options.height;
 
     self.mode   = options.mode ? options.mode : 'pixel';
-    self.width  = options['led-rows'] || options['led_rows'] || options['width'];
-    self.height = options['led-cols'] || options['led_cols'] || options['height'];
+    self.height = options['led-rows'] || options['led_rows'] || options['height'];
+    self.width  = options['led-cols'] || options['led_cols'] || options['width'];
 
     matrix.configure(options);
 
