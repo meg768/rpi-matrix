@@ -265,7 +265,7 @@ class Command {
 		try {
             var sample = new Sample(argv);
             
-            Promise.resolve().then((() => {
+            Promise.resolve().then(() => {
                 return sample.scrollText(argv.text, argv);
             })
             .then(() => {
