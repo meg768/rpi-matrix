@@ -2,7 +2,7 @@
 var Matrix = require('./index.js');
 var path = require('path');
 
-export class Scroller extends Matrix  {
+module.exports = class Scroller extends Matrix  {
 
     constructor(config) {
 
