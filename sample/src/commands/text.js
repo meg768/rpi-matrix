@@ -4,10 +4,9 @@ var path = require('path');
 
 class Sample extends Matrix  {
 
-    constructor(options) {
+    constructor(config) {
 
-		super({ ...options, ...{ mode: 'canvas' } });
-
+		super({ ...config, ...{ mode: 'canvas' } });
 
         this.defaultOptions = {
             scrollDelay : 10,
@@ -86,7 +85,7 @@ class Sample extends Matrix  {
         return new Promise((resolve, reject) => {
 
             try {
-                if (item.type == 'emoji') {
+                if (item.type == 'xemoji') {
                     if (item.fileName != undefined) {
                         this.loadImage(item.fileName).then((image) => {
                             item.image = this.createEmojiImage(image);    
@@ -102,13 +101,13 @@ class Sample extends Matrix  {
                     else
                         throw new Error('No image for emoji!');
                 }
-                else if (item.type == 'text') {
+                else if (item.type == 'xtext') {
                     if (item.text.length > 0)
                        item.image = this.createTextImage(item.text);
 
                     resolve();
                 }
-                else if (item.type == 'color') {
+                else if (item.type == 'xcolor') {
                     var ctx = this.canvas.getContext('2d');
                     ctx.fillStyle = util.format('rgb(%d,%d,%d)', item.color[0], item.color[1], item.color[2]);
                     resolve();
@@ -270,7 +269,7 @@ class Command {
                 return sample.scrollText(argv.text, argv);
             })
             .then(() => {
-                return sample.scrollText('Det var allt :sunglasses:', {textColor:'blue', fontStyle:'bold'});
+                return sample.scrollText('Thats all folks! :sunglasses:', {textColor:'blue', fontStyle:'bold'});
 
             })
 		}
