@@ -200,25 +200,6 @@ class Sample extends Matrix  {
 
     }
 
-    run() {
-
-		var text = this.options.text;
-        var ctx = this.canvas.getContext('2d');
-        ctx.font = 'bold ' + (this.height * this.options.fontSize) + 'px ' + this.options.fontName;
-        ctx.fillStyle = this.options.textColor;
-
-
-        this.parse(text).then((context) => {
-            var image = this.createDisplayImage(context);
-            this.render(image.data, {scroll:'right', scrollDelay:this.options.scrollDelay});
-        })
-        .catch(error => {
-            console.log(error);
-        });
-
- 
-    }
-
     scrollText(text, options) {
 
         this.options =  {...this.options, ...options};
@@ -277,6 +258,7 @@ class Command {
 		try {
 			var sample = new Sample(argv);
 			sample.scrollText(argv.text, argv);
+			sample.scrollText('Det var allt', {textColor:'blue'});
 		}
 		catch (error) {
 			console.error(error.stack);
