@@ -1,9 +1,8 @@
 
-//var Matrix = require('../../../index.js');
+var Matrix = require('./index.js');
 var path = require('path');
-var TextScroller = require('../../../scroller.js');
-/*
-class TextScroller extends Matrix  {
+
+export class Scroller extends Matrix  {
 
     constructor(config) {
 
@@ -230,62 +229,6 @@ class TextScroller extends Matrix  {
 
 };
 
-
-*/
-class Command {
-
-    constructor() {
-        module.exports.command  = 'text [options]';
-        module.exports.describe = 'Scroll text';
-        module.exports.builder  = this.defineArgs;
-        module.exports.handler  = this.run;
-        
-    }
-
-    defineArgs(args) {
-
-		args.usage('Usage: $0 [options]');
-
-		args.option('help', {describe:'Displays this information'});
-		args.option('text', {describe:'Text to display', default:'Hello World'});
-		args.option('textColor', {describe:'Specifies text color', default:'blue'});
-
-		args.wrap(null);
-
-		args.check(function(argv) {
-			return true;
-		});
-
-		return args.argv;
-	}
-
-
-	run(argv) {
-
-		try {
-            var sample = new TextScroller(argv);
-            
-            Promise.resolve().then(() => {
-                return sample.runText(argv.text, argv);
-            })
-            .then(() => {
-                return sample.runText('Thats all folks! :sunglasses:', {textColor:'blue', fontStyle:'bold'});
-            })
-            .catch(error => {
-                console.error(error.stack);
-            })
-		}
-		catch (error) {
-    		console.error(error.stack);
-		}
-
-    }
-    
-
-
-};
-
-new Command();
 
 
 
