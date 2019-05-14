@@ -180,6 +180,8 @@ class Sample extends Matrix  {
         var totalWidth = 0;
         var offset = 0;
 
+        console.log(items);
+        
         items.forEach((item) => {
             if (item.image != undefined)
                 totalWidth += item.image.width;
