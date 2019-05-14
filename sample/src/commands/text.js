@@ -278,6 +278,7 @@ class Command {
             })
 		}
 		catch (error) {
+            console.log('STACK-----------------------');
 			console.error(error.stack);
 		}
 
