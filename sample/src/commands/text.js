@@ -274,7 +274,6 @@ class Command {
             })
             .catch(error => {
                 console.log('run failed');
-                throw error;
             })
 		}
 		catch (error) {
