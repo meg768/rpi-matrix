@@ -8,6 +8,7 @@ class Sample extends Matrix  {
 
 		super({ ...options, ...{ mode: 'canvas' } });
 
+
         var defaultOptions = {
             scrollDelay : 10,
             fontSize    : 0.60,
@@ -18,11 +19,11 @@ class Sample extends Matrix  {
 
         this.options = {...defaultOptions, ...options};
 
-        console.log(this.options);
+        this.loadEmojis(path.join(__dirname, '../../emojis'));
 
-        console.log(this.width, this.height);
     }
 
+    
     loadEmojis(folder) {
         var fs = require('fs');
         var path = require('path');
@@ -182,8 +183,6 @@ class Sample extends Matrix  {
         var totalWidth = 0;
         var offset = 0;
 
-        console.log(items);
-
         items.forEach((item) => {
             if (item.image != undefined)
                 totalWidth += item.image.width;
@@ -210,7 +209,6 @@ class Sample extends Matrix  {
         ctx.font = 'bold ' + (this.height * this.options.fontSize) + 'px ' + this.options.fontName;
         ctx.fillStyle = this.options.textColor;
 
-        this.loadEmojis(path.join(__dirname, '../../emojis'));
 
         this.parse(text).then((context) => {
             var image = this.createDisplayImage(context);
@@ -222,6 +220,9 @@ class Sample extends Matrix  {
 
  
     }
+
+   
+
 };
 
 
