@@ -20,7 +20,7 @@ class Sample extends Matrix  {
 
         console.log(this.options);
 
-        console.log(tghis.width, this.height);
+        console.log(this.width, this.height);
     }
 
     loadEmojis(folder) {
