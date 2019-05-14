@@ -85,7 +85,7 @@ class Sample extends Matrix  {
         return new Promise((resolve, reject) => {
 
             try {
-                if (item.type == 'xemoji') {
+                if (item.type == 'emoji') {
                     if (item.fileName != undefined) {
                         this.loadImage(item.fileName).then((image) => {
                             item.image = this.createEmojiImage(image);    
@@ -101,13 +101,13 @@ class Sample extends Matrix  {
                     else
                         throw new Error('No image for emoji!');
                 }
-                else if (item.type == 'xtext') {
+                else if (item.type == 'text') {
                     if (item.text.length > 0)
                        item.image = this.createTextImage(item.text);
 
                     resolve();
                 }
-                else if (item.type == 'xcolor') {
+                else if (item.type == 'color') {
                     var ctx = this.canvas.getContext('2d');
                     ctx.fillStyle = util.format('rgb(%d,%d,%d)', item.color[0], item.color[1], item.color[2]);
                     resolve();
