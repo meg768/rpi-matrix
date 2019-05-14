@@ -14,6 +14,7 @@ class Sample extends Matrix  {
             fontSize    : 0.60,
             emojiSize   : 0.70,
             fontName    : 'Arial',
+            fontStyle   : 'bold italic',
             textColor   : 'purple'
         };
 
@@ -207,7 +208,7 @@ class Sample extends Matrix  {
             this.options =  {...this.options, ...options};
 
             var ctx = this.canvas.getContext('2d');
-            ctx.font = 'bold ' + (this.height * this.options.fontSize) + 'px ' + this.options.fontName;
+            ctx.font = this.options.fontStyle + ' ' + (this.height * this.options.fontSize) + 'px ' + this.options.fontName;
             ctx.fillStyle = this.options.textColor;
     
             this.parse(text).then((context) => {
