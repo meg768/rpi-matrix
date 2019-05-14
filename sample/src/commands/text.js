@@ -10,7 +10,7 @@ class Sample extends Matrix  {
 
         var defaultOptions = {
             scrollDelay : 10,
-            fontSize    : 0.35,
+            fontSize    : 0.50,
             emojiSize   : 0.60,
             fontName    : 'Arial',
             textColor   : 'purple'
