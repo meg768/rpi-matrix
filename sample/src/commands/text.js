@@ -271,7 +271,10 @@ class Command {
             })
             .then(() => {
                 return sample.scrollText('Thats all folks! :sunglasses:', {textColor:'blue', fontStyle:'bold'});
-
+            })
+            .catch(error => {
+                console.log('run failed');
+                throw error;
             })
 		}
 		catch (error) {
