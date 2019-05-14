@@ -2,7 +2,7 @@
 var Matrix = require('../../../index.js');
 var path = require('path');
 
-class Sample extends Matrix  {
+class TextScroller extends Matrix  {
 
     constructor(config) {
 
@@ -13,7 +13,7 @@ class Sample extends Matrix  {
             fontSize    : 0.60,
             emojiSize   : 0.70,
             fontName    : 'Arial',
-            fontStyle   : 'bold italic',
+            fontStyle   : 'bold',
             textColor   : 'purple'
         };
 
@@ -201,7 +201,7 @@ class Sample extends Matrix  {
 
     }
 
-    scrollText(text, options) {
+    runText(text, options) {
 
         return new Promise((resolve, reject) => {
             this.options =  {...this.options, ...options};
@@ -262,13 +262,13 @@ class Command {
 	run(argv) {
 
 		try {
-            var sample = new Sample(argv);
+            var sample = new TextScroller(argv);
             
             Promise.resolve().then(() => {
-                return sample.scrollText(argv.text, argv);
+                return sample.runText(argv.text, argv);
             })
             .then(() => {
-                return sample.scrollText('Thats all folks! :sunglasses:', {textColor:'blue', fontStyle:'bold'});
+                return sample.runText('Thats all folks! :sunglasses:', {textColor:'blue', fontStyle:'bold'});
             })
             .catch(error => {
                 console.error(error.stack);
