@@ -207,7 +207,7 @@ class Sample extends Matrix  {
 
 		var text = this.options.text;
         var ctx = this.canvas.getContext('2d');
-        ctx.font = '' + (this.height * this.options.fontSize) + 'px ' + this.options.fontName;
+        ctx.font = 'bold ' + (this.height * this.options.fontSize) + 'px ' + this.options.fontName;
         ctx.fillStyle = this.options.textColor;
 
         this.loadEmojis(path.join(__dirname, '../../emojis'));
