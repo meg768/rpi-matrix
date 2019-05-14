@@ -170,6 +170,7 @@ class Sample extends Matrix  {
                 resolve(output);
             })
             .catch(error => {
+                console.log('parse failed');
                 reject(error);
             });
  
