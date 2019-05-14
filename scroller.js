@@ -19,7 +19,7 @@ module.exports = class Scroller extends Matrix  {
 
         this.options = {...this.defaultOptions};
         this.colors  = require('color-name');
-        this.emojis  = this.loadEmojis(path.join(__dirname, '../../../emojis'));
+        this.emojis  = this.loadEmojis(path.join(__dirname, './emojis'));
 
     }
 
