@@ -9,7 +9,7 @@ class Sample extends Matrix  {
 		super({ ...options, ...{ mode: 'canvas' } });
 
 
-        var defaultOptions = {
+        this.defaultOptions = {
             scrollDelay : 10,
             fontSize    : 0.60,
             emojiSize   : 0.70,
@@ -17,9 +17,9 @@ class Sample extends Matrix  {
             textColor   : 'purple'
         };
 
-        this.options = {...defaultOptions, ...options};
-
-        this.loadEmojis(path.join(__dirname, '../../emojis'));
+        this.options = {...this.defaultOptions};
+        this.colors  = require('color-name');
+        this.emojis  = this.loadEmojis(path.join(__dirname, '../../emojis'));
 
     }
 
@@ -41,9 +41,7 @@ class Sample extends Matrix  {
 
         })
 
-
-        this.colors = require('color-name');
-        this.emojis = emojis;
+        return emojis;
     }
 
 
@@ -221,6 +219,25 @@ class Sample extends Matrix  {
  
     }
 
+    scrollText(text, options) {
+
+        this.options =  {...this.options, ...options};
+
+        var ctx = this.canvas.getContext('2d');
+        ctx.font = 'bold ' + (this.height * this.options.fontSize) + 'px ' + this.options.fontName;
+        ctx.fillStyle = this.options.textColor;
+
+        this.parse(text).then((context) => {
+            var image = this.createDisplayImage(context);
+            this.render(image.data, {scroll:'right', scrollDelay:this.options.scrollDelay});
+        })
+        .catch(error => {
+            console.log(error);
+        });
+
+ 
+    }
+
    
 
 };
@@ -259,7 +276,7 @@ class Command {
 
 		try {
 			var sample = new Sample(argv);
-			sample.run();
+			sample.scrollText(argv.text, argv);
 		}
 		catch (error) {
 			console.error(error.stack);
