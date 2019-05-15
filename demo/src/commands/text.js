@@ -3,7 +3,7 @@
 //var path = require('path');
 //var Animation = require('../scripts/animation.js');
 
-
+/*
 class TextAnimation extends Animation  {
 
     constructor(options) {
@@ -232,7 +232,7 @@ class TextAnimation extends Animation  {
 
 };
 
-
+*/
 
 
 class Command {
