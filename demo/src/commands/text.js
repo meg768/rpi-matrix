@@ -210,7 +210,7 @@ class TextAnimation extends Animation  {
     run() {
         return new Promise((resolve, reject) => {
             var text = this.options.text || 'Hmmm ;)';
-
+            text = 'OLLE';
             var ctx = this.matrix.canvas.getContext('2d');
             ctx.font = this.options.fontStyle + ' ' + (this.height * this.options.fontSize) + 'px ' + this.options.fontName;
             ctx.fillStyle = this.options.textColor;
