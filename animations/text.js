@@ -1,10 +1,9 @@
 var Matrix = require('../matrix.js');
 var Animation = require('../src/js/animation.js');
 
-var emojis = undefined;
 
 
-function once(fn, context) { 
+var once = function(fn, context) { 
 	var result;
 
 	return function() { 
@@ -16,6 +15,30 @@ function once(fn, context) {
 		return result;
 	};
 }
+
+var loadEmojis = once((folder) => {
+    var fs = require('fs');
+    var path = require('path');
+
+    var images = [];
+
+    console.log('LOAD IMA', folder);
+
+    fs.readdirSync(folder).forEach((file) => {
+
+        var fileName = path.join(folder, file);
+        var components = path.parse(fileName);
+
+        if (components.ext == '.png') {
+            images[components.name] = {fileName:fileName};
+        }
+
+    })
+
+    return images;
+
+});
+
 /*
 function loadEmojis(folder) {
     var fs = require('fs');
@@ -60,34 +83,11 @@ module.exports = class TextAnimation extends Animation  {
             textColor       : 'purple'
         };
 
-        var loadEmojis = once(() => {
-            var fs = require('fs');
-            var path = require('path');
-            var folder = path.join(__dirname, '../emojis');
-    
-            var images = [];
-    
-            console.log('LOAD IMA', folder);
-    
-            fs.readdirSync(folder).forEach((file) => {
-    
-                var fileName = path.join(folder, file);
-                var components = path.parse(fileName);
-    
-                if (components.ext == '.png') {
-                    images[components.name] = {fileName:fileName};
-                }
-    
-            })
-    
-            return images;
-    
-        });
         this.options = {...this.defaultOptions, ...this.options};
         this.colors  = require('color-name');
-        //this.emojis  = loadEmojis(path.join(__dirname, '../emojis'));
+        this.emojis  = loadEmojis(path.join(__dirname, '../emojis'));
         //this.emojis  = once(this.loadEmojis, path.join(__dirname, '../emojis'));
-        this.emojis = loadEmojis();
+        //this.emojis = loadEmojis();
 
         console.log(this.options);
     }
