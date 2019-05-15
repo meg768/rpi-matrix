@@ -2,6 +2,7 @@ var path   = require("path");
 var matrix = require(path.join(__dirname, "build", "Release", "rpi-matrix.node"));
 var Canvas = require('canvas');
 var Color  = require('color');
+
 var matrixConfig = undefined;
 
 function isPixels(value) {

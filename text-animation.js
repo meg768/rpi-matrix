@@ -1,14 +1,19 @@
 
 var Matrix = require('./index.js');
 var path = require('path');
+var Animation = require('./demo/scripts/animation.js');
 
-module.exports = class Scroller extends Matrix  {
 
-    constructor(config) {
+class TextAnimation extends Animation  {
 
-		super({ ...config, ...{ mode: 'canvas' } });
+    constructor(options) {
+
+        super(options);
+
+        this.matrix = new Matrix({mode: 'canvas'});
 
         this.defaultOptions = {
+            text        : 'Hello World',
             scrollDelay : 10,
             fontSize    : 0.60,
             emojiSize   : 0.75,
@@ -17,10 +22,11 @@ module.exports = class Scroller extends Matrix  {
             textColor   : 'purple'
         };
 
-        this.options = {...this.defaultOptions};
+        this.options = {...this.defaultOptions, ...this.options};
         this.colors  = require('color-name');
         this.emojis  = this.loadEmojis(path.join(__dirname, './emojis'));
 
+        console.log(this.options);
     }
 
     
@@ -47,10 +53,10 @@ module.exports = class Scroller extends Matrix  {
 
     createTextImage(text) {
         
-        var myctx = this.canvas.getContext('2d');
+        var myctx = this.matrix.canvas.getContext('2d');
         var textSize = myctx.measureText(text); 
 
-        var canvas = this.createCanvas(textSize.width, this.height);
+        var canvas = this.matrix.createCanvas(textSize.width, this.matrix.height);
 
         var ctx = canvas.getContext('2d');
         ctx.font = myctx.font;
@@ -64,13 +70,13 @@ module.exports = class Scroller extends Matrix  {
     }
 
     createEmojiImage(image) {
-        var margin = this.height * (1 - this.options.emojiSize);
-        var scale = (this.height - margin) / image.height;  
+        var margin = this.matrix.height * (1 - this.options.emojiSize);
+        var scale = (this.matrix.height - margin) / image.height;  
 
         var imageWidth = image.width * scale;
         var imageHeight = image.height * scale;
 
-        var canvas = this.createCanvas(imageWidth, imageHeight);
+        var canvas = this.matrix.createCanvas(imageWidth, imageHeight);
         var ctx = canvas.getContext('2d');
 
         ctx.drawImage(image, 0, 0, imageWidth, imageHeight);  
@@ -87,7 +93,7 @@ module.exports = class Scroller extends Matrix  {
             try {
                 if (item.type == 'emoji') {
                     if (item.fileName != undefined) {
-                        this.loadImage(item.fileName).then((image) => {
+                        this.matrix.loadImage(item.fileName).then((image) => {
                             item.image = this.createEmojiImage(image);    
                         })
                         .then(() => {
@@ -108,7 +114,7 @@ module.exports = class Scroller extends Matrix  {
                     resolve();
                 }
                 else if (item.type == 'color') {
-                    var ctx = this.canvas.getContext('2d');
+                    var ctx = this.matrix.canvas.getContext('2d');
                     ctx.fillStyle = util.format('rgb(%d,%d,%d)', item.color[0], item.color[1], item.color[2]);
                     resolve();
                 }
@@ -187,12 +193,12 @@ module.exports = class Scroller extends Matrix  {
                 totalWidth += item.image.width;
         });
 
-        var canvas = this.createCanvas(totalWidth + this.width, this.height);
+        var canvas = this.matrix.createCanvas(totalWidth + this.matrix.width, this.matrix.height);
         var ctx = canvas.getContext('2d');
 
         items.forEach((item) => {
             if (item.image != undefined) {
-                ctx.putImageData(item.image, offset, (this.height - item.image.height) / 2);
+                ctx.putImageData(item.image, offset, (this.matrix.height - item.image.height) / 2);
                 offset += item.image.width;    
             }
         });
@@ -201,18 +207,17 @@ module.exports = class Scroller extends Matrix  {
 
     }
 
-    runText(text, options) {
-
+    loop() {
         return new Promise((resolve, reject) => {
-            this.options =  {...this.options, ...options};
+            var text = this.options.text || 'Hmmm ;)';
 
-            var ctx = this.canvas.getContext('2d');
-            ctx.font = this.options.fontStyle + ' ' + (this.height * this.options.fontSize) + 'px ' + this.options.fontName;
+            var ctx = this.matrix.canvas.getContext('2d');
+            ctx.font = this.options.fontStyle + ' ' + (this.matrix.height * this.options.fontSize) + 'px ' + this.options.fontName;
             ctx.fillStyle = this.options.textColor;
-    
+
             this.parse(text).then((context) => {
                 var image = this.createDisplayImage(context);
-                this.render(image.data, {scroll:'right', scrollDelay:this.options.scrollDelay});
+                this.matrix.render(image.data, {scroll:'left', scrollDelay:this.options.scrollDelay});
 
                 resolve();
             })
@@ -222,13 +227,68 @@ module.exports = class Scroller extends Matrix  {
     
         });
 
- 
-    }
 
-   
+    }    
 
 };
 
+
+
+
+class Command {
+
+    constructor() {
+        module.exports.command  = 'text [options]';
+        module.exports.describe = 'Scroll text';
+        module.exports.builder  = this.defineArgs;
+        module.exports.handler  = this.run;
+        
+    }
+
+    defineArgs(args) {
+
+        args.usage('Usage: $0 [options]');
+
+        args.option('help', {describe:'Displays this information'});
+        args.option('text', {describe:'Text to display', default:'Hello World'});
+        args.option('textColor', {describe:'Specifies text color', default:'blue'});
+
+        args.wrap(null);
+
+        args.check(function(argv) {
+            return true;
+        });
+
+        return args.argv;
+    }
+
+
+    run(argv) {
+
+        try {
+
+            Matrix.configure(argv);
+
+            var animation = new TextAnimation(argv);
+
+            Promise.resolve().then(() => {
+                return animation.run();
+            })
+            .catch(error => {
+                console.error(error.stack);
+            })
+        }
+        catch (error) {
+            console.error(error.stack);
+        }
+
+    }
+    
+
+
+};
+
+new Command();
 
 
 
