@@ -4,7 +4,19 @@ var Animation = require('../src/js/animation.js');
 var emojis = undefined;
 
 
+function once(fn, context) { 
+	var result;
 
+	return function() { 
+		if(fn) {
+			result = fn.apply(context || this, arguments);
+			fn = null;
+		}
+
+		return result;
+	};
+}
+/*
 function loadEmojis(folder) {
     var fs = require('fs');
     var path = require('path');
@@ -13,8 +25,6 @@ function loadEmojis(folder) {
         return emojis;
 
     var images = [];
-
-    console.log('Loading EMOJOIS!');
 
     fs.readdirSync(folder).forEach((file) => {
 
@@ -29,7 +39,7 @@ function loadEmojis(folder) {
 
     return emojis = images;
 }
-
+*/
 
 module.exports = class TextAnimation extends Animation  {
 
@@ -54,7 +64,8 @@ module.exports = class TextAnimation extends Animation  {
 
         this.options = {...this.defaultOptions, ...this.options};
         this.colors  = require('color-name');
-        this.emojis  = loadEmojis(path.join(__dirname, '../emojis'));
+        //this.emojis  = loadEmojis(path.join(__dirname, '../emojis'));
+        this.emojis  = once(loadEmojis, path.join(__dirname, '../emojis'));
 
         console.log(this.options);
     }
