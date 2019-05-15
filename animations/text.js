@@ -62,10 +62,34 @@ module.exports = class TextAnimation extends Animation  {
             textColor       : 'purple'
         };
 
+        var loadEmojis = once(() => {
+            var fs = require('fs');
+            var path = require('path');
+            var emojiFolder = path.join(__dirname, '../emojis');
+    
+            var images = [];
+    
+            console.log('LOAD IMA', folder);
+    
+            fs.readdirSync(folder).forEach((file) => {
+    
+                var fileName = path.join(folder, file);
+                var components = path.parse(fileName);
+    
+                if (components.ext == '.png') {
+                    images[components.name] = {fileName:fileName};
+                }
+    
+            })
+    
+            return images;
+    
+        });
         this.options = {...this.defaultOptions, ...this.options};
         this.colors  = require('color-name');
         //this.emojis  = loadEmojis(path.join(__dirname, '../emojis'));
-        this.emojis  = once(this.loadEmojis, path.join(__dirname, '../emojis'));
+        //this.emojis  = once(this.loadEmojis, path.join(__dirname, '../emojis'));
+        this.emojis = loadEmojis();
 
         console.log(this.options);
     }
@@ -77,7 +101,7 @@ module.exports = class TextAnimation extends Animation  {
         var images = [];
 
         console.log('LOAD IMA', folder);
-        
+
         fs.readdirSync(folder).forEach((file) => {
 
             var fileName = path.join(folder, file);
