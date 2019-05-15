@@ -1,5 +1,5 @@
 var Matrix = require('../../../matrix.js');
-var Animation = require('../scripts/animation.js');
+var Animation = require('../../../src/js/animation.js');
 var Color = Matrix.Color;
 
 var fs = require('fs');
