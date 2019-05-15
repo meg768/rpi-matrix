@@ -39,30 +39,6 @@ var loadEmojis = once((folder) => {
 
 });
 
-/*
-function loadEmojis(folder) {
-    var fs = require('fs');
-    var path = require('path');
-
-    if (emojis)
-        return emojis;
-
-    var images = [];
-
-    fs.readdirSync(folder).forEach((file) => {
-
-        var fileName = path.join(folder, file);
-        var components = path.parse(fileName);
-
-        if (components.ext == '.png') {
-            images[components.name] = {fileName:fileName};
-        }
-
-    })
-
-    return emojis = images;
-}
-*/
 
 module.exports = class TextAnimation extends Animation  {
 
