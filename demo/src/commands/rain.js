@@ -34,6 +34,8 @@ class Command {
 	run(argv) {
 
 		try {
+			Matrix.configure(argv);
+			
             var matrix = new Matrix(Object.assign({}, argv, {mode:'pixel'}));
             var animation = new RainAnimation(matrix, argv);
             
