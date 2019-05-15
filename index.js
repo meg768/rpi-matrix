@@ -2,6 +2,7 @@ var path   = require("path");
 var matrix = require(path.join(__dirname, "build", "Release", "rpi-matrix.node"));
 var Canvas = require('canvas');
 var Color  = require('color');
+var matrixConfig = undefined;
 
 function isPixels(value) {
     return (value instanceof Buffer) || (value instanceof Uint32Array) || (value instanceof Uint8ClampedArray);
@@ -11,24 +12,18 @@ function isObject(value) {
     return (value instanceof Object);
 }
 
-var Matrix = module.exports = function(config) {
+var Matrix = module.exports = function(options) {
 
     var self = this;
 
-    var options = Object.assign({}, config);
-
-    if (options.width)
-        options.led_cols = options.width;
-
-    if (options.height)
-        options.led_rows = options.height;
+    if (matrixConfig == undefined) {
+        throw new Error('Must call Matrix.configure() first.');
+    }
 
     self.mode   = options.mode ? options.mode : 'pixel';
-    self.height = options['led-rows'] || options['led_rows'] || options['height'];
-    self.width  = options['led-cols'] || options['led_cols'] || options['width'];
-
-    matrix.configure(options);
-
+    self.height = matrixConfig.height;
+    self.width  = matrixConfig.width;
+    
 
     self.sleep = function(ms) {
         matrix.sleep(ms)
@@ -162,6 +157,21 @@ var Matrix = module.exports = function(config) {
 
 }
 
+
+Matrix.configure = function(config) {
+    var options = Object.assign({}, config);
+
+    if (options.width)
+        options.led_cols = options.width;
+
+    if (options.height)
+        options.led_rows = options.height;
+
+    options.height = options['led-rows'] || options['led_rows'] || options['height'];
+    options.width  = options['led-cols'] || options['led_cols'] || options['width'];
+
+    matrix.configure(matrixConfig = options);
+}
 
 Matrix.Canvas = Canvas;
 Matrix.Color  = Color;

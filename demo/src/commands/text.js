@@ -264,6 +264,9 @@ class Command {
     run(argv) {
 
         try {
+
+            Matrix.configure(argv);
+            
             var animation = new TextAnimation(argv);
 
             Promise.resolve().then(() => {
