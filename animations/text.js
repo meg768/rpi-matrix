@@ -45,8 +45,6 @@ module.exports = class TextAnimation extends Animation  {
 
     constructor(options) {
 
-        var path = require('path');
-
         super(options);
 
         this.matrix = new Matrix({mode: 'canvas'});
@@ -65,7 +63,7 @@ module.exports = class TextAnimation extends Animation  {
         var loadEmojis = once(() => {
             var fs = require('fs');
             var path = require('path');
-            var emojiFolder = path.join(__dirname, '../emojis');
+            var folder = path.join(__dirname, '../emojis');
     
             var images = [];
     
