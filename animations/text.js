@@ -2,12 +2,6 @@ var Matrix = require('../matrix.js');
 var Animation = require('../src/js/animation.js');
 
 
-
-
-
-
-
-
 module.exports = class TextAnimation extends Animation  {
 
     constructor(options) {
@@ -215,21 +209,11 @@ module.exports = class TextAnimation extends Animation  {
     }
 
     start() {
-        return new Promise((resolve, reject) => {
-            super.start().then(() => {
-                var ctx = this.matrix.canvas.getContext('2d');
-                ctx.font = this.options.fontStyle + ' ' + (this.matrix.height * this.options.fontSize) + 'px ' + this.options.fontName;
-                ctx.fillStyle = this.options.textColor;
+        var ctx = this.matrix.canvas.getContext('2d');
+        ctx.font = this.options.fontStyle + ' ' + (this.matrix.height * this.options.fontSize) + 'px ' + this.options.fontName;
+        ctx.fillStyle = this.options.textColor;
 
-                resolve();
-            })
-            .catch(error => {
-                reject(error);
-            });
-    
-        });
-
-
+        return super.start();
     }    
 
 
