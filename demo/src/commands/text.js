@@ -1,8 +1,8 @@
 
 //var Matrix = require('../../../index.js');
 var path = require('path');
-var TextScroller = require('../../../scroller.js');
-/*
+//var TextScroller = require('../../../scroller.js');
+
 class TextScroller extends Matrix  {
 
     constructor(config) {
@@ -231,7 +231,7 @@ class TextScroller extends Matrix  {
 };
 
 
-*/
+
 class Command {
 
     constructor() {
