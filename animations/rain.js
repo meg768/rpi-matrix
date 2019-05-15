@@ -104,7 +104,7 @@ class Worm {
 
 module.exports = class RainAnimation extends Animation {
 
-    constructor(matrix, options) {
+    constructor(options) {
         super(options);
 
         this.matrix = new Matrix({mode:'pixel'});
