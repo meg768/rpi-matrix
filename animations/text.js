@@ -15,32 +15,6 @@ function once(fn, context) {
 	};
 }
 
-function getEmojis(folder) {
-
-    var emojis = undefined;
-
-    if (emojis)
-        return emojis;
-
-    var fs = require('fs');
-    var path = require('path');
-
-    var emojis = [];
-
-    fs.readdirSync(folder).forEach((file) => {
-
-        var fileName = path.join(folder, file);
-        var components = path.parse(fileName);
-
-        if (components.ext == '.png') {
-            emojis[components.name] = {fileName:fileName};
-        }
-
-    })
-
-    return emojis;
-}
-
 
 module.exports = class TextAnimation extends Animation  {
 
@@ -92,9 +66,9 @@ module.exports = class TextAnimation extends Animation  {
 
         console.log(this.options);
     }
-/*
+
     
-    loadItUp(folder) {
+    loadEmojis(folder) {
         var fs = require('fs');
         var path = require('path');
 
@@ -115,7 +89,7 @@ module.exports = class TextAnimation extends Animation  {
 
         return emojis;
     }
-*/
+
 
     createTextImage(text) {
         
