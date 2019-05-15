@@ -44,7 +44,7 @@ class Command {
                 return animation.run();
             })
             .then(() => {
-                var options = {...argv, ...{text:'Thats all folks!', textColor:'blue'}};
+                var options = {...argv, ...{text:'Thats all folks! :sun-glasses:', textColor:'blue'}};
                 var animation = new TextAnimation(options);
                 return animation.run();
 
