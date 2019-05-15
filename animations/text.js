@@ -1,6 +1,41 @@
 var Matrix = require('../matrix.js');
 var Animation = require('../src/js/animation.js');
+/*
+var once = function(fn, context) { 
+    var result;
 
+    return function() { 
+        if(fn) {
+            result = fn.apply(context || this, arguments);
+            fn = null;
+        }
+
+        return result;
+    };
+}
+*/
+var loadEmojis = once((folder) => {
+    var fs = require('fs');
+    var path = require('path');
+
+    var images = [];
+
+    console.log('*************************************', folder);
+
+    fs.readdirSync(folder).forEach((file) => {
+
+        var fileName = path.join(folder, file);
+        var components = path.parse(fileName);
+
+        if (components.ext == '.png') {
+            images[components.name] = {fileName:fileName};
+        }
+
+    })
+
+    return images;
+
+});
 
 
 
@@ -27,41 +62,6 @@ module.exports = class TextAnimation extends Animation  {
         };
 
 
-        var once = function(fn, context) { 
-            var result;
-        
-            return function() { 
-                if(fn) {
-                    result = fn.apply(context || this, arguments);
-                    fn = null;
-                }
-        
-                return result;
-            };
-        }
-        
-        var loadEmojis = once((folder) => {
-            var fs = require('fs');
-            var path = require('path');
-        
-            var images = [];
-        
-            console.log('*************************************', folder);
-        
-            fs.readdirSync(folder).forEach((file) => {
-        
-                var fileName = path.join(folder, file);
-                var components = path.parse(fileName);
-        
-                if (components.ext == '.png') {
-                    images[components.name] = {fileName:fileName};
-                }
-        
-            })
-        
-            return images;
-        
-        });
 
         this.options = {...this.defaultOptions, ...this.options};
         this.colors  = require('color-name');
