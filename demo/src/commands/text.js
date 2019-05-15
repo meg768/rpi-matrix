@@ -34,9 +34,6 @@ class Command {
 
         Matrix.configure(argv);
 
-        var runText = (text) => {
-
-        };
 
         try {
 
