@@ -29,17 +29,27 @@ class Command {
 
 
     run(argv) {
+        var Matrix = require('../../../matrix.js');
+        var TextAnimation = require('../../../animations/text.js');
+
+        Matrix.configure(argv);
+
+        var runText = (text) => {
+
+        };
 
         try {
-            var Matrix = require('../../../matrix.js');
-            var TextAnimation = require('../../../animations/text.js');
 
-            Matrix.configure(argv);
 
-            var animation = new TextAnimation(argv);
 
             Promise.resolve().then(() => {
+                var animation = new TextAnimation(argv);
                 return animation.run();
+            })
+            .then(() => {
+                var animation = new TextAnimation({...argv}, ...{text:'Thats all folks!', textColor:'blue'});
+                return animation.run();
+
             })
             .catch(error => {
                 console.error(error.stack);
