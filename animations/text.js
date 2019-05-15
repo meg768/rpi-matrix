@@ -21,7 +21,7 @@ module.exports = class TextAnimation extends Animation  {
         this.defaultOptions = {
             text            : 'Hello World',
             scrollDelay     : 10,
-            scrollDirection : 'left',
+            scrollDirection : 'right',
             fontSize        : 0.60,
             emojiSize       : 0.75,
             fontName        : 'Arial',
