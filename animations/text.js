@@ -1,7 +1,7 @@
 
-var Matrix = require('./index.js');
+var Matrix = require('../index.js');
 var path = require('path');
-var Animation = require('./demo/src/scripts/animation.js');
+var Animation = require('../demo/src/scripts/animation.js');
 
 
 module.exports = class TextAnimation extends Animation  {
