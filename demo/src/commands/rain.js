@@ -1,6 +1,6 @@
 
 var Matrix = require('../../../index.js');
-var RainAnimation = require('../animations/rain-animation.js');
+var RainAnimation = require('../../../animations/rain.js');
 
 
 class Command {

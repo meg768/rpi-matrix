@@ -1,4 +1,4 @@
-var Animation = require('../scripts/animation.js');
+var Animation = require('../demo/src/scripts/animation.js');
 
 
 function random() {
