@@ -2,6 +2,46 @@ var Matrix = require('../matrix.js');
 var Animation = require('../src/js/animation.js');
 
 
+function once(fn, context) { 
+	var result;
+
+	return function() { 
+		if(fn) {
+			result = fn.apply(context || this, arguments);
+			fn = null;
+		}
+
+		return result;
+	};
+}
+
+function getEmojis(folder) {
+
+    var emojis = undefined;
+
+    if (emojis)
+        return emojis;
+
+    var fs = require('fs');
+    var path = require('path');
+
+    var emojis = [];
+
+    fs.readdirSync(folder).forEach((file) => {
+
+        var fileName = path.join(folder, file);
+        var components = path.parse(fileName);
+
+        if (components.ext == '.png') {
+            emojis[components.name] = {fileName:fileName};
+        }
+
+    })
+
+    return emojis;
+}
+
+
 module.exports = class TextAnimation extends Animation  {
 
     constructor(options) {
@@ -25,17 +65,42 @@ module.exports = class TextAnimation extends Animation  {
 
         this.options = {...this.defaultOptions, ...this.options};
         this.colors  = require('color-name');
-        this.emojis  = this.loadEmojis(path.join(__dirname, '../emojis'));
+        //this.emojis  = this.loadEmojis(path.join(__dirname, '../emojis'));
+
+        this.emojis = once((folder) => {
+            var fs = require('fs');
+            var path = require('path');
+
+            var emojis = [];
+
+            console.log('Loading EMOJOIS!');
+
+            fs.readdirSync(folder).forEach((file) => {
+
+                var fileName = path.join(folder, file);
+                var components = path.parse(fileName);
+
+                if (components.ext == '.png') {
+                    emojis[components.name] = {fileName:fileName};
+                }
+
+            })
+
+            return emojis;
+
+        });
 
         console.log(this.options);
     }
-
+/*
     
-    loadEmojis(folder) {
+    loadItUp(folder) {
         var fs = require('fs');
         var path = require('path');
 
         var emojis = [];
+
+        console.log('Loading EMOJOIS!');
 
         fs.readdirSync(folder).forEach((file) => {
 
@@ -50,7 +115,7 @@ module.exports = class TextAnimation extends Animation  {
 
         return emojis;
     }
-
+*/
 
     createTextImage(text) {
         
