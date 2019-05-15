@@ -10,7 +10,7 @@ class TextAnimation extends Animation  {
 
         super(options);
 
-        this.matrix = new Matrix({ ...options, ...{ mode: 'canvas' } });
+        this.matrix = new Matrix({mode: 'canvas'});
 
         this.defaultOptions = {
             text        : 'Hello World',
@@ -266,7 +266,7 @@ class Command {
         try {
 
             Matrix.configure(argv);
-            
+
             var animation = new TextAnimation(argv);
 
             Promise.resolve().then(() => {
