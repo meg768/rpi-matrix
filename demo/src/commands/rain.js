@@ -36,7 +36,7 @@ class Command {
 		try {
 			Matrix.configure(argv);
 
-            var animation = new RainAnimation(matrix, argv);
+            var animation = new RainAnimation(argv);
             
 			animation.run();
 		}
