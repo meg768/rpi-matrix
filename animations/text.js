@@ -1,6 +1,6 @@
 var Matrix = require('../matrix.js');
 var Animation = require('../src/js/animation.js');
-/*
+
 var once = function(fn, context) { 
     var result;
 
@@ -13,7 +13,8 @@ var once = function(fn, context) {
         return result;
     };
 }
-*/
+
+
 var loadEmojis = once((folder) => {
     var fs = require('fs');
     var path = require('path');
@@ -36,7 +37,6 @@ var loadEmojis = once((folder) => {
     return images;
 
 });
-
 
 
 
