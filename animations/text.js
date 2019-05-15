@@ -1,4 +1,4 @@
-var Matrix = require('../index.js');
+var Matrix = require('../matrix.js');
 var Animation = require('../src/js/animation.js');
 
 
