@@ -15,6 +15,28 @@ function once(fn, context) {
 	};
 }
 
+function loadEmojis(folder) {
+    var fs = require('fs');
+    var path = require('path');
+
+    var emojis = [];
+
+    console.log('Loading EMOJOIS!');
+
+    fs.readdirSync(folder).forEach((file) => {
+
+        var fileName = path.join(folder, file);
+        var components = path.parse(fileName);
+
+        if (components.ext == '.png') {
+            emojis[components.name] = {fileName:fileName};
+        }
+
+    })
+
+    return emojis;
+}
+
 
 module.exports = class TextAnimation extends Animation  {
 
@@ -39,89 +61,9 @@ module.exports = class TextAnimation extends Animation  {
 
         this.options = {...this.defaultOptions, ...this.options};
         this.colors  = require('color-name');
-        this.emojis  = this.loadEmojis(path.join(__dirname, '../emojis'));
-/*
-        this.emojis = once((folder) => {
-            var fs = require('fs');
-            var path = require('path');
+        this.emojis  = once(loadEmojis, path.join(__dirname, '../emojis'));
 
-            var emojis = [];
-
-            console.log('Loading EMOJOIS!');
-
-            fs.readdirSync(folder).forEach((file) => {
-
-                var fileName = path.join(folder, file);
-                var components = path.parse(fileName);
-
-                if (components.ext == '.png') {
-                    emojis[components.name] = {fileName:fileName};
-                }
-
-            })
-
-            return emojis;
-
-        });
-*/
         console.log(this.options);
-    }
-
-    loadEmojis(folder) {
-        var result;
-
-        var fn = function() {
-            var fs = require('fs');
-            var path = require('path');
-
-            var emojis = [];
-
-            console.log('Loading EMOJOIS!');
-
-            fs.readdirSync(folder).forEach((file) => {
-
-                var fileName = path.join(folder, file);
-                var components = path.parse(fileName);
-
-                if (components.ext == '.png') {
-                    emojis[components.name] = {fileName:fileName};
-                }
-
-            })
-
-            return emojis;
-        }
-
-        return function() { 
-            if(fn) {
-                result = fn.apply(context || this, arguments);
-                fn = null;
-            }
-    
-            return result;
-        };
-    }
-
-    loadEmojisX(folder) {
-        var fs = require('fs');
-        var path = require('path');
-
-        var emojis = [];
-
-        console.log('Loading EMOJOIS!');
-
-        fs.readdirSync(folder).forEach((file) => {
-
-            var fileName = path.join(folder, file);
-            var components = path.parse(fileName);
-
-            if (components.ext == '.png') {
-                emojis[components.name] = {fileName:fileName};
-            }
-
-        })
-
-        return emojis;
     }
 
 
