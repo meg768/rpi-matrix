@@ -266,8 +266,8 @@ class Command {
     run(argv) {
 
         try {
-            var Matrix = require('../../index.js');
-            var TextAnimation = require('../../text-animation.js');
+            var Matrix = require('../../../index.js');
+            var TextAnimation = require('../../../text-animation.js');
 
             Matrix.configure(argv);
 
