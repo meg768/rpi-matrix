@@ -207,7 +207,7 @@ class TextAnimation extends Animation  {
 
     }
 
-    loop() {
+    run() {
         return new Promise((resolve, reject) => {
             var text = this.options.text || 'Hmmm ;)';
 
