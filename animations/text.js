@@ -214,13 +214,28 @@ module.exports = class TextAnimation extends Animation  {
 
     }
 
+    start() {
+        return new Promise((resolve, reject) => {
+            super.start().then(() => {
+                var ctx = this.matrix.canvas.getContext('2d');
+                ctx.font = this.options.fontStyle + ' ' + (this.matrix.height * this.options.fontSize) + 'px ' + this.options.fontName;
+                ctx.fillStyle = this.options.textColor;
+
+                resolve();
+            })
+            .catch(error => {
+                reject(error);
+            });
+    
+        });
+
+
+    }    
+
+
     loop() {
         return new Promise((resolve, reject) => {
             var text = this.options.text || 'Hmmm ;)';
-
-            var ctx = this.matrix.canvas.getContext('2d');
-            ctx.font = this.options.fontStyle + ' ' + (this.matrix.height * this.options.fontSize) + 'px ' + this.options.fontName;
-            ctx.fillStyle = this.options.textColor;
 
             this.parse(text).then((context) => {
                 var image = this.createDisplayImage(context);
