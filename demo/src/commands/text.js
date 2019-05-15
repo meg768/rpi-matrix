@@ -31,14 +31,25 @@ class Command {
     run(argv) {
         var Matrix = require('../../../matrix.js');
         var TextAnimation = require('../../../animations/text.js');
+        var AnimationQueue = require('../../../src/js/animation-queue.js');
 
         Matrix.configure(argv);
 
 
         try {
 
+            var queue = new AnimationQueue();
 
+            var A = new TextAnimation(argv);
+            var B = new TextAnimation({...argv, ...{text:'Thats all folks! :sunglasses:', textColor:'blue'}});
 
+            queue.enqueue(A);
+            queue.enqueue(B);
+
+            queue.dequeue().then(() => {
+                console.log('Done!')
+            })
+/*
             Promise.resolve().then(() => {
                 var animation = new TextAnimation(argv);
                 return animation.run();
@@ -49,6 +60,7 @@ class Command {
                 return animation.run();
 
             })
+*/
             .catch(error => {
                 console.error(error.stack);
             })
