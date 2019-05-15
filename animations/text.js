@@ -24,7 +24,7 @@ module.exports = class TextAnimation extends Animation  {
 
         this.options = {...this.defaultOptions, ...this.options};
         this.colors  = require('color-name');
-        this.emojis  = this.loadEmojis(path.join(__dirname, './emojis'));
+        this.emojis  = this.loadEmojis(path.join(__dirname, '../emojis'));
 
         console.log(this.options);
     }
