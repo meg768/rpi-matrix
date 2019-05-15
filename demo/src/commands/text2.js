@@ -1,19 +1,15 @@
 
 var Matrix = require('../../../index.js');
 var path = require('path');
-var Animation = require('../scripts/animation.js');
+//var TextScroller = require('../../../scroller.js');
 
+class TextScroller extends Matrix  {
 
-class TextAnimation extends Animation  {
+    constructor(config) {
 
-    constructor(options) {
-
-        super(options);
-
-        this.matrix = new Matrix({ ...options, ...{ mode: 'canvas' } });
+		super({ ...config, ...{ mode: 'canvas' } });
 
         this.defaultOptions = {
-            text        : 'Hello World',
             scrollDelay : 10,
             fontSize    : 0.60,
             emojiSize   : 0.75,
@@ -25,8 +21,7 @@ class TextAnimation extends Animation  {
         this.options = {...this.defaultOptions};
         this.colors  = require('color-name');
         this.emojis  = this.loadEmojis(path.join(__dirname, '../../../emojis'));
-        this.image   = undefined;
-        this.offset  = 0;
+
     }
 
     
@@ -207,17 +202,18 @@ class TextAnimation extends Animation  {
 
     }
 
-    run() {
-        return new Promise((resolve, reject) => {
-            var text = this.options.text || 'Hmmm ;)';
+    runText(text, options) {
 
-            var ctx = this.matrix.canvas.getContext('2d');
+        return new Promise((resolve, reject) => {
+            this.options =  {...this.options, ...options};
+
+            var ctx = this.canvas.getContext('2d');
             ctx.font = this.options.fontStyle + ' ' + (this.height * this.options.fontSize) + 'px ' + this.options.fontName;
             ctx.fillStyle = this.options.textColor;
-
+    
             this.parse(text).then((context) => {
                 var image = this.createDisplayImage(context);
-                this.matrix.render(image.data, {scroll:'left', scrollDelay:this.options.scrollDelay});
+                this.render(image.data, {scroll:'right', scrollDelay:this.options.scrollDelay});
 
                 resolve();
             })
@@ -227,11 +223,12 @@ class TextAnimation extends Animation  {
     
         });
 
+ 
+    }
 
-    }    
+   
 
 };
-
 
 
 
@@ -247,37 +244,40 @@ class Command {
 
     defineArgs(args) {
 
-        args.usage('Usage: $0 [options]');
+		args.usage('Usage: $0 [options]');
 
-        args.option('help', {describe:'Displays this information'});
-        args.option('text', {describe:'Text to display', default:'Hello World'});
-        args.option('textColor', {describe:'Specifies text color', default:'blue'});
+		args.option('help', {describe:'Displays this information'});
+		args.option('text', {describe:'Text to display', default:'Hello World'});
+		args.option('textColor', {describe:'Specifies text color', default:'blue'});
 
-        args.wrap(null);
+		args.wrap(null);
 
-        args.check(function(argv) {
-            return true;
-        });
+		args.check(function(argv) {
+			return true;
+		});
 
-        return args.argv;
-    }
+		return args.argv;
+	}
 
 
-    run(argv) {
+	run(argv) {
 
-        try {
-            var animation = new TextAnimation(argv);
-
+		try {
+            var sample = new TextScroller(argv);
+            
             Promise.resolve().then(() => {
-                return animation.run();
+                return sample.runText(argv.text, argv);
+            })
+            .then(() => {
+                return sample.runText('Thats all folks! :sunglasses:', {textColor:'blue', fontStyle:'bold'});
             })
             .catch(error => {
                 console.error(error.stack);
             })
-        }
-        catch (error) {
-            console.error(error.stack);
-        }
+		}
+		catch (error) {
+    		console.error(error.stack);
+		}
 
     }
     
