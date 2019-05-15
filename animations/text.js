@@ -22,7 +22,7 @@ var loadEmojis = once((folder) => {
 
     var images = [];
 
-    console.log('LOAD IMA', folder);
+    console.log('*************************************', folder);
 
     fs.readdirSync(folder).forEach((file) => {
 
@@ -87,33 +87,9 @@ module.exports = class TextAnimation extends Animation  {
         this.options = {...this.defaultOptions, ...this.options};
         this.colors  = require('color-name');
         this.emojis  = loadEmojis(path.join(__dirname, '../emojis'));
-        //this.emojis  = once(this.loadEmojis, path.join(__dirname, '../emojis'));
-        //this.emojis = loadEmojis();
 
-        console.log(this.options);
     }
 
-    loadEmojis(folder) {
-        var fs = require('fs');
-        var path = require('path');
-
-        var images = [];
-
-        console.log('LOAD IMA', folder);
-
-        fs.readdirSync(folder).forEach((file) => {
-
-            var fileName = path.join(folder, file);
-            var components = path.parse(fileName);
-
-            if (components.ext == '.png') {
-                images[components.name] = {fileName:fileName};
-            }
-
-        })
-
-        return images;
-    }
 
     createTextImage(text) {
         
