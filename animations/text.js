@@ -76,6 +76,8 @@ module.exports = class TextAnimation extends Animation  {
 
         var images = [];
 
+        console.log('LOAD IMA', folder);
+        
         fs.readdirSync(folder).forEach((file) => {
 
             var fileName = path.join(folder, file);
