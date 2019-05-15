@@ -2,6 +2,7 @@ var Events  = require('events');
 
 
 function debug() {
+    console.log.apply(this, arguments);
 }
 
 
