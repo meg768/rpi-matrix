@@ -67,6 +67,7 @@ function loadEmojis(folder) {
 module.exports = class TextAnimation extends Animation  {
 
     constructor(options) {
+        var path = require('path');
 
         super(options);
 
