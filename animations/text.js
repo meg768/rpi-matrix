@@ -1,25 +1,18 @@
 var Matrix = require('../matrix.js');
 var Animation = require('../src/js/animation.js');
 
+var emojis = undefined;
 
-function once(fn, context) { 
-	var result;
 
-	return function() { 
-		if(fn) {
-			result = fn.apply(context || this, arguments);
-			fn = null;
-		}
-
-		return result;
-	};
-}
 
 function loadEmojis(folder) {
     var fs = require('fs');
     var path = require('path');
 
-    var emojis = [];
+    if (emojis)
+        return emojis;
+
+    var images = [];
 
     console.log('Loading EMOJOIS!');
 
@@ -29,12 +22,12 @@ function loadEmojis(folder) {
         var components = path.parse(fileName);
 
         if (components.ext == '.png') {
-            emojis[components.name] = {fileName:fileName};
+            images[components.name] = {fileName:fileName};
         }
 
     })
 
-    return emojis;
+    return emojis = images;
 }
 
 
@@ -61,7 +54,7 @@ module.exports = class TextAnimation extends Animation  {
 
         this.options = {...this.defaultOptions, ...this.options};
         this.colors  = require('color-name');
-        this.emojis  = once(loadEmojis, path.join(__dirname, '../emojis'));
+        this.emojis  = loadEmojis(path.join(__dirname, '../emojis'));
 
         console.log(this.options);
     }
