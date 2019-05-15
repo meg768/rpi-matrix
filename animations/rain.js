@@ -106,7 +106,7 @@ module.exports = class RainAnimation extends Animation {
     constructor(matrix, options) {
         super(options);
 
-        this.matrix = matrix;
+        this.matrix = new Matrix({mode:'pixel'});
         this.worms = [];
 
     }
