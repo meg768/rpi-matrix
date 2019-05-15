@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var Matrix = require('../../../index.js');
+var Matrix = require('../../../matrix.js');
 var ClockAnimation = require('../animations/clock-animation.js');
 
 class Command {

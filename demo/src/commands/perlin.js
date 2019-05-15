@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var Matrix = require('../../../index.js');
+var Matrix = require('../../../matrix.js');
 
 // Ported from Stefan Gustavson's java implementation
 // http://staffwww.itn.liu.se/~stegu/simplexnoise/simplexnoise.pdf

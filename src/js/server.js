@@ -15,7 +15,7 @@ module.exports = class Server {
 
 
 	defineRoutes(app) {
-		var Matrix = require('../../../index.js');
+		var Matrix = require('../../../matrix.js');
 		var ClockAnimation = require('../animations/clock-animation.js');
 		var TextAnimation = require('../animations/text-animation.js');
 

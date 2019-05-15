@@ -1,5 +1,5 @@
 
-var Matrix = require('../../../index.js');
+var Matrix = require('../../../matrix.js');
 
 class Sample extends Matrix {
 

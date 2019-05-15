@@ -1,5 +1,5 @@
 
-var Matrix = require('../../../index.js');
+var Matrix = require('../../../matrix.js');
 var path = require('path');
 var fs = require('fs');
 
