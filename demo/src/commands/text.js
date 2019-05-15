@@ -22,7 +22,7 @@ class TextAnimation extends Animation  {
             textColor   : 'purple'
         };
 
-        this.options = {...this.defaultOptions};
+        this.options = {...this.defaultOptions, options};
         this.colors  = require('color-name');
         this.emojis  = this.loadEmojis(path.join(__dirname, '../../../emojis'));
         this.image   = undefined;
