@@ -53,10 +53,10 @@ class TextAnimation extends Animation  {
 
     createTextImage(text) {
         
-        var myctx = this.canvas.getContext('2d');
+        var myctx = this.matrix.canvas.getContext('2d');
         var textSize = myctx.measureText(text); 
 
-        var canvas = this.createCanvas(textSize.width, this.height);
+        var canvas = this.matrix.createCanvas(textSize.width, this.matrix.height);
 
         var ctx = canvas.getContext('2d');
         ctx.font = myctx.font;
@@ -70,13 +70,13 @@ class TextAnimation extends Animation  {
     }
 
     createEmojiImage(image) {
-        var margin = this.height * (1 - this.options.emojiSize);
-        var scale = (this.height - margin) / image.height;  
+        var margin = this.matrix.height * (1 - this.options.emojiSize);
+        var scale = (this.matrix.height - margin) / image.height;  
 
         var imageWidth = image.width * scale;
         var imageHeight = image.height * scale;
 
-        var canvas = this.createCanvas(imageWidth, imageHeight);
+        var canvas = this.matrix.createCanvas(imageWidth, imageHeight);
         var ctx = canvas.getContext('2d');
 
         ctx.drawImage(image, 0, 0, imageWidth, imageHeight);  
@@ -93,7 +93,7 @@ class TextAnimation extends Animation  {
             try {
                 if (item.type == 'emoji') {
                     if (item.fileName != undefined) {
-                        this.loadImage(item.fileName).then((image) => {
+                        this.matrix.loadImage(item.fileName).then((image) => {
                             item.image = this.createEmojiImage(image);    
                         })
                         .then(() => {
@@ -114,7 +114,7 @@ class TextAnimation extends Animation  {
                     resolve();
                 }
                 else if (item.type == 'color') {
-                    var ctx = this.canvas.getContext('2d');
+                    var ctx = this.matrix.canvas.getContext('2d');
                     ctx.fillStyle = util.format('rgb(%d,%d,%d)', item.color[0], item.color[1], item.color[2]);
                     resolve();
                 }
@@ -193,12 +193,12 @@ class TextAnimation extends Animation  {
                 totalWidth += item.image.width;
         });
 
-        var canvas = this.createCanvas(totalWidth + this.width, this.height);
+        var canvas = this.matrix.createCanvas(totalWidth + this.matrix.width, this.matrix.height);
         var ctx = canvas.getContext('2d');
 
         items.forEach((item) => {
             if (item.image != undefined) {
-                ctx.putImageData(item.image, offset, (this.height - item.image.height) / 2);
+                ctx.putImageData(item.image, offset, (this.matrix.height - item.image.height) / 2);
                 offset += item.image.width;    
             }
         });
@@ -212,7 +212,7 @@ class TextAnimation extends Animation  {
             var text = this.options.text || 'Hmmm ;)';
             text = 'OLLE';
             var ctx = this.matrix.canvas.getContext('2d');
-            ctx.font = this.options.fontStyle + ' ' + (this.height * this.options.fontSize) + 'px ' + this.options.fontName;
+            ctx.font = this.options.fontStyle + ' ' + (this.matrix.height * this.options.fontSize) + 'px ' + this.options.fontName;
             ctx.fillStyle = this.options.textColor;
 
             this.parse(text).then((context) => {
