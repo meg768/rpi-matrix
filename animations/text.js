@@ -2,6 +2,12 @@ var Matrix = require('../matrix.js');
 var Animation = require('../src/js/animation.js');
 
 
+
+
+
+
+
+
 module.exports = class TextAnimation extends Animation  {
 
     constructor(options) {
@@ -13,13 +19,14 @@ module.exports = class TextAnimation extends Animation  {
         this.matrix = new Matrix({mode: 'canvas'});
 
         this.defaultOptions = {
-            text        : 'Hello World',
-            scrollDelay : 10,
-            fontSize    : 0.60,
-            emojiSize   : 0.75,
-            fontName    : 'Arial',
-            fontStyle   : 'bold',
-            textColor   : 'purple'
+            text            : 'Hello World',
+            scrollDelay     : 10,
+            scrollDirection : 'left',
+            fontSize        : 0.60,
+            emojiSize       : 0.75,
+            fontName        : 'Arial',
+            fontStyle       : 'bold',
+            textColor       : 'purple'
         };
 
         this.options = {...this.defaultOptions, ...this.options};
@@ -217,7 +224,7 @@ module.exports = class TextAnimation extends Animation  {
 
             this.parse(text).then((context) => {
                 var image = this.createDisplayImage(context);
-                this.matrix.render(image.data, {scroll:'left', scrollDelay:this.options.scrollDelay});
+                this.matrix.render(image.data, {scroll:this.options.scrollDirection, scrollDelay:this.options.scrollDelay});
 
                 resolve();
             })
