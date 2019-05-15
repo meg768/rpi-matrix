@@ -1,5 +1,5 @@
 
-//var Matrix = require('../../../index.js');
+var Matrix = require('../../../index.js');
 var path = require('path');
 //var TextScroller = require('../../../scroller.js');
 
