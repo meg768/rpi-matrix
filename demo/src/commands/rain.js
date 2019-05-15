@@ -1,6 +1,4 @@
 
-var Matrix = require('../../../index.js');
-var RainAnimation = require('../../../animations/rain.js');
 
 
 class Command {
@@ -34,6 +32,9 @@ class Command {
 	run(argv) {
 
 		try {
+			var Matrix = require('../../../index.js');
+			var RainAnimation = require('../../../animations/rain.js');
+			
 			Matrix.configure(argv);
 
             var animation = new RainAnimation(argv);
