@@ -6,7 +6,7 @@
             "target_name": "rpi-matrix",
 
             "sources": [
-            	"src/addon.cpp"
+            	"src/cpp/addon.cpp"
             ],
 
             "include_dirs": [
