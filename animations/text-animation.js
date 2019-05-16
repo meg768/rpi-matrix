@@ -32,7 +32,7 @@ module.exports = class TextAnimation extends ScrollAnimation  {
         var path = require('path');
         super(options);
 
-        var {text = 'ABC 123', fontSize = 0.65, emojiSize = 0.70, fontStyle = 'bold', fontName = 'Arial', textColor = 'purple'} = options;
+        var {text = 'ABC 123', fontSize = 0.65, emojiSize = 0.75, fontStyle = 'bold', fontName = 'Arial', textColor = 'purple'} = options;
 
         this.text       = text;
         this.fontSize   = fontSize;
