@@ -2,56 +2,6 @@ var Animation = require('../src/js/animation.js');
 var Matrix = require('../matrix.js');
 var random = require('yow/random');
 
-/*
-function random() {
-
-    var isType = function (obj, type) {
-        return Object.prototype.toString.call(obj) == '[object ' + type + ']';
-    };
-
-    var isArray = function (obj) {
-        return isType(obj, 'Array');
-    };
-
-    var isObject = function (obj) {
-        return obj !== null && isType(obj, 'Object');
-    };
-
-    var isInteger = function (n) {
-        return Number(n) === n && n % 1 === 0;
-    }
-
-    if (arguments.length == 0)
-        return Math.random();
-
-    if (arguments.length == 1) {
-        var arg = arguments[0];
-
-        if (isArray(arg)) {
-            return arg[Math.floor((Math.random() * arg.length))];
-        }
-
-        if (isInteger(arg)) {
-            return Math.floor(Math.random() * arg);
-        }
-
-        if (isObject(arg)) {
-            return arg[choose(Object.keys(arg))];
-        }
-
-    }
-
-    if (arguments.length == 2) {
-        if (isInteger(arguments[0]) && isInteger(arguments[1])) {
-            return Math.floor(Math.random() * (arguments[1] - arguments[0] + 1)) + arguments[0];
-        }
-    }
-
-    return 42;
-
-}
-*/
-
 class Worm {
 
     constructor(matrix, column) {

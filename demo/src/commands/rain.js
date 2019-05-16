@@ -33,7 +33,7 @@ class Command {
 
 		try {
 			var Matrix = require('../../../matrix.js');
-			var RainAnimation = require('../../../animations/rain.js');
+			var RainAnimation = require('../../../animations/rain-animation.js');
 			
 			Matrix.configure(argv);
 
