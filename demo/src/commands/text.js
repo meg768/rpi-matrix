@@ -33,7 +33,7 @@ class Command {
         var TextAnimation = require('../../../animations/text-animation.js');
         var AnimationQueue = require('../../../src/js/animation-queue.js');
 
-        Matrix.configure(matrixOptions);
+        Matrix.configure(argv);
 
         try {
 
