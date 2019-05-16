@@ -33,20 +33,14 @@ class Command {
         var TextAnimation = require('../../../animations/text-animation.js');
         var AnimationQueue = require('../../../src/js/animation-queue.js');
 
-        var {textColor, text, ...matrixOptions} = argv;
-        var textOptions = {textColor, text};
-
-        console.log('matrixOptions', matrixOptions);
-        console.log('textOptions', textOptions);
-
         Matrix.configure(matrixOptions);
 
         try {
 
             var queue = new AnimationQueue();
 
-            var A = new TextAnimation(textOptions);
-            var B = new TextAnimation({...textOptions, ...{text:'Thats all folks! :sunglasses:', textColor:'blue'}});
+            var A = new TextAnimation(argv);
+            var B = new TextAnimation({...argv, ...{text:'Thats all folks! :sunglasses:', textColor:'blue'}});
 
             queue.enqueue(A);
             queue.enqueue(B);
