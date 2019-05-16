@@ -221,6 +221,7 @@ module.exports = class TextAnimation extends ScrollAnimation  {
             var text = this.options.text || 'Hmmm ;)';
 
             this.parse(text).then((context) => {
+                console.log('*********************************')
                 this.scrollImage = this.createDisplayImage(context);
 //                this.matrix.render(image.data, {scroll:this.options.scrollDirection, scrollDelay:this.options.scrollDelay});
 
