@@ -31,6 +31,7 @@ class Command {
     run(argv) {
 
         var animationOptions = {textColor, text} = argv;
+console.log('animationOptions', animationOptions);
 
         var Matrix = require('../../../matrix.js');
         var TextAnimation = require('../../../animations/text-animation.js');
