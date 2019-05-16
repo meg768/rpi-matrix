@@ -1,6 +1,7 @@
 var Events = require('events');
 
 function debug() {
+	console.log.apply(this, arguments);
 }
 
 
@@ -12,9 +13,8 @@ module.exports = class AnimationQueue extends Events {
             this.currentAnimation = undefined;
             this.animationQueue   = [];
             this.busy             = false;
-            this.options         = Object.assign({}, options);
 
-            if (this.options.debug) {
+            if (options.debug) {
         		debug = function() {
         			console.log.apply(this, arguments);
         		}
@@ -51,7 +51,7 @@ module.exports = class AnimationQueue extends Events {
 
 		enqueue(animation) {
 
-			var priority = animation.options.priority;
+			var priority = animation.priority;
 
 			if (priority == 'low' && this.busy)
 				return;
@@ -69,7 +69,7 @@ module.exports = class AnimationQueue extends Events {
 			else {
                 // Remove blocking animations
                 if (this.currentAnimation != undefined) {
-                    if (this.currentAnimation.options && this.currentAnimation.options.duration < 0)
+                    if (this.currentAnimation.duration < 0)
                         this.currentAnimation.cancel();
 				}
 
