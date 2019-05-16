@@ -26,8 +26,6 @@ var loadEmojis = once((folder) => {
 });
 
 
-
-
 module.exports = class TextAnimation extends ScrollAnimation  {
 
     constructor(options) {
@@ -36,19 +34,13 @@ module.exports = class TextAnimation extends ScrollAnimation  {
         super(options);
 
 
-        this.defaultOptions = {
-            text            : 'Hello World',
-            scrollDelay     : 10,
-            scrollDirection : 'right',
-            fontSize        : 0.60,
-            emojiSize       : 0.75,
-            fontName        : 'Arial',
-            fontStyle       : 'bold',
-            textColor       : 'purple'
-        };
+        this.text = 'HEJ EHJ';
+        this.fontSize   = 0.65;
+        this.emojiSize  = 0.70;
+        this.fontStyle  = 'bold';
+        this.fontName   = 'Arial';
+        this.textColor  = 'purple';
 
-
-        this.options = {...this.defaultOptions, ...this.options};
         this.colors  = require('color-name');
         this.emojis  = loadEmojis(path.join(__dirname, '../emojis'));
 
@@ -74,7 +66,7 @@ module.exports = class TextAnimation extends ScrollAnimation  {
     }
 
     createEmojiImage(image) {
-        var margin = this.matrix.height * (1 - this.options.emojiSize);
+        var margin = this.matrix.height * (1 - this.emojiSize);
         var scale = (this.matrix.height - margin) / image.height;  
 
         var imageWidth = image.width * scale;
@@ -213,18 +205,16 @@ module.exports = class TextAnimation extends ScrollAnimation  {
 
     start() {
         var ctx = this.matrix.canvas.getContext('2d');
-        ctx.font = this.options.fontStyle + ' ' + (this.matrix.height * this.options.fontSize) + 'px ' + this.options.fontName;
-        ctx.fillStyle = this.options.textColor;
+        ctx.font = this.fontStyle + ' ' + (this.matrix.height * this.fontSize) + 'px ' + this.fontName;
+        ctx.fillStyle = this.textColor;
 
 
         return new Promise((resolve, reject) => {
-            var text = this.options.text || 'Hmmm ;)';
+            var text = this.text || 'Hmmm ;)';
 
             this.parse(text).then((context) => {
                 console.log('*********************************')
                 this.scrollImage = this.createDisplayImage(context);
-//                this.matrix.render(image.data, {scroll:this.options.scrollDirection, scrollDelay:this.options.scrollDelay});
-
                 resolve();
             })
             .then(() => {
@@ -238,26 +228,6 @@ module.exports = class TextAnimation extends ScrollAnimation  {
 
     }    
 
-/*
-    loop() {
-        return new Promise((resolve, reject) => {
-            var text = this.options.text || 'Hmmm ;)';
-
-            this.parse(text).then((context) => {
-                var image = this.createDisplayImage(context);
-                this.matrix.render(image.data, {scroll:this.options.scrollDirection, scrollDelay:this.options.scrollDelay});
-
-                resolve();
-            })
-            .catch(error => {
-                reject(error);
-            });
-    
-        });
-
-
-    }    
-*/
 };
 
 
