@@ -30,19 +30,19 @@ module.exports = class TextAnimation extends ScrollAnimation  {
 
     constructor(options) {
         var path = require('path');
-
         super(options);
 
+        var {text = 'ABC 123', fontSize = 0.65, emojiSize = 0.70, fontStyle = 'bold', fontName = 'Arial', textColor = 'purple'} = options;
 
-        this.text = 'HEJ EHJ';
-        this.fontSize   = 0.65;
-        this.emojiSize  = 0.70;
-        this.fontStyle  = 'bold';
-        this.fontName   = 'Arial';
-        this.textColor  = 'purple';
+        this.text       = text;
+        this.fontSize   = fontSize;
+        this.emojiSize  = emojiSize;
+        this.fontStyle  = fontStyle;
+        this.fontName   = fontName;
+        this.textColor  = textColor;
 
-        this.colors  = require('color-name');
-        this.emojis  = loadEmojis(path.join(__dirname, '../emojis'));
+        this.colors     = require('color-name');
+        this.emojis     = loadEmojis(path.join(__dirname, '../emojis'));
 
     }
 
