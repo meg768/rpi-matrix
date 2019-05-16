@@ -7,9 +7,7 @@ function debug() {
 
 module.exports = class AnimationQueue extends Events {
 
-        constructor(options) {
-			options = options || {};
-			
+        constructor(options = {}) {
             super();
 
             this.currentAnimation = undefined;
