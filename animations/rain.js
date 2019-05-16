@@ -1,5 +1,5 @@
 var Animation = require('../src/js/animation.js');
-var Matrix = require('../matrix.js/index.js');
+var Matrix = require('../matrix.js');
 
 
 function random() {
