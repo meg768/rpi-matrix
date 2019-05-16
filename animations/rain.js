@@ -1,7 +1,8 @@
 var Animation = require('../src/js/animation.js');
 var Matrix = require('../matrix.js');
+var random = require('yow/random');
 
-
+/*
 function random() {
 
     var isType = function (obj, type) {
@@ -49,6 +50,7 @@ function random() {
     return 42;
 
 }
+*/
 
 class Worm {
 
