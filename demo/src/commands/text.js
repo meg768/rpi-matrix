@@ -16,7 +16,7 @@ class Command {
 
         args.option('help', {describe:'Displays this information'});
         args.option('text', {describe:'Text to display', default:'Hello World'});
-        args.option('textColor', {describe:'Specifies text color', default:'blue'});
+        args.option('textColor', {describe:'Specifies text color'});
 
         args.wrap(null);
 
