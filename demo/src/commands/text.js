@@ -46,7 +46,7 @@ class Command {
             var B = new TextAnimation({...argv, ...{text:'Thats all folks! :sunglasses:', textColor:'blue'}});
 
             queue.enqueue(A);
-            queue.enqueue(B);
+//            queue.enqueue(B);
 
             queue.dequeue().then(() => {
                 console.log('Done!')
