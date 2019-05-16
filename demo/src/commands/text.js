@@ -31,10 +31,10 @@ class Command {
 
     run(argv) {
         var root = '../../..';
-        
-        var Matrix = require(path.join(root, './matrix.js');
+
+        var Matrix = require(path.join(root, './matrix.js'));
         var TextAnimation = require(path.join(root, './animations/text-animation.js'));
-        var AnimationQueue = require(path.join(root, './src/js/animation-queue.js');
+        var AnimationQueue = require(path.join(root, './src/js/animation-queue.js'));
 
         Matrix.configure(argv);
 
