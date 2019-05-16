@@ -1,12 +1,8 @@
 var root = '..';
 var path = require('path');
-
-var Matrix = require(path.join(root, './matrix.js'));
-var Animation = require(path.join(root, './src/js/animation.js'));
-var ScrollAnimation = require(path.join(root, './animations/scroll-animation.js'));
-
 var once = require('yow/once');
 
+var ScrollAnimation = require(path.join(root, './animations/scroll-animation.js'));
 
 var loadEmojis = once((folder) => {
     var fs = require('fs');
