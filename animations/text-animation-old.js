@@ -1,7 +1,6 @@
 var Matrix = require('../matrix.js');
 var Animation = require('../src/js/animation.js');
 var once = require('yow/once');
-var ScrollAnimation = require('./scroll-animation.js');
 
 
 var loadEmojis = once((folder) => {
@@ -28,13 +27,14 @@ var loadEmojis = once((folder) => {
 
 
 
-module.exports = class TextAnimation extends ScrollAnimation  {
+module.exports = class TextAnimation extends Animation  {
 
     constructor(options) {
         var path = require('path');
 
         super(options);
 
+        this.matrix = new Matrix({mode: 'canvas'});
 
         this.defaultOptions = {
             text            : 'Hello World',
@@ -216,28 +216,10 @@ module.exports = class TextAnimation extends ScrollAnimation  {
         ctx.font = this.options.fontStyle + ' ' + (this.matrix.height * this.options.fontSize) + 'px ' + this.options.fontName;
         ctx.fillStyle = this.options.textColor;
 
-
-        return new Promise((resolve, reject) => {
-            var text = this.options.text || 'Hmmm ;)';
-
-            this.parse(text).then((context) => {
-                this.scrollImage = this.createDisplayImage(context);
-//                this.matrix.render(image.data, {scroll:this.options.scrollDirection, scrollDelay:this.options.scrollDelay});
-
-                resolve();
-            })
-            .then(() => {
-                return super.start();
-            })
-            .catch(error => {
-                reject(error);
-            });
-    
-        });
-
+        return super.start();
     }    
 
-/*
+
     loop() {
         return new Promise((resolve, reject) => {
             var text = this.options.text || 'Hmmm ;)';
@@ -256,7 +238,7 @@ module.exports = class TextAnimation extends ScrollAnimation  {
 
 
     }    
-*/
+
 };
 
 

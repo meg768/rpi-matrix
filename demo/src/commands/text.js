@@ -39,9 +39,7 @@ class Command {
         console.log('matrixOptions', matrixOptions);
         console.log('textOptions', textOptions);
 
-
         Matrix.configure(matrixOptions);
-
 
         try {
 
@@ -56,18 +54,6 @@ class Command {
             queue.dequeue().then(() => {
                 console.log('Done!')
             })
-/*
-            Promise.resolve().then(() => {
-                var animation = new TextAnimation(argv);
-                return animation.run();
-            })
-            .then(() => {
-                var options = {...argv, ...{text:'Thats all folks! :sunglasses:', textColor:'blue'}};
-                var animation = new TextAnimation(options);
-                return animation.run();
-
-            })
-*/
             .catch(error => {
                 console.error(error.stack);
             })
