@@ -204,21 +204,21 @@ module.exports = class TextAnimation extends ScrollAnimation  {
     }
 
     start() {
+
         var ctx = this.matrix.canvas.getContext('2d');
         ctx.font = this.fontStyle + ' ' + (this.matrix.height * this.fontSize) + 'px ' + this.fontName;
         ctx.fillStyle = this.textColor;
 
-
         return new Promise((resolve, reject) => {
-            var text = this.text || 'Hmmm ;)';
-
-            this.parse(text).then((context) => {
+            this.parse(this.text).then((context) => {
                 console.log('*********************************')
                 this.scrollImage = this.createDisplayImage(context);
-                resolve();
             })
             .then(() => {
                 return super.start();
+            })
+            .then(() => {
+                resolve();
             })
             .catch(error => {
                 reject(error);

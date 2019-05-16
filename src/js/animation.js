@@ -11,13 +11,16 @@ module.exports = class Animation extends Events {
     constructor(options) {
         super();
 
-        this.options         = Object.assign({}, {priority:'normal'}, options);
-        this.name            = 'None';
+        var {name = 'Noname', priority = 'normal', duration = undefined} = options;
+
+        this.name            = name;
+        this.priority        = priority;
         this.cancelled       = false;
+        this.duration        = duration;
         this.renderFrequency = 0;
         this.renderTime      = 0;
 
-        if (this.options.debug) {
+        if (options.debug) {
             debug = function() {
                 console.log.apply(this, arguments);
             }
@@ -73,14 +76,14 @@ module.exports = class Animation extends Events {
                 if (self.cancelled) {
                     resolve();
                 }
-                else if (self.options.duration == undefined || self.options.duration == 0) {
+                else if (self.duration == undefined || self.duration == 0) {
 
                     // If no duration specified, render only once and stop
                     self.render();
 
                     resolve();
                 }
-                else if (self.options.duration > 0 && now - start > self.options.duration) {
+                else if (self.duration > 0 && now - start > self.duration) {
                     resolve();
                 }
                 else {
