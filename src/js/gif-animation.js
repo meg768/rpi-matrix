@@ -62,7 +62,7 @@ module.exports = class GifAnimation extends Animation {
         });
     }  
 
-    render() {
+    renderX() {
 
         var ctx = this.matrix.canvas.getContext('2d');
         var {gif, canvas, numFrames, i} = this.context;
@@ -110,7 +110,7 @@ module.exports = class GifAnimation extends Animation {
     }
 
 
-    runX() {
+    run() {
         var GIF = require('omggif');
         var gif = new GIF.GifReader(this.loadGIF(this.gif));
         var ctx = this.matrix.canvas.getContext('2d');
