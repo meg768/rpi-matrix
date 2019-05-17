@@ -283,6 +283,7 @@ class Command {
 	run(argv) {
 
 		try {
+            Sample.configure(argv);
 			var sample = new Sample(argv);
 			sample.run();
 		}
