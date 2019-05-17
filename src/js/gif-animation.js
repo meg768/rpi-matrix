@@ -64,9 +64,10 @@ module.exports = class GifAnimation extends Animation {
 
     render() {
 
-        console.log(i, gif.width, gif.height);
         var ctx = this.matrix.canvas.getContext('2d');
         var {gif, canvas, numFrames, i} = this.context;
+
+        console.log(i, gif.width, gif.height);
         
         
         var frame = gif.frameInfo(i);
