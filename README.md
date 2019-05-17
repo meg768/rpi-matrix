@@ -18,22 +18,17 @@ is updated with the proper components to compile.
 ## Usage
 
 	var Matrix = require('rpi-matrix');
-	var matrix = new Matrix({width:32, height:32});
+    Matrix.configure({'led-cols':32, 'led-rows':32});
 
+	var matrix = new Matrix({mode:'pixel});
 
-## Constructor
+## Initializing ##
 
-### new Matrix(config)
-
-Constructs a new matrix object. The **config** argument must contain the following values.
-
-- **width**      - Specifies the width of the display. Same as **led-cols** below.
-- **height**     - Specifies the height of the display. Same as **led-rows** below.
-- **mode**       - Specifies mode, either **pixel** or **canvas**
-
-This module also supports (almost) all of the command line options available with
+This module supports (almost) all of the command line options available with
 the samples from H Zeller. See https://github.com/hzeller/rpi-rgb-led-matrix
 for details.
+
+Make sure to call **Matrix.configure**. The following options are available.
 
 - **led-rows**  
 - **led-cols**  
@@ -54,13 +49,23 @@ for details.
 - **led-inverse**
 - **led-rgb-sequence**
 
+## Constructor
+
+### new Matrix(config)
+
+Constructs a new matrix object. The **config** argument must contain the following values.
+
+- **mode** - Specifies mode, either **pixel** or **canvas**
+
+
 ### Static Members
 
 This module has two dependencies, the npm module **canvas** and **color**.
 These may be accessed using the following static members.
 
-- **Matrix.Canvas** - Contains the canvas API (same as **require('canvas')**)
-- **Matrix.Color**  - Contains the color API (same as **require('color')**)
+- **Matrix.Canvas**             - Contains the canvas API (same as **require('canvas')**)
+- **Matrix.Color**              - Contains the color API (same as **require('color')**)
+- **Matrix.configure(config)**  - Initializes the hardware.
     
 
 ### Example
@@ -85,7 +90,8 @@ These may be accessed using the following static members.
         }
     }
 
-    var sample = new Sample({mode:'pixel', width:32, height:32});
+    Matrix.configure({'led-cols':32, 'led-rows':32});
+    var sample = new Sample({mode:'pixel'});
     sample.run();
 
 ## Pixel Mode
@@ -124,7 +130,8 @@ For more information about the Canvas API visit https://developer.mozilla.org/en
 Example
 
 	var Matrix = require('rpi-matrix');
-	var matrix = new Matrix({mode:'canvas', width:32, height:32});
+    Matrix.configure({'led-cols':32, 'led-rows':32});
+	var matrix = new Matrix({mode:'canvas'});
     ...
 
 When used in **canvas** mode the following methods are available
@@ -158,7 +165,9 @@ When used in **canvas** mode the following methods are available
         }
     };
 
-    var sample = new Sample({mode:'canvas', width:32, height:32});
+    Matrix.configure({'led-cols':32, 'led-rows':32});
+
+    var sample = new Sample({mode:'canvas'});
     sample.run();
 
 ### Simple Example using Fonts in Canvas Mode
