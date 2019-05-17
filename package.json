@@ -1,10 +1,10 @@
 {
   "name": "rpi-matrix",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "description": "Raspberry Pi RGB Matrix addon for Node",
   "main": "matrix.js",
   "scripts": {
-    "install": "make -C hzeller/lib && node-gyp rebuild",
+    "install": "make -C ./hzeller/lib && node-gyp rebuild",
     "build": "node-gyp rebuild",
     "pull": "git pull",
     "goto-github": "open https://github.com/meg768/rpi-matrix",
