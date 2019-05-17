@@ -84,7 +84,7 @@ module.exports = class Animation extends Events {
                 else if (self.cancelled) {
                     resolve();
                 }
-                else if (self.duration != undefined && (self.duration >= 0 && now - start > self.duration) {
+                else if (self.duration != undefined && (self.duration >= 0 && now - start > self.duration)) {
                     resolve();
                 }
                 else {
