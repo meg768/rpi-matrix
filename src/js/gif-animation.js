@@ -134,7 +134,7 @@ module.exports = class GifAnimation extends Animation {
             this.matrix.render();
             this.matrix.sleep(this.gif.getCurrentFrameDelay() * 10);
     
-            this.nextFrame();
+            this.gif.nextFrame();
     
         }
     
