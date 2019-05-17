@@ -82,7 +82,8 @@ NAN_METHOD(Addon::configure)
         cols = options->Get(Nan::New<v8::String>("led_cols").ToLocalChecked());
 
     if (!cols->IsUndefined())
-        opts.cols = cols->Int32Value();
+        opts.cols = cols->ToInt32(Nan::GetCurrentContext()).ToLocalChecked()->Value();
+    //opts.cols = cols->Int32Value();
 
 
     // chain_length
