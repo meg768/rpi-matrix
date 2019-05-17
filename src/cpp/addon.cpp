@@ -73,7 +73,7 @@ NAN_METHOD(Addon::configure)
         rows = options->Get(Nan::New<v8::String>("led_rows").ToLocalChecked());
 
     if (!rows->IsUndefined())
-        opts.rows = ToInt32(Nan::GetCurrentContext()).ToLocalChecked()->Value();
+        opts.rows = rows->ToInt32(Nan::GetCurrentContext()).ToLocalChecked()->Value();
 
     // cols
     v8::Local<v8::Value> cols = options->Get(Nan::New<v8::String>("led-cols").ToLocalChecked());
