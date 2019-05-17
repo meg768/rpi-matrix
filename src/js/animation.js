@@ -60,6 +60,11 @@ module.exports = class Animation extends Events {
         });
     }
 
+    completed() {
+        return false;
+    }
+
+
     loop() {
         var self = this;
 
@@ -73,23 +78,20 @@ module.exports = class Animation extends Events {
 
                 var now = new Date();
 
-                if (self.cancelled) {
+                if (self.completed()) {
                     resolve();
                 }
-                else if (self.duration == undefined || self.duration == 0) {
-
-                    // If no duration specified, render only once and stop
-                    self.render();
-
+                else if (self.cancelled) {
                     resolve();
                 }
-                else if (self.duration > 0 && now - start > self.duration) {
+                else if (self.duration != undefined && (self.duration >= 0 && now - start > self.duration) {
                     resolve();
                 }
                 else {
                     var now = new Date();
 
                     if (self.renderFrequency == 0 || now - self.renderTime >= self.renderFrequency) {
+
                         self.render();
                         self.renderTime = now;
                     }

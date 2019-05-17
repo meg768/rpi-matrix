@@ -75,16 +75,13 @@ module.exports = class GifAnimation extends Animation {
 
     constructor(options) {
 
-        super(options);
+        var {gif = 'pacman', iterations = undefined, ...other} = options;
 
-        var {gif = 'pacman'} = options;
+        super(other);
 
-        if (this.duration == undefined) {
-            this.duration = -1;
-        }
-
-        this.matrix = new Matrix({mode:'canvas'});
-        this.fileName = gif;
+        this.matrix     = new Matrix({mode:'canvas'});
+        this.fileName   = gif;
+        this.iterations = iterations;
     }
 
 
@@ -134,19 +131,22 @@ module.exports = class GifAnimation extends Animation {
 
     render() {
 
-        if (this.gif) {
-            this.gif.drawCurrentFrame();
-            this.matrix.canvas.getContext("2d").drawImage(this.gif.canvas, 0, 0);
+        this.gif.drawCurrentFrame();
+        this.matrix.canvas.getContext("2d").drawImage(this.gif.canvas, 0, 0);
 
-            this.matrix.render();
-            this.matrix.sleep(this.gif.getCurrentFrameDelay() * 10);
-    
-            this.gif.nextFrame();
+        this.matrix.render();
+        this.matrix.sleep(this.gif.getCurrentFrameDelay() * 10);
 
-            if (this.gif.currentFrame == 0 && this.duration == -1)
+        this.gif.nextFrame();
+
+        if (this.gif.currentFrame == 0 && this.iterations != undefined) {
+            if (this.iterations > 0) 
+                this.iterations--;
+
+            if (this.iterations <= 0)
                 this.cancel();
+
         }
-    
     }
 
 }
