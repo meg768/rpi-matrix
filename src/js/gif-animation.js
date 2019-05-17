@@ -82,7 +82,7 @@ module.exports = class GifAnimation extends Animation {
         if (this.duration == undefined) {
             this.duration = -1;
         }
-        
+
         this.matrix = new Matrix({mode:'canvas'});
         this.fileName = gif;
     }
@@ -143,7 +143,7 @@ module.exports = class GifAnimation extends Animation {
     
             this.gif.nextFrame();
 
-            if (this.gif.currentFrame == 0 && this.duration == undefined)
+            if (this.gif.currentFrame == 0 && this.duration == -1)
                 this.cancel();
         }
     
