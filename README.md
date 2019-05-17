@@ -73,28 +73,30 @@ Constructs a new matrix object. The **config** argument must contain the followi
 
 ### Example
 
-	var Matrix = require('rpi-matrix');
+    var Matrix = require('rpi-matrix');
+    var path = require("path");
+
+    Matrix.Canvas.registerFont(path.join(__dirname, './fonts/Verdana.ttf'), { family: 'what-ever' });
+    Matrix.configure({'led-cols':32, 'led-rows':32});
 
     class Sample extends Matrix {
 
         run() {
-            var red;
+            var ctx = this.canvas.getContext('2d');
 
-            for (red = 0; red <= 255; red++) {
-                this.fill(this.RGB(red, 0, 0));
-                this.render();
-            
-            }
-            for (red = 255; red >= 0; red--) {
-                this.fill(this.RGB(red, 0, 0));
-                this.render();
-            
-            }    
+            ctx.font = 'bold 16px Verdana';
+            ctx.fillStyle = 'blue';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('X', this.width / 2, this.height / 2);
+
+            this.render();
+
+            setTimeout(() => {}, 3000);
         }
-    }
+    };
 
-    Matrix.configure({'led-cols':32, 'led-rows':32});
-    var sample = new Sample({mode:'pixel'});
+    var sample = new Sample({mode:'canvas', width:32, height:32});
     sample.run();
 
 ## Pixel Mode
@@ -153,7 +155,8 @@ When used in **canvas** mode the following methods are available
 
 ### Simple Example using Canvas Mode
 
-	var Matrix = require('rpi-matrix');
+    var Matrix = require('rpi-matrix');
+    Matrix.configure({'led-cols':32, 'led-rows':32});
 
     class Sample extends Matrix {
 
@@ -167,8 +170,6 @@ When used in **canvas** mode the following methods are available
             setTimeout(() => {}, 3000);
         }
     };
-
-    Matrix.configure({'led-cols':32, 'led-rows':32});
 
     var sample = new Sample({mode:'canvas'});
     sample.run();
