@@ -1,13 +1,16 @@
 
 all: build/Release/rpi-matrix.node 
 
-pull:
+git-pull:
 	git pull
 
-commit:
+git-commit:
 	git add -A && git commit -m '-' && git push
 
-publish:
+git-reset:
+	git reset --hard HEAD
+
+npm-publish:
 	npm publish
 
 hzeller/lib/librgbmatrix.a: hzeller/lib/*.cc hzeller/lib/*.h
