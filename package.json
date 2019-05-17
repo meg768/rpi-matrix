@@ -1,6 +1,6 @@
 {
   "name": "rpi-matrix",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "Raspberry Pi RGB Matrix addon for Node",
   "main": "matrix.js",
   "scripts": {
