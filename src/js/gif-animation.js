@@ -78,8 +78,6 @@ module.exports = class GifAnimation extends Animation {
 
         var {ctx, gif, canvas, numFrames, i} = this.context;
 
-        console.log(i, gif.width, gif.height);
-        
         var frame = gif.frameInfo(i);
         var image = ctx.createImageData(gif.width, gif.height);
         gif.decodeAndBlitFrameRGBA(i, image.data);
