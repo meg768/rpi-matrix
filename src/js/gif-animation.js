@@ -22,8 +22,6 @@ module.exports = class GifAnimation extends Animation {
 
             super.stop().then(() => {
                 this.context = {};
-                this.matrix.clear();
-                this.matrix.render({blend:50});
             })
             .then(() => {
                 resolve();
