@@ -79,6 +79,10 @@ module.exports = class GifAnimation extends Animation {
 
         var {gif = 'pacman'} = options;
 
+        if (this.duration == undefined) {
+            this.duration = -1;
+        }
+        
         this.matrix = new Matrix({mode:'canvas'});
         this.fileName = gif;
     }
