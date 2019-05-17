@@ -6,11 +6,12 @@
   "scripts": {
     "install": "make -C hzeller/lib && node-gyp rebuild",
     "build": "node-gyp rebuild",
-    "goto-github": "open https://github.com/meg768/rpi-matrix",
-    "goto-npm": "open https://www.npmjs.com/package/rpi-matrix",
-    "git-pull": "git pull",
-    "git-revert": "git reset --hard HEAD",
-    "git-commit": "git add -A && git commit -m '-' && git push"
+    "goto-github": "make goto-github",
+    "goto-npm": "make goto-npm",
+    "npm-publish": "make npm-publish",
+    "git-pull": "make git-pull",
+    "git-revert": "make git-revert",
+    "git-commit": "make git-commit"
   },
   "dependencies": {
     "canvas": "^2.1.0",

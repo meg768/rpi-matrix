@@ -1,6 +1,12 @@
 
 all: build/Release/rpi-matrix.node 
 
+goto-github:
+	open https://github.com/meg768/rpi-matrix
+
+goto-npm:
+	open https://www.npmjs.com/package/rpi-matrix
+
 git-pull:
 	git pull
 
