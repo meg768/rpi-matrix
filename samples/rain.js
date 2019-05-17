@@ -1,5 +1,6 @@
 
-
+var Matrix = require('../matrix.js');
+var RainAnimation = require('../src/js/rain-animation.js');
 
 class Command {
 
@@ -32,8 +33,6 @@ class Command {
 	run(argv) {
 
 		try {
-			var Matrix = require('../../../matrix.js');
-			var RainAnimation = require('../../../animations/rain-animation.js');
 			
 			Matrix.configure(argv);
 

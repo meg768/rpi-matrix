@@ -1,10 +1,7 @@
 
-var path = require('path');
-var root = '..';
-
-var Matrix = require(path.join(root, './matrix.js'));
-var TextAnimation = require(path.join(root, './src/js/text-animation.js'));
-var AnimationQueue = require(path.join(root, './src/js/animation-queue.js'));
+var Matrix = require('../matrix.js');
+var TextAnimation = require('../src/js/text-animation.js');
+var AnimationQueue = require('../src/js/animation-queue.js');
 
 class Command {
 
