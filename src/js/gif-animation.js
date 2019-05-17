@@ -72,7 +72,7 @@ module.exports = class GifAnimation extends Animation {
         context.gif.decodeAndBlitFrameRGBA(context.currentFrame, image.data);
 
         ctx.putImageData(image, 0, 0);
-        this.matrix.canvas.getContext("2d").drawImage(canvas, 0, 0);
+        this.matrix.canvas.getContext("2d").drawImage(context.canvas, 0, 0);
         context.currentFrame++;
 
         if (context.currentFrame > context.numFrames)
