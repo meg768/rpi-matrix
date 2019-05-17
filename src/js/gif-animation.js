@@ -4,6 +4,80 @@ var random = require('yow/random');
 var path = require('path');
 var fs = require('fs');
 
+class GifImage {
+
+    constructor(fileName) {
+      
+        var GIF = require('omggif');
+        this.gif = new GIF.GifReader(this.loadGIF(fileName));
+
+        this.canvas = Matrix.Canvas.createCanvas(gif.width, gif.height);
+        this.frameCount = this.gif.numFrames();
+        this.currentFrame = 0;
+        this.width  = gif.width;
+        this.height = gif.height;
+    }
+
+
+    loadGIF(name) {
+
+        function fileExists(path) {
+
+            try {
+                fs.accessSync(path);		
+                return true;
+            }
+            catch (error) {
+            }
+        
+            return false;		
+        }
+
+        var fileName = '';
+
+        if (!fileExists(fileName))
+            fileName = path.join(__dirname, '../../gifs/96x96', name + '.gif');
+ 
+        if (!fileExists(fileName))
+            fileName = path.join(__dirname, '../../gifs/32x32', name + '.gif');
+
+ 
+        return fs.readFileSync(fileName);    
+    }
+
+    getImage(index) {
+        var image = this.canvas.getContext('2d').createImageData(this.gif.width, this.gif.height);
+        this.gif.decodeAndBlitFrameRGBA(index, image.data);
+        return image;    
+    }
+
+    nextFrame() {
+        this.currentFrame++;
+
+        if (this.currentFrame >= this.frameCount)
+            this.currentFrame = 0;
+    }
+
+    getCurrentFrameDelay() {
+        var frame = this.gif.frameInfo(this.currentFrame);
+        return frame.delay;
+    }
+
+    renderFrame(matrix) {
+
+        this.canvas.getContext("2d").putImageData(this.getImage(this.currentFrame), 0, 0);
+        matrix.canvas.getContext("2d").drawImage(this.canvas, 0, 0);
+
+        matrix.render();
+        matrix.sleep(frame.delay * 10);
+
+        this.nextFrame();
+    
+    }
+    
+}
+
+
 module.exports = class GifAnimation extends Animation {
 
     constructor(options) {
