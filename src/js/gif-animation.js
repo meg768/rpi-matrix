@@ -1,23 +1,37 @@
-
-var Matrix = require('../matrix.js');
-var GifAnimation = require('../src/js/gif-animation.js');
-
-var path = require('path');
-var fs = require('fs');
-
-function debug() {
-
-}
-
-class Sample extends Matrix {
+var Matrix = require('../../matrix.js');
+var Animation = require('./animation.js');
+var random = require('yow/random');
 
 
-	constructor(options) {
-		super({...options, ...{mode:'canvas'}});
+module.exports = class GifAnimation extends Animation {
 
-		this.options = options;
-	}
-	
+    constructor(options) {
+
+        super(options);
+
+        this.matrix = new Matrix({mode:'canvas'});
+
+    }
+
+
+    stop() {
+        return new Promise((resolve, reject) => {
+
+            super.stop().then(() => {
+                this.matrix.clear();
+                this.matrix.render({blend:50});
+            })
+            .then(() => {
+                resolve();
+            })
+            .catch(error => {
+                reject(error);
+            })
+
+        });
+    }    
+
+
     loadGIF(name) {
 
         function fileExists(path) {
@@ -77,56 +91,7 @@ class Sample extends Matrix {
     
         }
 
+        return Promise.resolve();
     }
-};
-
-
-class Command {
-
-    constructor() {
-        module.exports.command  = 'animate [options]';
-        module.exports.describe = 'Animate gifs';
-        module.exports.builder  = this.defineArgs;
-        module.exports.handler  = this.run;
-        
-    }
-
-    defineArgs(args) {
-
-		args.usage('Usage: $0 animate [options]');
-
-		args.option('help', {describe:'Displays this information'});
-		args.option('gif',  {describe:'Specifies name of GIF', default:'pacman'});
-
-		args.wrap(null);
-
-		args.check(function(argv) {
-			return true;
-		});
-
-		return args.argv;
-	}
-
-
-	run(argv) {
-
-		try {
-
-            Matrix.configure(argv);
-			var sample = new GifAnimation(argv);
-			sample.run();
-		}
-		catch (error) {
-			console.error(error.stack);
-		}
-
-    }
-    
-
-
-};
-
-new Command();
-
-
+}
 
