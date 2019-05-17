@@ -52,7 +52,7 @@ module.exports = class TextAnimation extends ScrollAnimation  {
         var myctx = this.matrix.canvas.getContext('2d');
         var textSize = myctx.measureText(text); 
 
-        var canvas = Matrix.Canvas.createCanvas(textSize.width, this.matrix.height);
+        var canvas = this.Canvas.createCanvas(textSize.width, this.matrix.height);
 
         var ctx = canvas.getContext('2d');
         ctx.font = myctx.font;
@@ -189,7 +189,7 @@ module.exports = class TextAnimation extends ScrollAnimation  {
                 totalWidth += item.image.width;
         });
 
-        var canvas = Matrix.Canvas.createCanvas(totalWidth + this.matrix.width, this.matrix.height);
+        var canvas = this.Canvas.createCanvas(totalWidth + this.matrix.width, this.matrix.height);
         var ctx = canvas.getContext('2d');
 
         items.forEach((item) => {
