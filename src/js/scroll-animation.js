@@ -1,8 +1,8 @@
 var root = '..';
 var path = require('path');
 
-var Matrix = require(path.join(root, './matrix.js'));
-var Animation = require(path.join(root, './src/js/animation.js'));
+var Matrix = require(path.join(root, '../../matrix.js'));
+var Animation = require(path.join(root, './animation.js'));
 
 
 module.exports = class ScrollAnimation extends Animation  {

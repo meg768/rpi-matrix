@@ -1,5 +1,5 @@
-var Animation = require('../src/js/animation.js');
-var Matrix = require('../matrix.js');
+var Matrix = require('../../matrix.js');
+var Animation = require('./animation.js');
 var random = require('yow/random');
 
 class Worm {
