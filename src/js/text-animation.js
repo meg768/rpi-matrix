@@ -2,7 +2,7 @@ var root = '..';
 var path = require('path');
 var once = require('yow/once');
 
-var ScrollAnimation = require(path.join(root, './animations/scroll-animation.js'));
+var ScrollAnimation = require('./scroll-animation.js');
 
 var loadEmojis = once((folder) => {
     var fs = require('fs');
