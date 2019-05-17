@@ -14,6 +14,7 @@ module.exports = class GifAnimation extends Animation {
 
         this.matrix = new Matrix({mode:'canvas'});
         this.gif = gif;
+        this.duration = 1000;
     }
 
 
