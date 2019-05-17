@@ -190,7 +190,7 @@ module.exports = class TextAnimation extends ScrollAnimation  {
                 totalWidth += item.image.width;
         });
 
-        var canvas = this.Canvas.createCanvas(totalWidth + this.matrix.width, this.matrix.height);
+        var canvas = Matrix.Canvas.createCanvas(totalWidth + this.matrix.width, this.matrix.height);
         var ctx = canvas.getContext('2d');
 
         items.forEach((item) => {
