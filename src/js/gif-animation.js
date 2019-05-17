@@ -58,7 +58,7 @@ class GifImage {
         return frame.delay;
     }
 
-    renderCurrentFrame() {
+    drawCurrentFrame() {
         var image = this.canvas.getContext('2d').createImageData(this.gif.width, this.gif.height);
         this.gif.decodeAndBlitFrameRGBA(this.currentFrame, image.data);
 
@@ -128,7 +128,7 @@ module.exports = class GifAnimation extends Animation {
     render() {
 
         if (this.gif) {
-            this.gif.renderCurrentFrame();
+            this.gif.drawCurrentFrame();
             this.matrix.canvas.getContext("2d").drawImage(this.gif.canvas, 0, 0);
 
             this.matrix.render();
