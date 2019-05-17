@@ -88,6 +88,7 @@ module.exports = class GifAnimation extends Animation {
         ctx.drawImage(canvas, 0, 0);
 
         this.matrix.render();
+        this.matrix.sleep(frame.delay * 10);
 
         this.context.i++;
         if (this.context.i >= numFrames) {
