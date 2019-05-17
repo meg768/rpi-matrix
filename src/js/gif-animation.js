@@ -52,7 +52,7 @@ module.exports = class GifAnimation extends Animation {
                 this.context.currentFrame = 0;
 
                 var ctx = this.matrix.canvas.getContext('2d');
-                
+
                 var scaleX = this.matrix.width  / gif.width;
                 var scaleY = this.matrix.height / gif.height;
         
@@ -73,14 +73,14 @@ module.exports = class GifAnimation extends Animation {
 
     render() {
         var context = this.context;
+        var ctx = this.matrix.canvas.getContext('2d');
 
-        var ctx = context.canvas.getContext("2d");
-console.log(context.currentFrame, context.gif.width, context.gif.height);
+        console.log(context.currentFrame, context.gif.width, context.gif.height);
         var frame = context.gif.frameInfo(context.currentFrame);
         var image = ctx.createImageData(context.gif.width, context.gif.height);
         context.gif.decodeAndBlitFrameRGBA(context.currentFrame, image.data);
 
-        ctx.putImageData(image, 0, 0);
+        context.canvas.getContext("2d").putImageData(image, 0, 0);
         this.matrix.canvas.getContext("2d").drawImage(context.canvas, 0, 0);
         context.currentFrame++;
 
