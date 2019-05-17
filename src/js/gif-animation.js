@@ -65,13 +65,13 @@ module.exports = class GifAnimation extends Animation {
     run() {
         var GIF = require('omggif');
         var gif = new GIF.GifReader(this.loadGIF(this.gif));
-        var ctx = this.canvas.getContext('2d');
+        var ctx = this.matrix.canvas.getContext('2d');
         var numFrames = gif.numFrames();
 
-        var canvas = this.createCanvas(gif.width, gif.height);
+        var canvas = this.matrix.createCanvas(gif.width, gif.height);
 
-        var scaleX = this.width  / gif.width;
-        var scaleY = this.height / gif.height;
+        var scaleX = this.matrix.width  / gif.width;
+        var scaleY = this.matrix.height / gif.height;
 
         ctx.scale(scaleX, scaleY);
 
@@ -87,8 +87,8 @@ module.exports = class GifAnimation extends Animation {
                 canvas.getContext("2d").putImageData(image, 0, 0);
                 ctx.drawImage(canvas, 0, 0);
     
-                this.render();
-                this.sleep(frame.delay * 10);
+                this.matrix.render();
+                this.matrix.sleep(frame.delay * 10);
     
             }
     
