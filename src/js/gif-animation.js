@@ -51,15 +51,6 @@ module.exports = class GifAnimation extends Animation {
                 this.context.canvas = canvas;
                 this.context.currentFrame = 0;
 
-                var ctx = this.matrix.canvas.getContext('2d');
-
-                var scaleX = this.matrix.width  / gif.width;
-                var scaleY = this.matrix.height / gif.height;
-        
-                ctx.scale(scaleX, scaleY);
-        
-                if (scaleX > 1 || scaleY > 1)
-                    ctx.imageSmoothingEnabled = false;                
             })
             .then(() => {
                 resolve();
