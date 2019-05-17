@@ -22,8 +22,12 @@ var Matrix = module.exports = function(options) {
     }
 
     self.mode   = options.mode ? options.mode : 'pixel';
-    self.height = matrixConfig.height;
-    self.width  = matrixConfig.width;
+    self.height = matrixConfig['led-rows'];
+    self.width  = matrixConfig['led-cols'];
+
+    if (!self.rows || !self.cols) {
+        throw new Error('Must specify led-rows and led_cols in Matrix.configure().');
+    }
     
 
     self.sleep = function(ms) {
@@ -142,18 +146,7 @@ var Matrix = module.exports = function(options) {
 
 
 Matrix.configure = function(config) {
-    var options = Object.assign({}, config);
-
-    if (options.width)
-        options.led_cols = options.width;
-
-    if (options.height)
-        options.led_rows = options.height;
-
-    options.height = options['led-rows'] || options['led_rows'] || options['height'];
-    options.width  = options['led-cols'] || options['led_cols'] || options['width'];
-
-    matrix.configure(matrixConfig = options);
+    matrix.configure(matrixConfig = config);
 }
 
 Matrix.Canvas = Canvas;
