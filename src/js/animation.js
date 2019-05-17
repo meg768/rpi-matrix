@@ -60,10 +60,6 @@ module.exports = class Animation extends Events {
         });
     }
 
-    completed() {
-        return false;
-    }
-
 
     loop() {
         var self = this;
@@ -78,10 +74,7 @@ module.exports = class Animation extends Events {
 
                 var now = new Date();
 
-                if (self.completed()) {
-                    resolve();
-                }
-                else if (self.cancelled) {
+                if (self.cancelled) {
                     resolve();
                 }
                 else if (self.duration != undefined && (self.duration >= 0 && now - start > self.duration)) {
