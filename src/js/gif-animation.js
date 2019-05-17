@@ -108,8 +108,8 @@ module.exports = class GifAnimation extends Animation {
 
         var fileName = '';
 
-        if (!fileExists(fileName))
-            fileName = path.join(__dirname, '../../gifs/96x96', name + '.gif');
+       // if (!fileExists(fileName))
+         //   fileName = path.join(__dirname, '../../gifs/96x96', name + '.gif');
  
         if (!fileExists(fileName))
             fileName = path.join(__dirname, '../../gifs/32x32', name + '.gif');
