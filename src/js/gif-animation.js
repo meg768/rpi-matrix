@@ -9,8 +9,10 @@ module.exports = class GifAnimation extends Animation {
 
         super(options);
 
-        this.matrix = new Matrix({mode:'canvas'});
+        var {gif = 'pacman'} = options;
 
+        this.matrix = new Matrix({mode:'canvas'});
+        this.gif = gif;
     }
 
 
@@ -61,7 +63,7 @@ module.exports = class GifAnimation extends Animation {
 
     run() {
         var GIF = require('omggif');
-        var gif = new GIF.GifReader(this.loadGIF(this.options.gif));
+        var gif = new GIF.GifReader(this.loadGIF(this.gif));
         var ctx = this.canvas.getContext('2d');
         var numFrames = gif.numFrames();
 
