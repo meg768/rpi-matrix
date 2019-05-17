@@ -90,7 +90,7 @@ module.exports = class GifAnimation extends Animation {
         this.matrix.render();
 
         this.context.i++;
-        if (this.context.i > numFrames)
+        if (this.context.i >= numFrames)
             this.context.i = 0;
     
     }
