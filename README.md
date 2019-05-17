@@ -49,15 +49,6 @@ Make sure to call **Matrix.configure**. The following options are available.
 - **led-inverse**
 - **led-rgb-sequence**
 
-## Constructor
-
-### new Matrix(config)
-
-Constructs a new matrix object. The **config** argument must contain the following values.
-
-- **mode** - Specifies mode, either **pixel** or **canvas**
-
-
 ### Static Members
 
 This module has two dependencies, the npm module **canvas** and **color**.
@@ -66,6 +57,18 @@ These may be accessed using the following static members.
 - **Matrix.Canvas**             - Contains the canvas API (same as **require('canvas')**)
 - **Matrix.Color**              - Contains the color API (same as **require('color')**)
 - **Matrix.configure(config)**  - Initializes the hardware.
+
+
+## Constructor
+
+
+### new Matrix(config)
+
+Constructs a new matrix object. The **config** argument must contain the following values.
+
+- **mode** - Specifies mode, either **pixel** or **canvas**
+
+
     
 
 ### Example
