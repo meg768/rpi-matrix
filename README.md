@@ -68,9 +68,6 @@ Constructs a new matrix object. The **config** argument must contain the followi
 
 - **mode** - Specifies mode, either **pixel** or **canvas**
 
-
-    
-
 ### Example
 
     var Matrix = require('rpi-matrix');
