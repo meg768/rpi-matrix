@@ -1,5 +1,5 @@
 
-var Matrix = require('../../../matrix.js');
+var Matrix = require('../matrix.js');
 var path = require('path');
 var fs = require('fs');
 
@@ -33,10 +33,10 @@ class Sample extends Matrix {
         var fileName = '';
 
         if (!fileExists(fileName))
-            fileName = path.join(__dirname, '../../../gifs/96x96', name + '.gif');
+            fileName = path.join(__dirname, '../gifs/96x96', name + '.gif');
  
         if (!fileExists(fileName))
-            fileName = path.join(__dirname, '../../../gifs/32x32', name + '.gif');
+            fileName = path.join(__dirname, '../gifs/32x32', name + '.gif');
 
  
         return fs.readFileSync(fileName);    
