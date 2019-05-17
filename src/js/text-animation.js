@@ -29,7 +29,7 @@ var loadEmojis = once((folder) => {
 module.exports = class TextAnimation extends ScrollAnimation  {
 
     constructor(options) {
-        var path = require('path');
+
         super(options);
 
         var {text = 'ABC 123', fontSize = 0.65, emojiSize = 0.75, fontStyle = 'bold', fontName = 'Arial', textColor = 'purple'} = options;
@@ -52,7 +52,7 @@ module.exports = class TextAnimation extends ScrollAnimation  {
         var myctx = this.matrix.canvas.getContext('2d');
         var textSize = myctx.measureText(text); 
 
-        var canvas = this.matrix.createCanvas(textSize.width, this.matrix.height);
+        var canvas = Matrix.Canvas.createCanvas(textSize.width, this.matrix.height);
 
         var ctx = canvas.getContext('2d');
         ctx.font = myctx.font;
@@ -72,7 +72,7 @@ module.exports = class TextAnimation extends ScrollAnimation  {
         var imageWidth = image.width * scale;
         var imageHeight = image.height * scale;
 
-        var canvas = this.matrix.createCanvas(imageWidth, imageHeight);
+        var canvas = Matrix.Canvas.createCanvas(imageWidth, imageHeight);
         var ctx = canvas.getContext('2d');
 
         ctx.drawImage(image, 0, 0, imageWidth, imageHeight);  
@@ -189,7 +189,7 @@ module.exports = class TextAnimation extends ScrollAnimation  {
                 totalWidth += item.image.width;
         });
 
-        var canvas = this.matrix.createCanvas(totalWidth + this.matrix.width, this.matrix.height);
+        var canvas = Matrix.Canvas.createCanvas(totalWidth + this.matrix.width, this.matrix.height);
         var ctx = canvas.getContext('2d');
 
         items.forEach((item) => {
@@ -211,7 +211,6 @@ module.exports = class TextAnimation extends ScrollAnimation  {
 
         return new Promise((resolve, reject) => {
             this.parse(this.text).then((context) => {
-                console.log('*********************************')
                 this.scrollImage = this.createDisplayImage(context);
             })
             .then(() => {
