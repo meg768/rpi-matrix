@@ -4,14 +4,14 @@ var random = require('yow/random');
 var path = require('path');
 var fs = require('fs');
 
-class GifImage {
+class GifFrames {
 
     constructor(fileName) {
       
         var GIF = require('omggif');
-        this.gif = new GIF.GifReader(this.loadGIF(fileName));
 
-        this.canvas = Matrix.Canvas.createCanvas(this.gif.width, this.gif.height);
+        this.gif          = new GIF.GifReader(this.loadGIF(fileName));
+        this.canvas       = Matrix.Canvas.createCanvas(this.gif.width, this.gif.height);
         this.frameCount   = this.gif.numFrames();
         this.currentFrame = 0;
         this.width        = this.gif.width;
@@ -101,7 +101,7 @@ module.exports = class GifAnimation extends Animation {
         return new Promise((resolve, reject) => {
 
             super.start().then(() => {
-                var gif = new GifImage(this.fileName);
+                var gif = new GifFrames(this.fileName);
 
                 var ctx    = this.matrix.canvas.getContext('2d');
                 var scaleX = this.matrix.width  / gif.width;
@@ -138,32 +138,6 @@ module.exports = class GifAnimation extends Animation {
     
         }
     
-    }
-
-    loadGIF(name) {
-
-        function fileExists(path) {
-
-            try {
-                fs.accessSync(path);		
-                return true;
-            }
-            catch (error) {
-            }
-        
-            return false;		
-        }
-
-        var fileName = '';
-
-        if (!fileExists(fileName))
-            fileName = path.join(__dirname, '../../gifs/96x96', name + '.gif');
- 
-        if (!fileExists(fileName))
-            fileName = path.join(__dirname, '../../gifs/32x32', name + '.gif');
-
- 
-        return fs.readFileSync(fileName);    
     }
 
 
