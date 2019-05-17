@@ -1,7 +1,7 @@
 var Matrix = require('../../matrix.js');
 var Animation = require('./animation.js');
 var random = require('yow/random');
-
+var path = require('path');
 
 module.exports = class GifAnimation extends Animation {
 
