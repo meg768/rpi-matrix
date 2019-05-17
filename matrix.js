@@ -21,12 +21,16 @@ var Matrix = module.exports = function(options) {
         throw new Error('Must call Matrix.configure() first.');
     }
 
+    if (matrixConfig['led-rows'] == undefined || matrixConfig['led-cols'] == undefined) {
+        throw new Error('Must specify led-rows and led-cols in Matrix.configure().');
+    }
+
     self.mode   = options.mode ? options.mode : 'pixel';
     self.height = matrixConfig['led-rows'];
     self.width  = matrixConfig['led-cols'];
 
-    if (!self.rows || !self.cols) {
-        throw new Error('Must specify led-rows and led_cols in Matrix.configure().');
+    if (!self.width || !self.height) {
+        throw new Error('Must specify led-rows and led-cols in Matrix.configure().');
     }
     
 
@@ -146,6 +150,7 @@ var Matrix = module.exports = function(options) {
 
 
 Matrix.configure = function(config) {
+
     matrix.configure(matrixConfig = config);
 }
 
