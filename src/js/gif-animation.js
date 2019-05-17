@@ -49,7 +49,7 @@ module.exports = class GifAnimation extends Animation {
                 this.context.gif = gif;
                 this.context.numFrames = numFrames;
                 this.context.canvas = canvas;
-                this.context.currentFrame = 0;
+                this.context.i = 0;
 
             })
             .then(() => {
@@ -63,24 +63,23 @@ module.exports = class GifAnimation extends Animation {
     }  
 
     render() {
-        var context = this.context;
+
+        console.log(i, gif.width, gif.height);
         var ctx = this.matrix.canvas.getContext('2d');
+        var {gif, canvas, numFrames, i} = this.context;
+        
+        
+        var frame = gif.frameInfo(i);
+        var image = ctx.createImageData(gif.width, gif.height);
+        gif.decodeAndBlitFrameRGBA(i, image.data);
 
-        console.log(context.currentFrame, context.gif.width, context.gif.height);
-        var frame = context.gif.frameInfo(context.currentFrame);
-        var image = ctx.createImageData(context.gif.width, context.gif.height);
-        context.gif.decodeAndBlitFrameRGBA(context.currentFrame, image.data);
+        canvas.getContext("2d").putImageData(image, 0, 0);
+        ctx.drawImage(canvas, 0, 0);
 
-        context.canvas.getContext("2d").putImageData(image, 0, 0);
-        this.matrix.canvas.getContext("2d").drawImage(context.canvas, 0, 0);
-        context.currentFrame++;
-
-        if (context.currentFrame > context.numFrames)
-            context.currentFrame = 0;
-
-            //this.matrix.render();
-        //this.matrix.sleep(frame.delay * 10);
-
+        this.context.i++;
+        if (this.context.i > numFrames)
+            this.context.i = 0;
+    
     }
 
     loadGIF(name) {
