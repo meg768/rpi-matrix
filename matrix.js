@@ -158,5 +158,3 @@ Matrix.configure = function(config) {
 
 Matrix.Canvas = Canvas;
 Matrix.Color  = Color;
-Matrix.Animation = require('./src/js/animation.js');
-Matrix.AnimationQueue = require('./src/js/animation-queue.js');
