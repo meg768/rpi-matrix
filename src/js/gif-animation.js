@@ -11,11 +11,11 @@ class GifImage {
         var GIF = require('omggif');
         this.gif = new GIF.GifReader(this.loadGIF(fileName));
 
-        this.canvas = Matrix.Canvas.createCanvas(gif.width, gif.height);
-        this.frameCount = this.gif.numFrames();
+        this.canvas = Matrix.Canvas.createCanvas(this.gif.width, this.gif.height);
+        this.frameCount   = this.gif.numFrames();
         this.currentFrame = 0;
-        this.width  = gif.width;
-        this.height = gif.height;
+        this.width        = this.gif.width;
+        this.height       = this.gif.height;
     }
 
 
