@@ -29,14 +29,7 @@ var Matrix = module.exports = function(options) {
     self.sleep = function(ms) {
         matrix.sleep(ms)
     }
-
-    self.loadImage = function(image) {
-        return Canvas.loadImage(image);
-    }
     
-    self.renderImage = function(image, options) {
-        return matrix.render(image, options);
-    }
     
     if (self.mode == 'raw') {
     
@@ -113,17 +106,6 @@ var Matrix = module.exports = function(options) {
     else if (this.mode == 'canvas') {
         self.canvas = Canvas.createCanvas(self.width, self.height);
 
-        self.scroll = function(image, options) {
-            matrix.scroll(image, options);
-        }
-
-        self.getCanvas = function() {
-            return self.canvas;
-        }
-        
-        self.createCanvas = function(width, height) {
-            return Canvas.createCanvas(width, height);
-        }
 
         self.render = function() {
 

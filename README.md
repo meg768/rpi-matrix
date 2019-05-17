@@ -104,8 +104,6 @@ When used in **pixel** mode the following methods are available
 - **render([image], [options])**    - Renders the current pixels (or specified image) to the matrix. The **options** parameter may contain **blend** or **scroll** values. See source code for details.
 - **RGB(r, g, b)**                  - Returns a RGB color as an integer
 - **HLS(h, l, s)**                  - Returns a HLS color as an integer
-- **loadImage(image)**              - Helper function to load PNG or JPEG images. Returns a **Promise** when loaded.
-- **renderImage(image)**            - Renders a loaded image to the display.
 - **sleep(milliseconds)**           - Helper function. Sleep the number of milliseconds specified.
 
 ### Member Variables
@@ -133,10 +131,6 @@ When used in **canvas** mode the following methods are available
 
 ### Methods
 
-- **getCanvas()**                   - Returns the canvas associated with the matrix display. Also available as member variable **matrix.canvas**.
-- **createCanvas(width, height)**   - Creates and returns an off-screen canvas that may be used for more advanced graphics.
-- **loadImage(image)**              - Helper function to load PNG or JPEG images. Returns a **Promise** when loaded.
-- **renderImage(image)**            - Renders a loaded image to the display.
 - **render([image], [options])**    - Renders the current canvas (or specified image) to the matrix. The **options** parameter may contain **blend** or **scroll** values. See source code for details.
 - **sleep(milliseconds)**           - Helper function. Sleep the number of milliseconds specified.
 

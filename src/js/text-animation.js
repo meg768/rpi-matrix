@@ -2,6 +2,7 @@ var root = '..';
 var path = require('path');
 var once = require('yow/once');
 
+var Matrix = require('../../matrix.js')
 var ScrollAnimation = require('./scroll-animation.js');
 
 var loadEmojis = once((folder) => {
@@ -52,7 +53,7 @@ module.exports = class TextAnimation extends ScrollAnimation  {
         var myctx = this.matrix.canvas.getContext('2d');
         var textSize = myctx.measureText(text); 
 
-        var canvas = this.Canvas.createCanvas(textSize.width, this.matrix.height);
+        var canvas = Matrix.Canvas.createCanvas(textSize.width, this.matrix.height);
 
         var ctx = canvas.getContext('2d');
         ctx.font = myctx.font;
