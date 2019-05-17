@@ -53,6 +53,10 @@ class GifFrames {
             this.currentFrame = 0;
     }
 
+    isLastFrame() {
+        this.currentFrame == this.frameCount - 1
+    }
+
     getCurrentFrameDelay() {
         var frame = this.gif.frameInfo(this.currentFrame);
         return frame.delay;
@@ -77,7 +81,6 @@ module.exports = class GifAnimation extends Animation {
 
         this.matrix = new Matrix({mode:'canvas'});
         this.fileName = gif;
-        this.duration = -1;
     }
 
 
@@ -135,46 +138,13 @@ module.exports = class GifAnimation extends Animation {
             this.matrix.sleep(this.gif.getCurrentFrameDelay() * 10);
     
             this.gif.nextFrame();
-    
+
+            if (this.gif.currentFrame == 0 && this.duration == undefined)
+                this.cancel();
         }
     
     }
 
-
-    runX() {
-        var GIF = require('omggif');
-        var gif = new GIF.GifReader(this.loadGIF(this.gif));
-        var ctx = this.matrix.canvas.getContext('2d');
-        var numFrames = gif.numFrames();
-
-        var canvas = this.matrix.createCanvas(gif.width, gif.height);
-
-        var scaleX = this.matrix.width  / gif.width;
-        var scaleY = this.matrix.height / gif.height;
-
-        ctx.scale(scaleX, scaleY);
-
-        if (scaleX > 1 || scaleY > 1)
-            ctx.imageSmoothingEnabled = false;
-
-        for (;;) {
-            for (var i = 0; i < numFrames; i++) {
-                var frame = gif.frameInfo(i);
-                var image = ctx.createImageData(gif.width, gif.height);
-                gif.decodeAndBlitFrameRGBA(i, image.data);
-    
-                canvas.getContext("2d").putImageData(image, 0, 0);
-                ctx.drawImage(canvas, 0, 0);
-    
-                this.matrix.render();
-                this.matrix.sleep(frame.delay * 10);
-    
-            }
-    
-        }
-
-        return Promise.resolve();
-    }
 }
 
 
