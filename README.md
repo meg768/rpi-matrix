@@ -51,8 +51,6 @@ Make sure to call **Matrix.configure**. The following options are available.
 
 ### Static Members
 
-This module has two dependencies, the npm module **canvas** and **color**.
-These may be accessed using the following static members.
 
 - **Matrix.Canvas**             - Contains the canvas API (same as **require('canvas')**)
 - **Matrix.Color**              - Contains the color API (same as **require('color')**)
@@ -93,7 +91,7 @@ Constructs a new matrix object. The **config** argument must contain the followi
         }
     };
 
-    var sample = new Sample({mode:'canvas', width:32, height:32});
+    var sample = new Sample({mode:'canvas'});
     sample.run();
 
 ## Pixel Mode
