@@ -151,6 +151,7 @@ var Matrix = module.exports = function(options) {
 
 Matrix.configure = function(config) {
 
+    
         
     matrix.configure(matrixConfig = config);
 }
