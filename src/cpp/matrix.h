@@ -53,7 +53,7 @@ public:
 
 		_matrix     = new rgb_matrix::RGBMatrix(&__io, options);
 		_canvas     = _matrix->CreateFrameCanvas();
-		_width      = _matrix->widht();
+		_width      = _matrix->width();
 		_height     = _matrix->height();  
 
 	}
