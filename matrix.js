@@ -26,8 +26,8 @@ var Matrix = module.exports = function(options) {
     }
 
     self.mode   = options.mode ? options.mode : 'pixel';
-    self.height = matrixConfig['led-rows'];
-    self.width  = matrixConfig['led-cols'];
+    self.height = parseInt(matrixConfig['led-rows']);
+    self.width  = parseInt(matrixConfig['led-cols']);
 
     if (!self.width || !self.height) {
         throw new Error('Must specify led-rows and led-cols in Matrix.configure().');
