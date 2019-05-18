@@ -179,30 +179,30 @@ NAN_METHOD(Addon::configure)
 
     ///////////////////////////////////////////////////////////////////////////
     // disable_hardware_pulsing
-    v8::Local<v8::Value> disable_hardware_pulsing = options->Get(Nan::New<v8::String>("led-disable-hardware-pulsing").ToLocalChecked());
+    v8::Local<v8::Value> disable_hardware_pulsing = options->Get(Nan::New<v8::String>("led-hardware-pulse").ToLocalChecked());
 
     if (disable_hardware_pulsing->IsUndefined()) 
-        disable_hardware_pulsing = options->Get(Nan::New<v8::String>("led_disable_hardware_pulsing").ToLocalChecked());
+        disable_hardware_pulsing = options->Get(Nan::New<v8::String>("led_hardware_pulse").ToLocalChecked());
 
     if (!disable_hardware_pulsing->IsUndefined())
         opts.disable_hardware_pulsing = Nan::To<int32_t>(disable_hardware_pulsing).FromMaybe(opts.disable_hardware_pulsing);
 
     ///////////////////////////////////////////////////////////////////////////
     // show_refresh_rate
-    v8::Local<v8::Value> show_refresh_rate = options->Get(Nan::New<v8::String>("led-show-refresh-rate").ToLocalChecked());
+    v8::Local<v8::Value> show_refresh_rate = options->Get(Nan::New<v8::String>("led-show-refresh").ToLocalChecked());
 
     if (show_refresh_rate->IsUndefined()) 
-        show_refresh_rate = options->Get(Nan::New<v8::String>("led_show_refresh_rate").ToLocalChecked());
+        show_refresh_rate = options->Get(Nan::New<v8::String>("led_show_refresh").ToLocalChecked());
 
     if (!show_refresh_rate->IsUndefined())
         opts.show_refresh_rate = Nan::To<int32_t>(show_refresh_rate).FromMaybe(opts.show_refresh_rate);
 
     ///////////////////////////////////////////////////////////////////////////
     // inverse_colors
-    v8::Local<v8::Value> inverse_colors = options->Get(Nan::New<v8::String>("led-inverse-colors").ToLocalChecked());
+    v8::Local<v8::Value> inverse_colors = options->Get(Nan::New<v8::String>("led-inverse").ToLocalChecked());
 
     if (inverse_colors->IsUndefined())
-        inverse_colors = options->Get(Nan::New<v8::String>("led_inverse_colors").ToLocalChecked());
+        inverse_colors = options->Get(Nan::New<v8::String>("led_inverse").ToLocalChecked());
 
     if (!inverse_colors->IsUndefined())
         opts.inverse_colors = Nan::To<int32_t>(inverse_colors).FromMaybe(opts.inverse_colors);
@@ -237,22 +237,22 @@ NAN_METHOD(Addon::configure)
 
     if (!debug->IsUndefined()) {
         printf("Creating matrix with the following options.\n");
-        printf("hardware_mapping         : %s\n", opts.hardware_mapping == NULL ? "-" : opts.hardware_mapping);
-        printf("rows                     : %d\n", opts.rows);
-        printf("cols                     : %d\n", opts.cols);
-        printf("chain_length             : %d\n", opts.chain_length);
-        printf("parallel                 : %d\n", opts.parallel);
-        printf("pwm_bits                 : %d\n", opts.pwm_bits);
-        printf("pwm_lsb_nanoseconds      : %d\n", opts.pwm_lsb_nanoseconds);
-        printf("pwm_dither_bits          : %d\n", opts.pwm_dither_bits);
-        printf("brightness               : %d\n", opts.brightness);
-        printf("scan_mode                : %d\n", opts.scan_mode);
-        printf("row_address_type         : %d\n", opts.row_address_type);
-        printf("multiplexing             : %d\n", opts.multiplexing);
-        printf("disable_hardware_pulsing : %d\n", opts.disable_hardware_pulsing);
-        printf("show_refresh_rate        : %d\n", opts.show_refresh_rate);
-        printf("inverse_colors           : %d\n", opts.inverse_colors);
-        printf("rgb_sequence             : %s\n", opts.led_rgb_sequence == NULL ? "-" : opts.led_rgb_sequence);
+        printf("led-hardware-mapping     : %s\n", opts.hardware_mapping == NULL ? "-" : opts.hardware_mapping);
+        printf("led-rows                 : %d\n", opts.rows);
+        printf("led-cols                 : %d\n", opts.cols);
+        printf("led-chain                : %d\n", opts.chain_length);
+        printf("led-parallel             : %d\n", opts.parallel);
+        printf("led-pwm_bits             : %d\n", opts.pwm_bits);
+        printf("led-pwm_lsb_nanoseconds  : %d\n", opts.pwm_lsb_nanoseconds);
+        printf("led-pwm_dither_bits      : %d\n", opts.pwm_dither_bits);
+        printf("led-brightness           : %d\n", opts.brightness);
+        printf("led-scan_mode            : %d\n", opts.scan_mode);
+        printf("led-row-addr-type        : %d\n", opts.row_address_type);
+        printf("led-multiplexing         : %d\n", opts.multiplexing);
+        printf("led-hardware-pulse       : %d\n", opts.disable_hardware_pulsing);
+        printf("led-show-refresh         : %d\n", opts.show_refresh_rate);
+        printf("led-inverse              : %d\n", opts.inverse_colors);
+        printf("led-rgb-sequence         : %s\n", opts.led_rgb_sequence == NULL ? "-" : opts.led_rgb_sequence);
         printf("pixel_mapper_config      : %s\n", opts.pixel_mapper_config == NULL ? "-" : opts.pixel_mapper_config);
 
     }
