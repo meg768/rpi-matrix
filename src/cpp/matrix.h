@@ -51,13 +51,10 @@ public:
 
 		__matrix    = this;
 
-		_matrix     = 0;
-		_canvas     = 0;
-		_width      = options.cols * options.chain_length;
-		_height     = options.rows * options.parallel;  
-
-		_matrix = new rgb_matrix::RGBMatrix(&__io, options);
-		_canvas = _matrix->CreateFrameCanvas();
+		_matrix     = new rgb_matrix::RGBMatrix(&__io, options);
+		_canvas     = _matrix->CreateFrameCanvas();
+		_width      = _canvas.widht();
+		_height     = _canvas.height();  
 
 	}
 
