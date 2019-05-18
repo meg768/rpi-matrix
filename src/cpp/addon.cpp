@@ -243,8 +243,8 @@ NAN_METHOD(Addon::configure)
         printf("led-chain                : %d\n", opts.chain_length);
         printf("led-parallel             : %d\n", opts.parallel);
         printf("led-pwm_bits             : %d\n", opts.pwm_bits);
-        printf("led-pwm_lsb_nanoseconds  : %d\n", opts.pwm_lsb_nanoseconds);
-        printf("led-pwm_dither_bits      : %d\n", opts.pwm_dither_bits);
+        printf("led-pwm-lsb-nanoseconds  : %d\n", opts.pwm_lsb_nanoseconds);
+        printf("led-pwm-dither-bits      : %d\n", opts.pwm_dither_bits);
         printf("led-brightness           : %d\n", opts.brightness);
         printf("led-scan_mode            : %d\n", opts.scan_mode);
         printf("led-row-addr-type        : %d\n", opts.row_address_type);

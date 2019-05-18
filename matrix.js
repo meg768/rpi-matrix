@@ -25,9 +25,13 @@ var Matrix = module.exports = function(options) {
         throw new Error('Must specify led-rows and led-cols in Matrix.configure().');
     }
 
+    if (matrixConfig['led-chain'] == undefined || matrixConfig['led-parallel'] == undefined) {
+        throw new Error('Must specify led-chain and led-parallel in Matrix.configure().');
+    }
+
     self.mode   = options.mode ? options.mode : 'pixel';
-    self.height = parseInt(matrixConfig['led-rows']);
-    self.width  = parseInt(matrixConfig['led-cols']);
+    self.height = parseInt(matrixConfig['led-rows']) * parseInt(matrixConfig['led-parallel']);
+    self.width  = parseInt(matrixConfig['led-cols']) * parseInt(matrixConfig['led-chain']);
 
     if (!self.width || !self.height) {
         throw new Error('Must specify led-rows and led-cols in Matrix.configure().');
@@ -151,9 +155,15 @@ var Matrix = module.exports = function(options) {
 
 Matrix.configure = function(config) {
 
-    
-        
-    matrix.configure(matrixConfig = config);
+
+    var defaultConfig = {
+        'led-rows'     : 32,
+        'led-cols'     : 32,
+        'led-chain'    : 1,
+        'led-parallel' : 1
+    };
+
+    matrix.configure(matrixConfig = Object.assign({}, defaultConfig, config));
 }
 
 Matrix.Canvas = Canvas;
