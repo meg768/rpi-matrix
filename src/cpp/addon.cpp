@@ -179,30 +179,30 @@ NAN_METHOD(Addon::configure)
 
     ///////////////////////////////////////////////////////////////////////////
     // disable_hardware_pulsing
-    v8::Local<v8::Value> disable_hardware_pulsing = options->Get(Nan::New<v8::String>("led-no-hardware-pulse").ToLocalChecked());
+    v8::Local<v8::Value> disable_hardware_pulsing = options->Get(Nan::New<v8::String>("led-disable-hardware-pulsing").ToLocalChecked());
 
     if (disable_hardware_pulsing->IsUndefined()) 
-        disable_hardware_pulsing = options->Get(Nan::New<v8::String>("led_no_hardware_pulse").ToLocalChecked());
+        disable_hardware_pulsing = options->Get(Nan::New<v8::String>("led_disable_hardware_pulsing").ToLocalChecked());
 
     if (!disable_hardware_pulsing->IsUndefined())
         opts.disable_hardware_pulsing = Nan::To<int32_t>(disable_hardware_pulsing).FromMaybe(opts.disable_hardware_pulsing);
 
     ///////////////////////////////////////////////////////////////////////////
     // show_refresh_rate
-    v8::Local<v8::Value> show_refresh_rate = options->Get(Nan::New<v8::String>("led-show-refresh").ToLocalChecked());
+    v8::Local<v8::Value> show_refresh_rate = options->Get(Nan::New<v8::String>("led-show-refresh-rate").ToLocalChecked());
 
     if (show_refresh_rate->IsUndefined()) 
-        show_refresh_rate = options->Get(Nan::New<v8::String>("led_show_refresh").ToLocalChecked());
+        show_refresh_rate = options->Get(Nan::New<v8::String>("led_show_refresh_rate").ToLocalChecked());
 
     if (!show_refresh_rate->IsUndefined())
         opts.show_refresh_rate = Nan::To<int32_t>(show_refresh_rate).FromMaybe(opts.show_refresh_rate);
 
     ///////////////////////////////////////////////////////////////////////////
     // inverse_colors
-    v8::Local<v8::Value> inverse_colors = options->Get(Nan::New<v8::String>("led-inverse").ToLocalChecked());
+    v8::Local<v8::Value> inverse_colors = options->Get(Nan::New<v8::String>("led-inverse-colors").ToLocalChecked());
 
     if (inverse_colors->IsUndefined())
-        inverse_colors = options->Get(Nan::New<v8::String>("led_inverse").ToLocalChecked());
+        inverse_colors = options->Get(Nan::New<v8::String>("led_inverse_colors").ToLocalChecked());
 
     if (!inverse_colors->IsUndefined())
         opts.inverse_colors = Nan::To<int32_t>(inverse_colors).FromMaybe(opts.inverse_colors);
@@ -252,7 +252,7 @@ NAN_METHOD(Addon::configure)
         printf("disable_hardware_pulsing : %d\n", opts.disable_hardware_pulsing);
         printf("show_refresh_rate        : %d\n", opts.show_refresh_rate);
         printf("inverse_colors           : %d\n", opts.inverse_colors);
-        printf("led_rgb_sequence         : %s\n", opts.led_rgb_sequence == NULL ? "-" : opts.led_rgb_sequence);
+        printf("rgb_sequence             : %s\n", opts.led_rgb_sequence == NULL ? "-" : opts.led_rgb_sequence);
         printf("pixel_mapper_config      : %s\n", opts.pixel_mapper_config == NULL ? "-" : opts.pixel_mapper_config);
 
     }
