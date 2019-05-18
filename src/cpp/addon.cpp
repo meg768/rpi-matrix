@@ -66,20 +66,18 @@ NAN_METHOD(Addon::configure)
         opts.hardware_mapping = hardware_mapping_string.c_str(); 
     }
 
+    ///////////////////////////////////////////////////////////////////////////
     // rows
-    if (true) {
-        v8::Local<v8::Value> rows = options->Get(Nan::New<v8::String>("led-rows").ToLocalChecked());
+    v8::Local<v8::Value> rows = options->Get(Nan::New<v8::String>("led-rows").ToLocalChecked());
 
-        if (rows->IsUndefined())
-            rows = options->Get(Nan::New<v8::String>("led_rows").ToLocalChecked());
+    if (rows->IsUndefined())
+        rows = options->Get(Nan::New<v8::String>("led_rows").ToLocalChecked());
 
-        if (!rows->IsUndefined()) {
-//            Nan::Maybe<int32_t> x = Nan::To<int32_t>(rows);
-  //          opts.rows = (int)x.FromMaybe((int32_t)opts.rows);
-            opts.rows = Nan::To<int32_t>(rows).FromMaybe(opts.rows);
-        }
+    if (!rows->IsUndefined()) {
+        opts.rows = Nan::To<int32_t>(rows).FromMaybe(opts.rows);
     }
 
+    ///////////////////////////////////////////////////////////////////////////
     // cols
     v8::Local<v8::Value> cols = options->Get(Nan::New<v8::String>("led-cols").ToLocalChecked());
 
@@ -87,9 +85,9 @@ NAN_METHOD(Addon::configure)
         cols = options->Get(Nan::New<v8::String>("led_cols").ToLocalChecked());
 
     if (!cols->IsUndefined())
-        opts.cols = cols->Int32Value();
+        opts.cols = Nan::To<int32_t>(cols).FromMaybe(opts.cols);
 
-
+    ///////////////////////////////////////////////////////////////////////////
     // chain_length
     v8::Local<v8::Value> chain_length = options->Get(Nan::New<v8::String>("led-chain").ToLocalChecked());
 
@@ -97,8 +95,9 @@ NAN_METHOD(Addon::configure)
         chain_length = options->Get(Nan::New<v8::String>("led_chain").ToLocalChecked());
 
     if (!chain_length->IsUndefined())
-        opts.chain_length = chain_length->Int32Value();
+        opts.chain_length = Nan::To<int32_t>(chain_length).FromMaybe(opts.chain_length);
 
+    ///////////////////////////////////////////////////////////////////////////
     // parallel
     v8::Local<v8::Value> parallel = options->Get(Nan::New<v8::String>("led-parallel").ToLocalChecked());
 
@@ -106,8 +105,9 @@ NAN_METHOD(Addon::configure)
         parallel = options->Get(Nan::New<v8::String>("led_parallel").ToLocalChecked());
 
     if (!parallel->IsUndefined())
-        opts.parallel = parallel->Int32Value();
+        opts.parallel = Nan::To<int32_t>(parallel).FromMaybe(opts.parallel);
 
+    ///////////////////////////////////////////////////////////////////////////
     // pwm_bits
     v8::Local<v8::Value> pwm_bits = options->Get(Nan::New<v8::String>("led-pwm-bits").ToLocalChecked());
 
@@ -115,8 +115,9 @@ NAN_METHOD(Addon::configure)
         pwm_bits = options->Get(Nan::New<v8::String>("led_pwm_bits").ToLocalChecked());
 
     if (!pwm_bits->IsUndefined())
-        opts.pwm_bits = pwm_bits->Int32Value();
+        opts.pwm_bits = Nan::To<int32_t>(pwm_bits).FromMaybe(opts.pwm_bits);
 
+    ///////////////////////////////////////////////////////////////////////////
     // pwm_lsb_nanoseconds
     v8::Local<v8::Value> pwm_lsb_nanoseconds = options->Get(Nan::New<v8::String>("led-pwm-lsb-nanoseconds").ToLocalChecked());
 
@@ -124,7 +125,7 @@ NAN_METHOD(Addon::configure)
         pwm_lsb_nanoseconds = options->Get(Nan::New<v8::String>("led_pwm_lsb_nanoseconds").ToLocalChecked());
 
     if (!pwm_lsb_nanoseconds->IsUndefined())
-        opts.pwm_lsb_nanoseconds = pwm_lsb_nanoseconds->Int32Value();
+        opts.pwm_lsb_nanoseconds = Nan::To<int32_t>(pwm_lsb_nanoseconds).FromMaybe(opts.pwm_lsb_nanoseconds);
 
     ///////////////////////////////////////////////////////////////////////////
     // pwm_dither_bits
@@ -134,7 +135,7 @@ NAN_METHOD(Addon::configure)
         pwm_dither_bits = options->Get(Nan::New<v8::String>("led_pwm_dither_bits").ToLocalChecked());
 
     if (!pwm_dither_bits->IsUndefined())
-        opts.pwm_dither_bits = pwm_dither_bits->Int32Value();
+        opts.pwm_dither_bits = Nan::To<int32_t>(pwm_dither_bits).FromMaybe(opts.pwm_dither_bits);
 
     ///////////////////////////////////////////////////////////////////////////
     // brightness
@@ -144,7 +145,7 @@ NAN_METHOD(Addon::configure)
         brightness = options->Get(Nan::New<v8::String>("led_brightness").ToLocalChecked());
 
     if (!brightness->IsUndefined())
-        opts.brightness = brightness->Int32Value();
+        opts.brightness = Nan::To<int32_t>(brightness).FromMaybe(opts.brightness);
 
     ///////////////////////////////////////////////////////////////////////////
     // scan_mode
@@ -154,73 +155,65 @@ NAN_METHOD(Addon::configure)
         scan_mode = options->Get(Nan::New<v8::String>("led_scan_mode").ToLocalChecked());
 
     if (!scan_mode->IsUndefined())
-        opts.scan_mode = scan_mode->Int32Value();
+        opts.scan_mode = Nan::To<int32_t>(scan_mode).FromMaybe(opts.scan_mode);
 
     ///////////////////////////////////////////////////////////////////////////
     // row_address_type
     v8::Local<v8::Value> row_address_type = options->Get(Nan::New<v8::String>("led-row-addr-type").ToLocalChecked());
 
-    if (row_address_type->IsUndefined()) {
+    if (row_address_type->IsUndefined())
         row_address_type = options->Get(Nan::New<v8::String>("led_row_addr_type").ToLocalChecked());
 
-    }
-
     if (!row_address_type->IsUndefined())
-        opts.row_address_type = row_address_type->Int32Value();
+        opts.row_address_type = Nan::To<int32_t>(row_address_type).FromMaybe(opts.row_address_type);
 
     ///////////////////////////////////////////////////////////////////////////
     // multiplexing
     v8::Local<v8::Value> multiplexing = options->Get(Nan::New<v8::String>("led-multiplexing").ToLocalChecked());
 
-    if (multiplexing->IsUndefined()) {
+    if (multiplexing->IsUndefined()) 
         multiplexing = options->Get(Nan::New<v8::String>("led_multiplexing").ToLocalChecked());
 
-    }
-
     if (!multiplexing->IsUndefined())
-        opts.multiplexing = multiplexing->Int32Value();
+        opts.multiplexing = Nan::To<int32_t>(multiplexing).FromMaybe(opts.multiplexing);
 
     ///////////////////////////////////////////////////////////////////////////
     // disable_hardware_pulsing
     v8::Local<v8::Value> disable_hardware_pulsing = options->Get(Nan::New<v8::String>("led-no-hardware-pulse").ToLocalChecked());
 
-    if (disable_hardware_pulsing->IsUndefined()) {
+    if (disable_hardware_pulsing->IsUndefined()) 
         disable_hardware_pulsing = options->Get(Nan::New<v8::String>("led_no_hardware_pulse").ToLocalChecked());
-    }
 
     if (!disable_hardware_pulsing->IsUndefined())
-        opts.disable_hardware_pulsing = disable_hardware_pulsing->Int32Value();
+        opts.disable_hardware_pulsing = Nan::To<int32_t>(disable_hardware_pulsing).FromMaybe(opts.disable_hardware_pulsing);
 
     ///////////////////////////////////////////////////////////////////////////
     // show_refresh_rate
     v8::Local<v8::Value> show_refresh_rate = options->Get(Nan::New<v8::String>("led-show-refresh").ToLocalChecked());
 
-    if (show_refresh_rate->IsUndefined()) {
+    if (show_refresh_rate->IsUndefined()) 
         show_refresh_rate = options->Get(Nan::New<v8::String>("led_show_refresh").ToLocalChecked());
-    }
 
     if (!show_refresh_rate->IsUndefined())
-        opts.show_refresh_rate = show_refresh_rate->Int32Value();
+        opts.show_refresh_rate = Nan::To<int32_t>(show_refresh_rate).FromMaybe(opts.show_refresh_rate);
 
     ///////////////////////////////////////////////////////////////////////////
     // inverse_colors
     v8::Local<v8::Value> inverse_colors = options->Get(Nan::New<v8::String>("led-inverse").ToLocalChecked());
 
-    if (inverse_colors->IsUndefined()) {
+    if (inverse_colors->IsUndefined())
         inverse_colors = options->Get(Nan::New<v8::String>("led_inverse").ToLocalChecked());
-    }
 
     if (!inverse_colors->IsUndefined())
-        opts.inverse_colors = inverse_colors->Int32Value();
+        opts.inverse_colors = Nan::To<int32_t>(inverse_colors).FromMaybe(opts.inverse_colors);
 
     ///////////////////////////////////////////////////////////////////////////
     // led_rgb_sequence
     v8::Local<v8::Value> led_rgb_sequence = options->Get(Nan::New<v8::String>("led-rgb-sequence").ToLocalChecked());
     string led_rgb_sequence_string;
 
-    if (led_rgb_sequence->IsUndefined()) {
+    if (led_rgb_sequence->IsUndefined()) 
         led_rgb_sequence = options->Get(Nan::New<v8::String>("led_rgb_sequence").ToLocalChecked());
-    }
 
     if (!led_rgb_sequence->IsUndefined()) {
         v8::String::Utf8Value value(led_rgb_sequence->ToString());
@@ -233,9 +226,8 @@ NAN_METHOD(Addon::configure)
     v8::Local<v8::Value> pixel_mapper_config = options->Get(Nan::New<v8::String>("led-pixel-mapper").ToLocalChecked());
     string pixel_mapper_config_string;
 
-    if (pixel_mapper_config->IsUndefined()) {
+    if (pixel_mapper_config->IsUndefined()) 
         pixel_mapper_config = options->Get(Nan::New<v8::String>("led_pixel_mapper").ToLocalChecked());
-    }
 
     if (!pixel_mapper_config->IsUndefined()) {
         v8::String::Utf8Value value(pixel_mapper_config->ToString());
