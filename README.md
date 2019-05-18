@@ -12,6 +12,13 @@ This module also uses npm module **canvas** https://www.npmjs.com/package/canvas
 is updated with the proper components to compile.  
 
 ## Installation
+
+Make sure you have the libraries needed to build this module.
+
+    $ sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev 
+
+Then, install as usual.
+
 	$ npm install rpi-matrix --save
 
 
