@@ -75,7 +75,7 @@ NAN_METHOD(Addon::configure)
 
         if (!rows->IsUndefined()) {
             Nan::MaybeLocal<v8::Int32> x = Nan::To<v8::Int32>(rows);
-            opts.rows = x->Int32Value();
+            opts.rows = x.ToLocalChecked();
         }
     }
 
