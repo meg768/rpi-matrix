@@ -74,8 +74,9 @@ NAN_METHOD(Addon::configure)
             rows = options->Get(Nan::New<v8::String>("led_rows").ToLocalChecked());
 
         if (!rows->IsUndefined()) {
-            Nan::Maybe<int32_t> x = Nan::To<int32_t>(rows);
-            opts.rows = (int)x.FromMaybe((int32_t)opts.rows);
+//            Nan::Maybe<int32_t> x = Nan::To<int32_t>(rows);
+  //          opts.rows = (int)x.FromMaybe((int32_t)opts.rows);
+            opts.rows = Nan::To<int32_t>(rows).FromMaybe(opts.rows);
         }
     }
 
