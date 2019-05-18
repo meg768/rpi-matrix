@@ -67,13 +67,17 @@ NAN_METHOD(Addon::configure)
     }
 
     // rows
-    v8::Local<v8::Value> rows = options->Get(Nan::New<v8::String>("led-rows").ToLocalChecked());
+    if (true) {
+        v8::Local<v8::Value> rows = options->Get(Nan::New<v8::String>("led-rows").ToLocalChecked());
 
-    if (rows->IsUndefined())
-        rows = options->Get(Nan::New<v8::String>("led_rows").ToLocalChecked());
+        if (rows->IsUndefined())
+            rows = options->Get(Nan::New<v8::String>("led_rows").ToLocalChecked());
 
-    if (!rows->IsUndefined())
-        opts.rows = Nan::To<int>(rows);
+        if (!rows->IsUndefined()) {
+            Nan::MaybeLocal<v8::Integer> x = Nan::To<v8::Int32>(rows);
+            opts.rows = x->Int32Value();
+        }
+    }
 
     // cols
     v8::Local<v8::Value> cols = options->Get(Nan::New<v8::String>("led-cols").ToLocalChecked());
@@ -333,7 +337,6 @@ NAN_METHOD(Addon::render)
 
         void *imageData = array->Buffer()->GetContents().Data();
         int imageWidth  = array->Buffer()->GetContents().ByteLength() / height / 4;
-        int imageHeight = height;
         int isRGBA      = info[0]->IsUint8ClampedArray();
 
         if (!scroll->IsUndefined()) {
