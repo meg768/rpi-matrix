@@ -268,7 +268,7 @@ NAN_METHOD(Addon::configure)
 
 	_matrix = new Matrix(opts);
 
-    int size = opts.rows * opts.cols;
+    int size = _matrix->width() * _matrix->height();
 
 	_pixels = new RGBA[size];
 	_tmp = new RGBA[size];
@@ -295,8 +295,6 @@ NAN_METHOD(Addon::sleep)
 NAN_METHOD(Addon::render)
 {
 	Nan::HandleScope();
-
-    //Timer timer("Total render time: ");
 
     try {
         if (_matrix == NULL) {
