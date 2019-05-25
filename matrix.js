@@ -70,7 +70,7 @@ class Matrix extends Pixels {
             }
         }
         else if (mode == 'pixel') {
-            this.render = function {
+            this.render = function() {
                 switch (arguments.length) {
                     case 0: {
                         return matrix.render(self.pixels);
