@@ -17,7 +17,6 @@ function isObject(value) {
 class Matrix extends Pixels {
 
     constructor(options) {
-        var self = this;
         var {mode, ...other} = options;
 
         if (matrixConfig == undefined) {
@@ -36,6 +35,7 @@ class Matrix extends Pixels {
         var width  = parseInt(matrixConfig['led-cols']) * parseInt(matrixConfig['led-chain']);
     
         super({...other, width:width, height:height});
+        var self = this;
 
         this.mode = mode;
 
