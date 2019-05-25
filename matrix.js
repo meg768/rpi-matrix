@@ -2,6 +2,7 @@ var path   = require("path");
 var matrix = require(path.join(__dirname, "build", "Release", "rpi-matrix.node"));
 var Canvas = require('canvas');
 var Color  = require('color');
+var Pixels = require('rpi-pixels');
 
 var matrixConfig = undefined;
 
@@ -13,6 +14,92 @@ function isObject(value) {
     return (value instanceof Object);
 }
 
+class Matrix extends Pixels {
+
+    constructor(options) {
+        if (matrixConfig == undefined) {
+            throw new Error('Must call Matrix.configure() first.');
+        }
+    
+        if (matrixConfig['led-rows'] == undefined || matrixConfig['led-cols'] == undefined) {
+            throw new Error('Must specify led-rows and led-cols in Matrix.configure().');
+        }
+    
+        if (matrixConfig['led-chain'] == undefined || matrixConfig['led-parallel'] == undefined) {
+            throw new Error('Must specify led-chain and led-parallel in Matrix.configure().');
+        }
+
+        var {mode, ...other} = options;
+
+        super(other);
+
+        this.mode = mode;
+        
+        if (mode == 'canvas') {
+            this.canvas = Canvas.createCanvas(this.width, this.height);
+
+            this.render = () => {
+        
+                switch (arguments.length) {
+                    case 0: {
+                        return matrix.render(this.pixels = this.canvas.toBuffer('raw'));
+                    }
+                    case 1: {
+                        if (isPixels(arguments[0])) {
+                            return matrix.render(this.pixels = arguments[0]);
+                        }
+                        if (isObject(arguments[0])) {
+                            return matrix.render(this.pixels = this.canvas.toBuffer('raw'), arguments[0]);
+                        }
+                        break;
+                    }
+                    case 2: {
+                        if (isPixels(arguments[0]) && isObject(arguments[1])) {
+                            return matrix.render(this.pixels = arguments[0], arguments[1]);
+                        }
+                        break;
+                    }
+                }
+    
+                throw new Error('Invalid arguments.');
+        
+            }
+        }
+        else if (mode == 'pixel') {
+            this.render = () => {
+                switch (arguments.length) {
+                    case 0: {
+                        return matrix.render(this.pixels);
+                    }
+                    case 1: {
+                        if (isPixels(arguments[0])) {
+                            return matrix.render(arguments[0]);
+                        }
+                        if (isObject(arguments[0])) {
+                            return matrix.render(this.pixels, arguments[0]);
+                        }
+                        break;
+                    }
+                    case 2: {
+                        if (isPixels(arguments[0]) && isObject(arguments[1])) {
+                            return matrix.render(arguments[0], arguments[1]);
+                        }
+                        break;
+                    }
+                }
+    
+                throw new Error('Invalid arguments.');
+    
+            };
+        }
+        else {
+            this.render = () => {
+
+            };
+        }
+    }
+};
+/*
 var Matrix = module.exports = function(options) {
 
     var self = this;
@@ -152,7 +239,7 @@ var Matrix = module.exports = function(options) {
 
 }
 
-
+*/
 Matrix.configure = function(config) {
 
 
@@ -168,3 +255,5 @@ Matrix.configure = function(config) {
 
 Matrix.Canvas = Canvas;
 Matrix.Color  = Color;
+
+module.exports = Matrix;
