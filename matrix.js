@@ -17,6 +17,8 @@ function isObject(value) {
 class Matrix extends Pixels {
 
     constructor(options) {
+        var {mode, ...other} = options;
+
         if (matrixConfig == undefined) {
             throw new Error('Must call Matrix.configure() first.');
         }
@@ -29,12 +31,13 @@ class Matrix extends Pixels {
             throw new Error('Must specify led-chain and led-parallel in Matrix.configure().');
         }
 
-        var {mode, ...other} = options;
-
-        super(other);
+        var height = parseInt(matrixConfig['led-rows']) * parseInt(matrixConfig['led-parallel']);
+        var width  = parseInt(matrixConfig['led-cols']) * parseInt(matrixConfig['led-chain']);
+    
+        super({...other, width:width, height:height});
 
         this.mode = mode;
-        
+
         if (mode == 'canvas') {
             this.canvas = Canvas.createCanvas(this.width, this.height);
 
