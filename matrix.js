@@ -103,7 +103,7 @@ class Matrix extends Pixels {
     }
 
     sleep(ms) {
-        this.matrix.sleep(ms);
+        matrix.sleep(ms);
     }
 };
 /*
