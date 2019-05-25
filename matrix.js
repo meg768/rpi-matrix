@@ -45,20 +45,20 @@ class Matrix extends Pixels {
         
                 switch (arguments.length) {
                     case 0: {
-                        return matrix.render(this.pixels = this.canvas.toBuffer('raw'));
+                        return matrix.render(this.canvas.toBuffer('raw'));
                     }
                     case 1: {
                         if (isPixels(arguments[0])) {
-                            return matrix.render(this.pixels = arguments[0]);
+                            return matrix.render(arguments[0]);
                         }
                         if (isObject(arguments[0])) {
-                            return matrix.render(this.pixels = this.canvas.toBuffer('raw'), arguments[0]);
+                            return matrix.render(this.canvas.toBuffer('raw'), arguments[0]);
                         }
                         break;
                     }
                     case 2: {
                         if (isPixels(arguments[0]) && isObject(arguments[1])) {
-                            return matrix.render(this.pixels = arguments[0], arguments[1]);
+                            return matrix.render(arguments[0], arguments[1]);
                         }
                         break;
                     }
