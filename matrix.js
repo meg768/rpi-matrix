@@ -44,8 +44,6 @@ class Matrix extends Pixels {
 
             this.render = function() {
 
-                console.log('args length!', arguments.length);
-
                 switch (arguments.length) {
                     case 0: {
                         return matrix.render(self.canvas.toBuffer('raw'));
@@ -61,7 +59,6 @@ class Matrix extends Pixels {
                     }
                     case 2: {
                         if (isPixels(arguments[0]) && isObject(arguments[1])) {
-                            console.log('rendeign!', arguments[1]);
                             return matrix.render(arguments[0], arguments[1]);
                         }
                         break;
@@ -73,17 +70,17 @@ class Matrix extends Pixels {
             }
         }
         else if (mode == 'pixel') {
-            this.render = () => {
+            this.render = function {
                 switch (arguments.length) {
                     case 0: {
-                        return matrix.render(this.pixels);
+                        return matrix.render(self.pixels);
                     }
                     case 1: {
                         if (isPixels(arguments[0])) {
                             return matrix.render(arguments[0]);
                         }
                         if (isObject(arguments[0])) {
-                            return matrix.render(this.pixels, arguments[0]);
+                            return matrix.render(self.pixels, arguments[0]);
                         }
                         break;
                     }
