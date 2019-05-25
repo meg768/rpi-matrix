@@ -101,6 +101,10 @@ class Matrix extends Pixels {
             };
         }
     }
+
+    sleep(ms) {
+        this.matrix.sleep(ms);
+    }
 };
 /*
 var Matrix = module.exports = function(options) {
