@@ -17,6 +17,7 @@ function isObject(value) {
 class Matrix extends Pixels {
 
     constructor(options) {
+        var self = this;
         var {mode, ...other} = options;
 
         if (matrixConfig == undefined) {
@@ -41,20 +42,20 @@ class Matrix extends Pixels {
         if (mode == 'canvas') {
             this.canvas = Canvas.createCanvas(this.width, this.height);
 
-            this.render = () => {
+            this.render = function() {
 
                 console.log('args length!', arguments.length);
 
                 switch (arguments.length) {
                     case 0: {
-                        return matrix.render(this.canvas.toBuffer('raw'));
+                        return matrix.render(self.canvas.toBuffer('raw'));
                     }
                     case 1: {
                         if (isPixels(arguments[0])) {
                             return matrix.render(arguments[0]);
                         }
                         if (isObject(arguments[0])) {
-                            return matrix.render(this.canvas.toBuffer('raw'), arguments[0]);
+                            return matrix.render(self.canvas.toBuffer('raw'), arguments[0]);
                         }
                         break;
                     }
