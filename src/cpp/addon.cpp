@@ -253,7 +253,7 @@ NAN_METHOD(Addon::configure)
         printf("led-show-refresh         : %d\n", opts.show_refresh_rate);
         printf("led-inverse              : %d\n", opts.inverse_colors);
         printf("led-rgb-sequence         : %s\n", opts.led_rgb_sequence == NULL ? "-" : opts.led_rgb_sequence);
-        printf("pixel_mapper_config      : %s\n", opts.pixel_mapper_config == NULL ? "-" : opts.pixel_mapper_config);
+        printf("led-pixel-mapper         : %s\n", opts.pixel_mapper_config == NULL ? "-" : opts.pixel_mapper_config);
 
     }
 
@@ -310,7 +310,7 @@ NAN_METHOD(Addon::render)
     	v8::Local<v8::Value> blend = Nan::Undefined();
 
         if (argc < 1) {
-            return Nan::ThrowError("draw requires at least one argument.");
+            return Nan::ThrowError("render() requires at least one argument.");
         }
 
         if (argc > 1) {
