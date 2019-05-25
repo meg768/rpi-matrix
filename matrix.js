@@ -58,6 +58,7 @@ class Matrix extends Pixels {
                     }
                     case 2: {
                         if (isPixels(arguments[0]) && isObject(arguments[1])) {
+                            console.log('rendeign!');
                             return matrix.render(arguments[0], arguments[1]);
                         }
                         break;
