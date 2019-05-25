@@ -42,7 +42,9 @@ class Matrix extends Pixels {
             this.canvas = Canvas.createCanvas(this.width, this.height);
 
             this.render = () => {
-        
+
+                console.log('args length!', arguments.length);
+
                 switch (arguments.length) {
                     case 0: {
                         return matrix.render(this.canvas.toBuffer('raw'));
