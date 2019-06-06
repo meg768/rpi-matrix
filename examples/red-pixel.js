@@ -4,7 +4,7 @@ Matrix.configure({'led-rows':32, 'led-cols':32});
 
 class Sample  {
 
-    constructor()) {
+    constructor() {
         this.matrix = new Matrix({mode:'pixel'});
     }
 
