@@ -10,7 +10,6 @@ class Sample  {
     }
 
     render() {
-        console.log('.');
         this.matrix.clear();
         this.matrix.setPixel(this.offset % this.matrix.width, Math.floor(this.offset / this.matrix.width), 'red');
         this.matrix.render();
