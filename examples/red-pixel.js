@@ -22,8 +22,5 @@ class Sample  {
     }
 };
 
-setTimeout(() => {
-    console.log('Done!');
-}, 10000);
-//var sample = new Sample();
-//sample.run();
+var sample = new Sample();
+sample.run();
