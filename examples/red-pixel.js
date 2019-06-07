@@ -18,10 +18,12 @@ class Sample  {
     }
 
     run() {
-        setInterval(this.render.bind(this), 5000);
+        setInterval(this.render.bind(this), 100);
     }
 };
 
-
-var sample = new Sample();
-sample.run();
+setTimeout(() => {
+    console.log('Done!');
+}, 10000);
+//var sample = new Sample();
+//sample.run();
