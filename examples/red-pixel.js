@@ -18,7 +18,7 @@ class Sample  {
     }
 
     run() {
-        setInterval(this.render.bind(this), 100);
+        setInterval(this.render.bind(this), 500);
     }
 };
 
