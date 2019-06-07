@@ -11,7 +11,7 @@ class Sample  {
 
     render() {
         this.matrix.clear();
-        this.matrix.setPixel(this.offset % this.matrix.width, Math.floor(this.offset / this.matrix.width), matrix.color('red'));
+        this.matrix.setPixel(this.offset % this.matrix.width, Math.floor(this.offset / this.matrix.width), this.matrix.color('red'));
         this.matrix.render();
 
         this.offset = (this.offset + 1) % (this.matrix.width * this.matrix.height);
