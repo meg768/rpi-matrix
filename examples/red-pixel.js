@@ -6,19 +6,17 @@ class Sample  {
 
     constructor() {
         this.matrix = new Matrix({mode:'pixel'});
+        this.offset = 0;
     }
 
+    render() {
+        this.matrix.clear();
+        this.matrix.setPixel(this.offset % this.matrix.width, Math.floor(this.offset) / this.matrix.width, 'red');
+        this.matrix.render();
+    }
 
     run() {
-        for (var y = 0; y < this.matrix.height; y++) {
-            for (var x = 0; x < this.matrix.width; x++) {
-                this.matrix.clear();
-                this.matrix.setPixel(x, y, this.matrix.color('red'));
-                this.matrix.render();
-            }
-    
-        }
-
+        setInterval(this.render.bind(this), 100);
     }
 };
 
