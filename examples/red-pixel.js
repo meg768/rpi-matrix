@@ -15,7 +15,6 @@ class Sample  {
         this.matrix.render();
 
         this.offset = (this.offset + 1) % (this.matrix.width * this.matrix.height);
-        console.log(this.offset);
     }
 
     run() {
