@@ -1,10 +1,19 @@
 
 #include "addon.h"
 
+/* 
 Matrix *Addon::_matrix = NULL;
 RGBA *Addon::_pixels = NULL;
 RGBA *Addon::_tmp = NULL;
+*/
+static RGBA *_tmp = NULL;
+static RGBA *_pixels = NULL;
 
+static int _width = 0;
+static int _height = 0;
+static rgb_matrix::RGBMatrix *_matrix = NULL;
+static rgb_matrix::FrameCanvas *_canvas = NULL;
+static rgb_matrix::GPIO _io;
 
 class Timer {
 
@@ -31,18 +40,16 @@ private:
 
 NAN_METHOD(Addon::configure)
 {
-	static int initialized = 0;
-
 	Nan::HandleScope();
 
-	if (!initialized) {
-		initialized = 1;
-	}
+    if (_width * _height == 0) {
+		return Nan::ThrowError("matrix.configure() already called.");
+    }
 
     Matrix::Options opts;
 
 	if (info.Length() != 1 ) {
-		return Nan::ThrowError("configure requires an argument.");
+		return Nan::ThrowError("matrix.configure() requires an argument.");
 	}
 
 	v8::Local<v8::Object> options = v8::Local<v8::Object>::Cast(info[0]);
@@ -266,7 +273,11 @@ NAN_METHOD(Addon::configure)
 	if (_matrix != NULL)
 		delete _matrix;
 
-	_matrix = new Matrix(opts);
+
+    _matrix     = new rgb_matrix::RGBMatrix(&_io, options);
+    _canvas     = _matrix->CreateFrameCanvas();
+    _width      = _matrix->width();
+    _height     = _matrix->height();  
 
     int size = _matrix->width() * _matrix->height();
 

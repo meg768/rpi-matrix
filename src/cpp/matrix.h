@@ -3,21 +3,6 @@
 
 #include "includes.h"
 
-
-/*
-typedef struct {
-	uint8_t red;     // 0 - 255 
-	uint8_t green;   // 0 - 255 
-	uint8_t blue;    // 0 - 255 
-} RGB;
-
-typedef struct {
-	uint16_t hue;       // 0 - 360  
-	uint8_t saturation; // 0 - 100  
-	uint8_t luminance;  // 0 - 100  
-} HSL;
-
-*/
 static void *__matrix = 0;
 static rgb_matrix::GPIO __io;
 
