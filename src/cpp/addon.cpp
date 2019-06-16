@@ -12,6 +12,18 @@ static rgb_matrix::RGBMatrix *_matrix = NULL;
 static rgb_matrix::FrameCanvas *_canvas = NULL;
 static rgb_matrix::GPIO _io;
 
+static void quit(int sig)
+{
+    
+    if (_matrix != NULL && _canvas != NULL) {
+        _canvas->Clear();
+        _canvas = _matrix->SwapOnVSync(_canvas);
+    }
+    
+    exit(-1);
+}
+
+
 class Timer {
 
 public:
@@ -260,6 +272,15 @@ NAN_METHOD(Addon::configure)
         printf("led-pixel-mapper         : %s\n", opts.pixel_mapper_config == NULL ? "-" : opts.pixel_mapper_config);
 
     }
+
+    srand(time(NULL));
+
+    // Trap ctrl-c to call quit function
+    signal(SIGINT, quit);
+    signal(SIGKILL, quit);
+
+    if (!_io.Init())
+        exit(-1);
 
     _matrix     = new rgb_matrix::RGBMatrix(&_io, opts);
     _canvas     = _matrix->CreateFrameCanvas();
