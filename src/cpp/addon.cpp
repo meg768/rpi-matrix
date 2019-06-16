@@ -12,8 +12,6 @@ static rgb_matrix::RGBMatrix *_matrix = NULL;
 static rgb_matrix::FrameCanvas *_canvas = NULL;
 static rgb_matrix::GPIO _io;
 
-
-
 static void clear() 
 {
     if (_canvas != NULL)
