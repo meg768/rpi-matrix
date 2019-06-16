@@ -261,16 +261,6 @@ NAN_METHOD(Addon::configure)
 
     }
 
-    if (_tmp != NULL)
-        delete _tmp;
-
-    if (_pixels != NULL)
-        delete _pixels;
-
-	if (_matrix != NULL)
-		delete _matrix;
-
-
     _matrix     = new rgb_matrix::RGBMatrix(&_io, opts);
     _canvas     = _matrix->CreateFrameCanvas();
     _width      = _matrix->width();
@@ -406,7 +396,7 @@ NAN_METHOD(Addon::render)
 
                     for (int y = 0; y < height; y++) {
                         for (int x = 0; x < width; x++, pp++) {
-                            _canvas->setPixel(x, y, pp->red, pp->green, pp->blue);                    
+                            _canvas->SetPixel(x, y, pp->red, pp->green, pp->blue);                    
                         }
                     }
                     
@@ -472,7 +462,7 @@ NAN_METHOD(Addon::render)
                             int green = (pp->green + (step   * (tp->green - pp->green)) / numSteps);
                             int blue  = (pp->blue  + (step   * (tp->blue  - pp->blue)) / numSteps);
 
-                            _canvas->setPixel(x, y, red, green, blue);
+                            _canvas->SetPixel(x, y, red, green, blue);
                             pp++, tp++;             
                         }
                     }
@@ -488,7 +478,7 @@ NAN_METHOD(Addon::render)
 
                 for (int y = 0; y < height; y++) {
                     for (int x = 0; x < width; x++) {
-                        _canvas->setPixel(x, y, src->red, src->green, src->blue);                    
+                        _canvas->SetPixel(x, y, src->red, src->green, src->blue);                    
                         *dst++ = *src++;
                     }
                 }
