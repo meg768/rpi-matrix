@@ -13,21 +13,24 @@ static rgb_matrix::FrameCanvas *_canvas = NULL;
 static rgb_matrix::GPIO _io;
 
 
+
+static void clear() 
+{
+    if (_canvas != NULL)
+        _canvas->Clear();
+}
+
+static void refresh() 
+{
+    if (_matrix != NULL && _canvas != NULL)
+        _canvas = _matrix->SwapOnVSync(_canvas);
+}
+
 static void quit(int sig)
 {
     clear();
     refresh();        
     exit(-1);
-}
-
-static void clear() {
-    if (_canvas != NULL)
-        _canvas->Clear();
-}
-
-static void refresh() {
-    if (_matrix != NULL && _canvas != NULL)
-        _canvas = _matrix->SwapOnVSync(_canvas);
 }
 
 
