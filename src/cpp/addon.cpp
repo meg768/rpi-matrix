@@ -1,16 +1,13 @@
 
 #include "addon.h"
 
-/* 
-Matrix *Addon::_matrix = NULL;
-RGBA *Addon::_pixels = NULL;
-RGBA *Addon::_tmp = NULL;
-*/
-static RGBA *_tmp = NULL;
-static RGBA *_pixels = NULL;
 
 static int _width = 0;
 static int _height = 0;
+
+static RGBA *_tmp = NULL;
+static RGBA *_pixels = NULL;
+
 static rgb_matrix::RGBMatrix *_matrix = NULL;
 static rgb_matrix::FrameCanvas *_canvas = NULL;
 static rgb_matrix::GPIO _io;
@@ -46,7 +43,7 @@ NAN_METHOD(Addon::configure)
 		return Nan::ThrowError("matrix.configure() already called.");
     }
 
-    Matrix::Options opts;
+    rgb_matrix::RGBMatrix::Options opts;
 
 	if (info.Length() != 1 ) {
 		return Nan::ThrowError("matrix.configure() requires an argument.");
