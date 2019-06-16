@@ -65,7 +65,6 @@ public:
 		}
 
 		delete _matrix;
-
 	}
 	
 	static void quit(int sig)
@@ -91,95 +90,9 @@ public:
 	inline void clear() {
 		_canvas->Clear();
 	}
-	
-	void fill(uint32_t *buffer) {
-		
-		uint32_t *p = buffer;
 
-		int width  = _canvas->width();
-		int height = _canvas->height();
-		
-		for (int y = 0; y < height; y++) {
-			for (int x = 0; x < width; x++) {
-				uint32_t color = *p++;
-				int blue  = color & 0xFF;
-				int green = (color >> 8) & 0xFF;
-				int red   = (color >> 16) & 0xFF;
-				setPixel(x, y, red, green, blue);
-			}
-		}
-	}	
 	inline void setPixel(int x, int y, int r, int g, int b) {
 		_canvas->SetPixel(x, y, r, g, b);
-	}
-
-
-	inline void setPixel(int x, int y, RGB color) {
-
-		setPixel(x, y, color.red, color.green, color.blue);	
-	}
-
-	inline void setPixel(int x, int y, HSL color) {
-		
-		uint8_t red, green, blue;			
-		HslToRgb((double)color.hue, (double)color.saturation / 100.0, (double)color.luminance / 100.0, red, green, blue);
-		
-		setPixel(x, y, red, green, blue);
-	}
-	
-	void HslToRgb(double h, double s, double v, uint8_t &red, uint8_t &green, uint8_t &blue)
-	{
-		double hh = 0, p = 0, q = 0, t = 0, ff = 0;
-		double r = 0, g = 0, b = 0;
-		long i = 0;
-		
-		if (s <= 0.0) {
-			r = v, g = v, b = v;
-		}
-		else {
-			hh = h;
-			
-			while (hh < 0)
-				hh += 360.0;
-			
-			while (hh >= 360.0)
-				hh -= 360.0;
-			
-			hh = hh / 60.0;
-			i  = (long)hh;
-			ff = hh - i;
-			
-			p = v * (1.0 - s);
-			q = v * (1.0 - (s * ff));
-			t = v * (1.0 - (s * (1.0 - ff)));
-			
-			switch(i) {
-				case 0:
-					r = v, g = t, b = p;
-					break;
-				case 1:
-					r = q, g = v, b = p;
-					break;
-				case 2:
-					r = p, g = v, b = t;
-					break;
-					
-				case 3:
-					r = p, g = q, b = v;
-					break;
-				case 4:
-					r = t, g = p, b = v;
-					break;
-				default:
-					r = v, g = p, b = q;
-					break;
-			}
-			
-		}
-		
-		red   = (uint8_t)(r * 255.0);
-		green = (uint8_t)(g * 255.0);
-		blue  = (uint8_t)(b * 255.0);
 	}
 
 	
