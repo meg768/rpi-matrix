@@ -409,7 +409,7 @@ NAN_METHOD(Addon::render)
 
                     for (int y = 0; y < height; y++) {
                         for (int x = 0; x < width; x++, pp++) {
-                            _matrix->setPixel(x, y, pp->red, pp->green, pp->blue);                    
+                            _canvas->setPixel(x, y, pp->red, pp->green, pp->blue);                    
                         }
                     }
                     
@@ -475,7 +475,7 @@ NAN_METHOD(Addon::render)
                             int green = (pp->green + (step   * (tp->green - pp->green)) / numSteps);
                             int blue  = (pp->blue  + (step   * (tp->blue  - pp->blue)) / numSteps);
 
-                            _matrix->setPixel(x, y, red, green, blue);
+                            _canvas->setPixel(x, y, red, green, blue);
                             pp++, tp++;             
                         }
                     }
@@ -491,7 +491,7 @@ NAN_METHOD(Addon::render)
 
                 for (int y = 0; y < height; y++) {
                     for (int x = 0; x < width; x++) {
-                        _matrix->setPixel(x, y, src->red, src->green, src->blue);                    
+                        _canvas->setPixel(x, y, src->red, src->green, src->blue);                    
                         *dst++ = *src++;
                     }
                 }
