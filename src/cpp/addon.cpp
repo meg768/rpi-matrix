@@ -39,7 +39,7 @@ NAN_METHOD(Addon::configure)
 {
 	Nan::HandleScope();
 
-    if (_width * _height == 0) {
+    if (_matrix == NULL) {
 		return Nan::ThrowError("matrix.configure() already called.");
     }
 
