@@ -12,40 +12,24 @@ static rgb_matrix::RGBMatrix *_matrix = NULL;
 static rgb_matrix::FrameCanvas *_canvas = NULL;
 static rgb_matrix::GPIO _io;
 
+
 static void quit(int sig)
 {
-    
-    if (_matrix != NULL && _canvas != NULL) {
-        _canvas->Clear();
-        _canvas = _matrix->SwapOnVSync(_canvas);
-    }
-    
+    clear();
+    refresh();        
     exit(-1);
 }
 
+static void clear() {
+    if (_canvas != NULL)
+        _canvas->Clear();
+}
 
-class Timer {
+static void refresh() {
+    if (_matrix != NULL && _canvas != NULL)
+        _canvas = _matrix->SwapOnVSync(_canvas);
+}
 
-public:
-	Timer(const char *text) {
-        _start = clock();
-        _stop  = 0;
-        _text  = text;
-    }
-
-    ~Timer() {
-        _stop = clock();
-
-        printf("%s %.2f milliseconds\n", _text, (1000.0 * double(_stop - _start)) / CLOCKS_PER_SEC);
-    }
-
-
-private:
-    clock_t _start;
-    clock_t _stop;
-    const char *_text;
-
-};
 
 NAN_METHOD(Addon::configure)
 {
@@ -421,7 +405,7 @@ NAN_METHOD(Addon::render)
                         }
                     }
                     
-                    _canvas = _matrix->SwapOnVSync(_canvas);
+                    refresh();
 
                     if (delay > 0) {
                         usleep(delay * 1000);
@@ -488,7 +472,7 @@ NAN_METHOD(Addon::render)
                         }
                     }
 
-                    _canvas = _matrix->SwapOnVSync(_canvas);
+                    refresh();
 
                 }
             }
@@ -504,7 +488,7 @@ NAN_METHOD(Addon::render)
                     }
                 }
 
-                _canvas = _matrix->SwapOnVSync(_canvas);
+                refresh();
 
             }
 

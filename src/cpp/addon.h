@@ -26,7 +26,6 @@ public:
 	static NAN_METHOD(configure);
 	static NAN_METHOD(render);
 	static NAN_METHOD(sleep);
-	static NAN_METHOD(refresh);
 
 };
 
