@@ -413,7 +413,7 @@ NAN_METHOD(Addon::render)
                         }
                     }
                     
-                    _matrix->refresh();
+                    _canvas = _matrix->SwapOnVSync(_canvas);
 
                     if (delay > 0) {
                         usleep(delay * 1000);
@@ -480,7 +480,7 @@ NAN_METHOD(Addon::render)
                         }
                     }
 
-                    _matrix->refresh();
+                    _canvas = _matrix->SwapOnVSync(_canvas);
 
                 }
             }
@@ -496,7 +496,7 @@ NAN_METHOD(Addon::render)
                     }
                 }
 
-                _matrix->refresh();
+                _canvas = _matrix->SwapOnVSync(_canvas);
 
             }
 
