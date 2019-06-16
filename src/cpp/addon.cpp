@@ -271,7 +271,7 @@ NAN_METHOD(Addon::configure)
 		delete _matrix;
 
 
-    _matrix     = new rgb_matrix::RGBMatrix(&_io, options);
+    _matrix     = new rgb_matrix::RGBMatrix(&_io, opts);
     _canvas     = _matrix->CreateFrameCanvas();
     _width      = _matrix->width();
     _height     = _matrix->height();  
