@@ -236,6 +236,7 @@ NAN_METHOD(Addon::configure)
         opts.pixel_mapper_config = pixel_mapper_config_string.c_str(); 
     }
 
+/*
     if (!debug->IsUndefined()) {
         printf("Creating matrix with the following options.\n");
         printf("led-hardware-mapping     : %s\n", opts.hardware_mapping == NULL ? "-" : opts.hardware_mapping);
@@ -257,7 +258,7 @@ NAN_METHOD(Addon::configure)
         printf("led-pixel-mapper         : %s\n", opts.pixel_mapper_config == NULL ? "-" : opts.pixel_mapper_config);
 
     }
-
+*/
     srand(time(NULL));
 
     // Trap ctrl-c to call quit function
