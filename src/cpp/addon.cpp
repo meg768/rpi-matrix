@@ -258,7 +258,7 @@ NAN_METHOD(Addon::configure)
         printf("led-pixel-mapper         : %s\n", opts.pixel_mapper_config == NULL ? "-" : opts.pixel_mapper_config);
 
     }
-*/
+*/v
     srand(time(NULL));
 
     // Trap ctrl-c to call quit function

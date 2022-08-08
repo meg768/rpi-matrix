@@ -15,8 +15,8 @@
   },
   "dependencies": {
     "canvas": "^2.1.0",
-    "color": "^3.1.0",
-    "nan": "^2.4.0",
+    "color": "^3.2.1",
+    "nan": "^2.16.0",
     "rpi-pixels": "^1.0.1"
   },
   "repository": {
@@ -37,6 +37,5 @@
     "url": "https://github.com/meg768/rpi-matrix/issues"
   },
   "homepage": "https://github.com/meg768/rpi-matrix#readme",
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
